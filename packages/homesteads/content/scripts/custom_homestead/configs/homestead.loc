@@ -64,7 +64,7 @@ category=homestead_sign
 [homestead_fish_spot]
 name=Homestead pond
 desc=A still pool stocked from the fortress water.
-model=seaweedrock_1
+model=outdoorfurniture_manholeclosed
 op1=Fish
 blockrange=no
 category=homestead_mine
