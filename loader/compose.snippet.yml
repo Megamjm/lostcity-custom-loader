@@ -1,0 +1,3 @@
+command: ["bash", "/custom/_loader/boot.sh"]
+volumes:
+  - /mnt/user/Data/runescape_custom/custom:/custom:ro
