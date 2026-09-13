@@ -1,17 +1,5 @@
 // Village clerks' office: buy, second plot, sell-back with chest-to-bank.
-
-[proc,homestead_stamp_frontage](coord $origin)
-loc_add(movecoord($origin, 2, 0, 0), loc_1530, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 0, 0, 14), fencing, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 4, 0, 14), fencing, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 8, 0, 14), fencing, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 12, 0, 14), fencing, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 14, 0, 0), fencing, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 14, 0, 4), fencing, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 14, 0, 8), fencing, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 14, 0, 12), fencing, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 1, 0, 13), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 3, 0, 13), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+// Frontage lives in frontage.rs2 — do not redefine homestead_stamp_frontage here.
 
 [proc,homestead_stamp_office]
 def_coord $o = ^homestead_office_origin;
