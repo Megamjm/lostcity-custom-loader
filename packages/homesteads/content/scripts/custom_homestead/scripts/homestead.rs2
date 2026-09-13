@@ -66,11 +66,11 @@ if (~homestead_in_mine = true) {
 settimer(homestead_keep_timer, 200);
 
 [proc,homestead_in_preview_village]()(boolean)
-// South city square: office, previews, cobble plaza.
 if (inzone(0_8_8_0_0, 0_8_8_63_15, coord) = true) {
     return(true);
 }
 return(false);
+
 [proc,homestead_in_island]()(boolean)
 if (inzone(0_8_8_0_0, 0_10_10_63_63, coord) = true) {
     return(true);
@@ -86,14 +86,14 @@ return(false);
 [proc,homestead_on_own_plot]()(boolean)
 if (%homestead_plot > 0) {
     def_coord $origin = ~homestead_plot_coord(%homestead_plot);
-    def_coord $max = movecoord($origin, 15, 0, 15);
+    def_coord $max = movecoord($origin, 7, 0, 7);
     if (inzone($origin, $max, coord) = true) {
         return(true);
     }
 }
 if (%homestead_plot2 > 0) {
     def_coord $origin2 = ~homestead_plot_coord(%homestead_plot2);
-    def_coord $max2 = movecoord($origin2, 15, 0, 15);
+    def_coord $max2 = movecoord($origin2, 7, 0, 7);
     if (inzone($origin2, $max2, coord) = true) {
         return(true);
     }
