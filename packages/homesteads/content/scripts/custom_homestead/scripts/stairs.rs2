@@ -1,0 +1,12 @@
+// Stock [oploc1,stairs] only knows Gielinor town tiles.
+// Manor extracts stamp that same loc, so we also stamp homestead_stairs.
+
+[oploc1,homestead_stairs]
+p_arrivedelay;
+p_telejump(movecoord(coord, 0, 1, 2));
+mes("You climb the stairs.");
+
+[oploc1,homestead_stairstop]
+p_arrivedelay;
+p_telejump(movecoord(coord, 0, -1, -2));
+mes("You climb down.");
