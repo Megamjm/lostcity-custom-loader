@@ -334,7 +334,7 @@ head1=chat_male_head_shorthair2
 wanderrange=0
 maxrange=6
 moverestrict=indoors
-category=homestead_office
+category=homestead_clerk
 
 [clerk_oswald]
 vislevel=hide
@@ -359,7 +359,7 @@ head2=chat_male_jaw_medium
 wanderrange=0
 maxrange=6
 moverestrict=indoors
-category=homestead_office
+category=homestead_clerk
 
 [clerk_pip]
 vislevel=hide
@@ -383,4 +383,4 @@ head1=chat_male_head_shorthair
 wanderrange=1
 maxrange=6
 moverestrict=indoors
-category=homestead_office
+category=homestead_clerk
