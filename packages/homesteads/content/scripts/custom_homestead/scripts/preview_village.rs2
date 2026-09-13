@@ -1,4 +1,4 @@
-// Preview green behind the office. Called from login so it actually lands.
+// Compact showhomes west of plot 1 so they do not overlap 0_8_8_16_16.
 
 [proc,homestead_stamp_lid](coord $origin)
 loc_add(movecoord($origin, 1, 1, 1), timberwall, 1, wall_squarecorner, ^homestead_stamp_ticks);
@@ -13,15 +13,15 @@ loc_add(movecoord($origin, 3, 1, 6), brickwall, 3, wall_straight, ^homestead_sta
 [proc,homestead_preview_coord](int $i)(coord)
 def_int $col = sub($i, multiply(divide($i, 2), 2));
 def_int $row = divide($i, 2);
-def_int $dx = multiply($col, 12);
+def_int $dx = multiply($col, 7);
 def_int $dz = multiply($row, 12);
-return(movecoord(^homestead_preview_origin, $dx, 0, $dz));
+return(movecoord(^homestead_preview_origin, $dx, 0, add($dz, 2)));
 
 [proc,homestead_preview_type](int $i)(int)
 if ($i = 0) return(1);
-if ($i = 1) return(4);
-if ($i = 2) return(10);
-return(11);
+if ($i = 1) return(2);
+if ($i = 2) return(3);
+return(4);
 
 [proc,homestead_build_preview]
 if (npc_find(^homestead_agent_stand, homestead_caretaker, 8, 0) = false) {
@@ -32,26 +32,14 @@ loc_add(^homestead_island_exit, homestead_exit_portal, 0, centrepiece_straight, 
 loc_add(movecoord(^homestead_preview_origin, 8, 0, 8), well, 0, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(movecoord(^homestead_preview_origin, 7, 0, 8), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(movecoord(^homestead_preview_origin, 9, 0, 8), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(movecoord(^homestead_preview_origin, 8, 0, 7), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(movecoord(^homestead_preview_origin, 8, 0, 9), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(movecoord(^homestead_preview_origin, 0, 0, 10), fencing, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord(^homestead_preview_origin, 4, 0, 10), fencing, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord(^homestead_preview_origin, 10, 0, 0), fencing, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord(^homestead_preview_origin, 10, 0, 4), fencing, 0, wall_straight, ^homestead_stamp_ticks);
-def_int $w = 0;
-while ($w < 8) {
-    loc_add(movecoord(^homestead_preview_origin, $w, 0, 24), oldcastlewall, 1, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord(^homestead_preview_origin, add($w, 8), 0, 24), oldcastlewall, 1, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord(^homestead_preview_origin, $w, 0, 26), well, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    $w = add($w, 2);
-}
 def_int $i = 0;
 while ($i < 4) {
     def_coord $at = ~homestead_preview_coord($i);
-    ~homestead_stamp_house($at, ~homestead_preview_type($i));
+    ~stamp_lumbridge_cottage($at);
     ~homestead_stamp_lid($at);
+    loc_add(movecoord($at, 2, 0, 0), loc_1530, 1, wall_straight, ^homestead_stamp_ticks);
     loc_add($at, homestead_for_sale, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($at, 2, 0, 0), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($at, 2, 0, -1), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
     $i = add($i, 1);
 }
 if (npc_find(movecoord(^homestead_preview_origin, 8, 0, 6), chicken, 6, 0) = false) {
@@ -61,7 +49,7 @@ if (npc_find(movecoord(^homestead_preview_origin, 8, 0, 6), chicken, 6, 0) = fal
 
 [proc,homestead_walk_preview]
 p_teleport(movecoord(^homestead_preview_origin, 8, 0, 6));
-mes("The yard behind the office. Four empty copies.");
+mes("The yard west of plot 1. Four compact copies.");
 
 [debugproc,homestead_setup]
 if (p_finduid(uid) = false) {
