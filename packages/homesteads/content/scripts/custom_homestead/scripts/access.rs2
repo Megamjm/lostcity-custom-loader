@@ -47,6 +47,10 @@ if (%homestead_house = 0) {
     mes("You do not own a homestead to share.");
     return;
 }
+if (.p_finduid(.uid) = false) {
+    mes("They are busy.");
+    return;
+}
 if (uid = .uid) {
     mes("Invite someone else.");
     return;
@@ -61,16 +65,16 @@ mes("You name them a friend of plot <tostring(%homestead_plot)>.");
 
 [proc,homestead_register_guest]
 if (%homestead_friend_plot < 1) {
-    ~chatnpc("<p,quiz>Nobody has named you a friend yet. The owner must use an invitation on you first.");
+    mes("Nobody has named you a friend yet. The owner must use an invitation on you first.");
     return;
 }
 %homestead_guest_plot = %homestead_friend_plot;
-~chatnpc("<p,happy>Written. You are a guest of plot <tostring(%homestead_guest_plot)>.");
+mes("Written. You are a guest of plot <tostring(%homestead_guest_plot)>.");
 
 [proc,homestead_clear_visit]
 %homestead_friend_plot = 0;
 %homestead_guest_plot = 0;
-~chatnpc("<p,neutral>Your name is off the guest book.");
+mes("Your name is off the guest book.");
 
 [proc,homestead_teleport_visit]
 if (%homestead_guest_plot < 1) {
@@ -100,10 +104,10 @@ if (%homestead_house = 0) {
         }
         return;
     }
-    ~chatnpc("<p,quiz>Nobody has named you a friend yet.");
+    mes("Nobody has named you a friend yet.");
     return;
 }
-~chatnpc("<p,happy>You hold a plot. Paper from here names a friend, then they register as a guest.");
+mes("You hold a plot. Paper from here names a friend, then they register as a guest.");
 def_int $o = ~p_choice3("Give me invitation paper.", 1, "Open the social ledger.", 2, "Never mind.", 3);
 if ($o = 1) {
     ~homestead_give_slip;
