@@ -1,4 +1,6 @@
-// Cottage on the cobble walkway. Door only. No stairs loc — that mesh is 2x3 and blocks.
+// Col 0 (plots 1,3,5,7,9) = LEFT of the road. Door on the EAST wall, rot 2.
+// Col 1 (plots 2,4,6,8,10) = RIGHT of the road. Door on the WEST wall, rot 0.
+// Facing is taken from the PLOT origin, never from the house tile.
 
 [proc,homestead_plot_col](int $plot)(int)
 def_int $index = sub($plot, 1);
@@ -8,8 +10,7 @@ if ($index < 0) {
 return(sub($index, multiply(divide($index, ^homestead_plot_cols), ^homestead_plot_cols)));
 
 [proc,homestead_faces_east](int $plot)(boolean)
-def_int $col = ~homestead_plot_col($plot);
-if ($col = 0) {
+if (~homestead_plot_col($plot) = 0) {
     return(true);
 }
 return(false);
@@ -24,7 +25,8 @@ if ($type = 12) {
 return(true);
 
 [proc,homestead_house_origin](coord $origin)(coord)
-if (~homestead_faces_east(~homestead_plot_from_coord($origin)) = true) {
+def_int $plot = ~homestead_plot_from_coord($origin);
+if (~homestead_faces_east($plot) = true) {
     return(movecoord($origin, 12, 0, 6));
 }
 return(movecoord($origin, 2, 0, 6));
@@ -78,11 +80,12 @@ while ($z < $last) {
     $z = add($z, 1);
 }
 
-[proc,homestead_stamp_door](coord $home, int $type)
-if (~homestead_faces_east(~homestead_plot_from_coord($home)) = true) {
-    loc_add(movecoord($home, 5, 0, 4), loc_1530, 0, wall_straight, ^homestead_stamp_ticks);
+[proc,homestead_stamp_door](coord $origin)
+def_coord $home = ~homestead_house_origin($origin);
+if (~homestead_faces_east(~homestead_plot_from_coord($origin)) = true) {
+    loc_add(movecoord($home, 5, 0, 4), loc_1530, 2, wall_straight, ^homestead_stamp_ticks);
 } else {
-    loc_add(movecoord($home, 0, 0, 4), loc_1530, 2, wall_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($home, 0, 0, 4), loc_1530, 0, wall_straight, ^homestead_stamp_ticks);
 }
 
 [proc,homestead_stamp_gate](coord $origin)
@@ -99,7 +102,7 @@ if (~homestead_uses_yard_wall($type) = true) {
     ~homestead_stamp_yard($origin);
 }
 ~homestead_stamp_gate($origin);
-~homestead_stamp_door(~homestead_house_origin($origin), $type);
+~homestead_stamp_door($origin);
 
 [proc,homestead_stamp_vacant_frontage](coord $origin)
 ~homestead_stamp_gate($origin);
