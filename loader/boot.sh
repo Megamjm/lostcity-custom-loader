@@ -29,6 +29,11 @@ if [ -f /custom/_loader/patch-login.sh ]; then
   bash /custom/_loader/patch-login.sh
 fi
 
+# app.ts only packs when script.dat is missing. Source copies alone do nothing.
+rm -f /opt/lost-city-rs/engine/data/pack/server/script.dat \
+      /opt/lost-city-rs/engine/data/pack/server/script.idx
+echo "[custom-loader] cleared script.dat so cache will pack"
+
 if command -v fixuid >/dev/null 2>&1; then
   eval "$(fixuid -q)" || true
 fi
