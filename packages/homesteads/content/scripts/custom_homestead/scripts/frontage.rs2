@@ -174,27 +174,44 @@ if ($east = true) {
 }
 [proc,homestead_stamp_plot_fence](coord $origin)
 def_boolean $east = ~homestead_faces_east(~homestead_plot_from_coord($origin));
-def_int $x = 0;
-while ($x <= 19) {
-    loc_add(movecoord($origin, $x, 0, 0), fencing, 1, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, $x, 0, 19), fencing, 3, wall_straight, ^homestead_stamp_ticks);
-    $x = add($x, 1);
-}
-def_int $z = 1;
-while ($z <= 18) {
-    if ($z = 10 | $z = 11) {
-        if ($east = true) {
-            loc_add(movecoord($origin, 0, 0, $z), fencing, 2, wall_straight, ^homestead_stamp_ticks);
+def_int $x;
+def_int $z;
+if ($east = true) {
+    $x = -2;
+    while ($x <= 19) {
+        loc_add(movecoord($origin, $x, 0, 0), fencing, 1, wall_straight, ^homestead_stamp_ticks);
+        loc_add(movecoord($origin, $x, 0, 19), fencing, 3, wall_straight, ^homestead_stamp_ticks);
+        $x = add($x, 1);
+    }
+    $z = 1;
+    while ($z <= 18) {
+        if ($z = 10 | $z = 11) {
+            loc_add(movecoord($origin, -2, 0, $z), fencing, 2, wall_straight, ^homestead_stamp_ticks);
             loc_add(movecoord($origin, 19, 0, $z), loc_1530, 0, wall_straight, ^homestead_stamp_ticks);
         } else {
+            loc_add(movecoord($origin, -2, 0, $z), fencing, 2, wall_straight, ^homestead_stamp_ticks);
             loc_add(movecoord($origin, 19, 0, $z), fencing, 0, wall_straight, ^homestead_stamp_ticks);
-            loc_add(movecoord($origin, 0, 0, $z), loc_1530, 2, wall_straight, ^homestead_stamp_ticks);
         }
-    } else {
-        loc_add(movecoord($origin, 0, 0, $z), fencing, 2, wall_straight, ^homestead_stamp_ticks);
-        loc_add(movecoord($origin, 19, 0, $z), fencing, 0, wall_straight, ^homestead_stamp_ticks);
+        $z = add($z, 1);
     }
-    $z = add($z, 1);
+} else {
+    $x = 0;
+    while ($x <= 21) {
+        loc_add(movecoord($origin, $x, 0, 0), fencing, 1, wall_straight, ^homestead_stamp_ticks);
+        loc_add(movecoord($origin, $x, 0, 19), fencing, 3, wall_straight, ^homestead_stamp_ticks);
+        $x = add($x, 1);
+    }
+    $z = 1;
+    while ($z <= 18) {
+        if ($z = 10 | $z = 11) {
+            loc_add(movecoord($origin, 21, 0, $z), fencing, 0, wall_straight, ^homestead_stamp_ticks);
+            loc_add(movecoord($origin, 0, 0, $z), loc_1530, 2, wall_straight, ^homestead_stamp_ticks);
+        } else {
+            loc_add(movecoord($origin, 21, 0, $z), fencing, 0, wall_straight, ^homestead_stamp_ticks);
+            loc_add(movecoord($origin, 0, 0, $z), fencing, 2, wall_straight, ^homestead_stamp_ticks);
+        }
+        $z = add($z, 1);
+    }
 }
 [proc,homestead_stamp_frontage](coord $origin, int $type)
 if (~homestead_uses_yard_wall($type) = true) {
