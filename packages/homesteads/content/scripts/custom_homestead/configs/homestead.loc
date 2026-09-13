@@ -114,10 +114,13 @@ sharelight=yes
 category=homestead_mine
 
 [homestead_gate]
-name=Plot gate
-desc=A latched gate onto the walkway.
-model=furniture_chestclosed
-width=1
+name=Gate
+desc=A wooden gate onto the street.
+model=loc_1530
+width=2
 length=1
 op1=Open
+blockrange=yes
+forceapproach=east
+sharelight=yes
 category=homestead_sign

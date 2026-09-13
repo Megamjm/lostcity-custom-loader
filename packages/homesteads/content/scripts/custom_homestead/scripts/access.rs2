@@ -46,18 +46,6 @@ if (%homestead_friend_plot = $plot) {
 }
 return(false);
 
-[oploc1,homestead_gate]
-p_delay(0);
-def_int $plot = ~homestead_plot_from_coord(coord);
-if (~homestead_may_open_gate($plot) = false) {
-    mes("The gate is latched. Bring a deed, or be named a friend of this plot.");
-    return;
-}
-def_coord $origin = ~homestead_plot_coord($plot);
-def_coord $inside = ~homestead_inside_coord($origin);
-mes("The latch lifts. The gate swings and shuts behind you.");
-p_teleport($inside);
-
 [proc,homestead_give_slip]
 if (inv_total(inv, homestead_invite_slip) > 0) {
     mes("You already carry an invitation.");
