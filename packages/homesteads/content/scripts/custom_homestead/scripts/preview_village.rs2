@@ -30,7 +30,7 @@ if (npc_find(^homestead_agent_stand, homestead_caretaker, 8, 0) = false) {
 loc_add(^homestead_preview_spawn, homestead_portal, 0, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(^homestead_island_exit, homestead_exit_portal, 0, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(movecoord(^homestead_preview_spawn, 0, 0, 2), well, 0, centrepiece_straight, ^homestead_stamp_ticks);
-~stamp_lumbridge_cottage(^homestead_preview_origin);
+~stamp_lumbridge_cottage_west(^homestead_preview_origin);
 loc_add(movecoord(^homestead_preview_origin, 8, 0, 2), daisys, 0, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(movecoord(^homestead_preview_origin, 8, 0, 5), sunflower, 1, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(movecoord(^homestead_preview_origin, 9, 0, 3), smallfern, 0, centrepiece_straight, ^homestead_stamp_ticks);
