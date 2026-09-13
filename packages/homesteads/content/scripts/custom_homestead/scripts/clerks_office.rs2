@@ -194,7 +194,7 @@ if (%homestead_house = 0) {
     return;
 }
 if (%homestead_plot2 > 0) {
-    ~chatnpc("<p,sad>Two plots is the office limit.");
+    mes("Two plots is the office limit.");
     return;
 }
 if (~homestead_can_buy($type) = false) {
@@ -202,12 +202,12 @@ if (~homestead_can_buy($type) = false) {
 }
 def_int $plot = ~homestead_find_vacant_plot;
 if ($plot = 0) {
-    ~chatnpc("<p,sad>Every peg on the island is taken.");
+    mes("Every peg on the island is taken.");
     return;
 }
 def_int $price = ~homestead_price($type);
 if (~homestead_take_gold($price) = false) {
-    ~chatnpc("<p,neutral>Come back when the purse is heavier.");
+    mes("Come back when the purse is heavier.");
     return;
 }
 %homestead_plot2 = $plot;
@@ -216,8 +216,8 @@ if (~homestead_take_gold($price) = false) {
 ~homestead_give_deed($type);
 ~homestead_stamp_player_house;
 settimer(homestead_keep_timer, 100);
-~chatnpc("<p,happy>A second copy. The <~homestead_house_name($type)> stands on plot <tostring($plot)>.");
-~chatnpc("<p,quiz>Same deed in your pack will take you to the first house. Speak to us if you need the other lot.");
+mes("A second copy. The <~homestead_house_name($type)> stands on plot <tostring($plot)>.");
+mes("Same deed in your pack will take you to the first house.");
 
 [proc,homestead_chest_has_items]()(boolean)
 if (inv_freespace(homestead_chest_inv) < inv_size(homestead_chest_inv)) {
