@@ -94,8 +94,6 @@ if ($east = true) {
     if (npc_find(movecoord($origin, 8, 0, 10), chicken_brown, 8, 0) = false) {
         npc_add(movecoord($origin, 8, 0, 10), chicken_brown, ^homestead_stamp_ticks);
     }
-    if (npc_find(movecoord($origin, 6, 0, 3), duck, 6, 0) = false) {
-        npc_add(movecoord($origin, 6, 0, 3), duck, ^homestead_stamp_ticks);
     }
     if (npc_find(movecoord($origin, 7, 0, 2), sheepunsheered, 6, 0) = false) {
         npc_add(movecoord($origin, 7, 0, 2), sheepunsheered, ^homestead_stamp_ticks);
@@ -124,8 +122,6 @@ if ($east = true) {
     if (npc_find(movecoord($origin, 11, 0, 10), chicken_brown, 8, 0) = false) {
         npc_add(movecoord($origin, 11, 0, 10), chicken_brown, ^homestead_stamp_ticks);
     }
-    if (npc_find(movecoord($origin, 13, 0, 3), duck, 6, 0) = false) {
-        npc_add(movecoord($origin, 13, 0, 3), duck, ^homestead_stamp_ticks);
     }
     if (npc_find(movecoord($origin, 12, 0, 2), sheepunsheered, 6, 0) = false) {
         npc_add(movecoord($origin, 12, 0, 2), sheepunsheered, ^homestead_stamp_ticks);
@@ -161,22 +157,22 @@ if ($east = true) {
     while ($z <= 19) {
         if ($z = 9 | $z = 10 | $z = 11) {
         } else {
-            loc_add(movecoord($origin, 18, 0, $z), bush, 0, centrepiece_straight, ^homestead_stamp_ticks);
+            loc_add(movecoord($origin, 18, 0, $z), evergreen, 0, centrepiece_straight, ^homestead_stamp_ticks);
         }
         $z = add($z, 2);
     }
-    loc_add(movecoord($origin, 18, 0, 8), bush, 1, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 18, 0, 12), bush, 1, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 18, 0, 8), evergreen, 1, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 18, 0, 12), evergreen, 1, centrepiece_straight, ^homestead_stamp_ticks);
 } else {
     while ($z <= 19) {
         if ($z = 9 | $z = 10 | $z = 11) {
         } else {
-            loc_add(movecoord($origin, 1, 0, $z), bush, 0, centrepiece_straight, ^homestead_stamp_ticks);
+            loc_add(movecoord($origin, 1, 0, $z), evergreen, 0, centrepiece_straight, ^homestead_stamp_ticks);
         }
         $z = add($z, 2);
     }
-    loc_add(movecoord($origin, 1, 0, 8), bush, 1, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 1, 0, 12), bush, 1, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 1, 0, 8), evergreen, 1, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 1, 0, 12), evergreen, 1, centrepiece_straight, ^homestead_stamp_ticks);
 }
 [proc,homestead_stamp_plot_fence](coord $origin)
 def_boolean $east = ~homestead_faces_east(~homestead_plot_from_coord($origin));
