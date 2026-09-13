@@ -27,14 +27,15 @@ mes("You return to the homestead green.");
 
 [proc,homestead_stamp_grid_signs]
 def_int $p = 1;
-while ($p <= 8) {
+while ($p <= ^homestead_plot_count) {
     def_coord $o = ~homestead_plot_coord($p);
     if (loc_find($o, homestead_sold_sign) = false) {
         if (loc_find($o, homestead_for_sale) = false) {
             loc_add($o, homestead_for_sale, 0, centrepiece_straight, ^homestead_stamp_ticks);
         }
     }
-    loc_add(movecoord($o, 2, 0, 0), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($o, 16, 0, 2), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($o, 2, 0, 16), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
     $p = add($p, 1);
 }
 
@@ -61,14 +62,26 @@ mes("You open the bank closet.");
 @openbank;
 
 [oploc1,homestead_for_sale]
-mes("Plot peg. See the clerks on the green.");
+def_int $n = ~homestead_plot_from_coord(coord);
+if ($n = 0) {
+    mes("Plot peg. See the clerks on the green.");
+} else {
+    mes("Plot <tostring($n)>. For sale. Clerks on the green hold the deed.");
+}
 
 [oploc2,homestead_for_sale]
 mes("The office on the green handles sales.");
 
 [oploc1,homestead_sold_sign]
-if (%homestead_house = 0) {
+def_int $n = ~homestead_plot_from_coord(coord);
+if ($n = 0) {
     mes("This lot is taken.");
+} else
+if (%homestead_plot = $n) {
+    mes("Plot <tostring($n)>. Your <~homestead_house_name(%homestead_house)>.");
+} else
+if (%homestead_plot2 = $n) {
+    mes("Plot <tostring($n)>. Your second lot.");
 } else {
-    mes("Plot <tostring(%homestead_plot)>. <~homestead_house_name(%homestead_house)>.");
+    mes("Plot <tostring($n)>. Sold.");
 }
