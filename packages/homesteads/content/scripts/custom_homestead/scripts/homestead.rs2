@@ -146,6 +146,9 @@ if (p_finduid(uid) = false) {
 return(false);
 
 [proc,homestead_take_gold](int $price)(boolean)
+if ($price < 1) {
+    return(true);
+}
 if (inv_total(inv, coins) < $price) {
     return(false);
 }
@@ -157,30 +160,37 @@ if (inv_total(inv, land_deed) < 1) {
     inv_add(inv, land_deed, 1);
 }
 
+// inv_del rejects count 0. First-time buyers have none of the old typed deeds.
+[proc,homestead_inv_del_all](obj $item)
+def_int $n = inv_total(inv, $item);
+if ($n > 0) {
+    inv_del(inv, $item, $n);
+}
+
 [proc,homestead_clear_old_deed]
-inv_del(inv, land_deed_small, inv_total(inv, land_deed_small));
-inv_del(inv, land_deed_medium, inv_total(inv, land_deed_medium));
-inv_del(inv, land_deed_large, inv_total(inv, land_deed_large));
-inv_del(inv, land_deed_crafter, inv_total(inv, land_deed_crafter));
-inv_del(inv, land_deed_miner, inv_total(inv, land_deed_miner));
+~homestead_inv_del_all(land_deed_small);
+~homestead_inv_del_all(land_deed_medium);
+~homestead_inv_del_all(land_deed_large);
+~homestead_inv_del_all(land_deed_crafter);
+~homestead_inv_del_all(land_deed_miner);
+~homestead_inv_del_all(land_deed_blank);
 
 [proc,homestead_buy](int $type)
 if (~homestead_can_buy($type) = false) {
     return;
 }
+if (%homestead_plot = 0) {
+    if (~homestead_assign_plot = 0) {
+        ~chatnpc("<p,sad>The island is full.");
+        return;
+    }
+}
+~homestead_clear_old_deed;
 def_int $price = ~homestead_price($type);
 if (~homestead_take_gold($price) = false) {
     ~chatnpc("<p,neutral>Come back when you have the coins.");
     return;
 }
-if (%homestead_plot = 0) {
-    if (~homestead_assign_plot = 0) {
-        inv_add(inv, coins, $price);
-        ~chatnpc("<p,sad>I have to give you the coins back. The island is full.");
-        return;
-    }
-}
-~homestead_clear_old_deed;
 %homestead_house = $type;
 %homestead_approached = 1;
 ~homestead_give_deed($type);
