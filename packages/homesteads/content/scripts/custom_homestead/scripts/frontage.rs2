@@ -76,98 +76,94 @@ def_boolean $east = ~homestead_faces_east(~homestead_plot_from_coord($origin));
 def_int $x;
 def_int $z;
 if ($east = true) {
-    $z = 6;
-    while ($z <= 13) {
-        loc_add(movecoord($origin, 1, 0, $z), fencing, 2, wall_straight, ^homestead_stamp_ticks);
-        loc_add(movecoord($origin, 11, 0, $z), fencing, 0, wall_straight, ^homestead_stamp_ticks);
+    $z = 7;
+    while ($z <= 12) {
+        loc_add(movecoord($origin, 2, 0, $z), fencing, 2, wall_straight, ^homestead_stamp_ticks);
         $z = add($z, 1);
     }
-    $x = 1;
-    while ($x <= 11) {
+    $x = 2;
+    while ($x <= 10) {
         loc_add(movecoord($origin, $x, 0, 6), fencing, 1, wall_straight, ^homestead_stamp_ticks);
         loc_add(movecoord($origin, $x, 0, 13), fencing, 3, wall_straight, ^homestead_stamp_ticks);
         $x = add($x, 1);
     }
-    loc_add(movecoord($origin, 3, 0, 7), fencing, 1, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 4, 0, 7), fencing, 1, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 5, 0, 7), fencing, 1, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 3, 0, 9), fencing, 3, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 4, 0, 9), fencing, 3, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 5, 0, 9), fencing, 3, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 3, 0, 8), fencing, 2, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 5, 0, 8), fencing, 0, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 4, 0, 8), fountain, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 7, 0, 10), well, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 3, 0, 11), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 4, 0, 8), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 8, 0, 8), oaktree, 1, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 9, 0, 12), tree2, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 2, 0, 12), tree3, 2, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 6, 0, 12), daisys, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 9, 0, 7), sunflower, 1, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 2, 0, 10), smallfern, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 10, 0, 10), redflower, 2, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 8, 0, 11), thistle, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    if (npc_find(movecoord($origin, 6, 0, 10), chicken, 8, 0) = false) {
-        npc_add(movecoord($origin, 6, 0, 10), chicken, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 5, 0, 11), tree2, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 9, 0, 11), daisys, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 3, 0, 10), smallfern, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 6, 0, 12), sunflower, 1, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 9, 0, 7), redflower, 2, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 3, 0, 7), thistle, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 3, 0, 3), daisys, 1, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 6, 0, 2), sunflower, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 8, 0, 4), smallfern, 2, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 4, 0, 16), blueflower, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 7, 0, 15), daisys, 3, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 9, 0, 17), smallfern, 1, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 2, 0, 15), thistle, 2, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 5, 0, 3), rockslide3, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 8, 0, 16), rockslide4, 2, centrepiece_straight, ^homestead_stamp_ticks);
+    if (npc_find(movecoord($origin, 6, 0, 9), chicken, 8, 0) = false) {
+        npc_add(movecoord($origin, 6, 0, 9), chicken, ^homestead_stamp_ticks);
     }
-    if (npc_find(movecoord($origin, 8, 0, 9), chicken_brown, 8, 0) = false) {
-        npc_add(movecoord($origin, 8, 0, 9), chicken_brown, ^homestead_stamp_ticks);
+    if (npc_find(movecoord($origin, 8, 0, 10), chicken_brown, 8, 0) = false) {
+        npc_add(movecoord($origin, 8, 0, 10), chicken_brown, ^homestead_stamp_ticks);
     }
-    if (npc_find(movecoord($origin, 4, 0, 8), duck, 4, 0) = false) {
-        npc_add(movecoord($origin, 4, 0, 8), duck, ^homestead_stamp_ticks);
+    if (npc_find(movecoord($origin, 4, 0, 15), duck, 6, 0) = false) {
+        npc_add(movecoord($origin, 4, 0, 15), duck, ^homestead_stamp_ticks);
     }
-    if (npc_find(movecoord($origin, 9, 0, 11), sheepunsheered, 8, 0) = false) {
-        npc_add(movecoord($origin, 9, 0, 11), sheepunsheered, ^homestead_stamp_ticks);
+    if (npc_find(movecoord($origin, 4, 0, 3), sheepunsheered, 6, 0) = false) {
+        npc_add(movecoord($origin, 4, 0, 3), sheepunsheered, ^homestead_stamp_ticks);
     }
-    if (npc_find(movecoord($origin, 7, 0, 12), butterfly, 8, 0) = false) {
-        npc_add(movecoord($origin, 7, 0, 12), butterfly, ^homestead_stamp_ticks);
+    if (npc_find(movecoord($origin, 7, 0, 4), butterfly, 8, 0) = false) {
+        npc_add(movecoord($origin, 7, 0, 4), butterfly, ^homestead_stamp_ticks);
     }
 } else {
-    $z = 6;
-    while ($z <= 13) {
-        loc_add(movecoord($origin, 18, 0, $z), fencing, 0, wall_straight, ^homestead_stamp_ticks);
-        loc_add(movecoord($origin, 8, 0, $z), fencing, 2, wall_straight, ^homestead_stamp_ticks);
+    $z = 7;
+    while ($z <= 12) {
+        loc_add(movecoord($origin, 17, 0, $z), fencing, 0, wall_straight, ^homestead_stamp_ticks);
         $z = add($z, 1);
     }
-    $x = 8;
-    while ($x <= 18) {
+    $x = 9;
+    while ($x <= 17) {
         loc_add(movecoord($origin, $x, 0, 6), fencing, 1, wall_straight, ^homestead_stamp_ticks);
         loc_add(movecoord($origin, $x, 0, 13), fencing, 3, wall_straight, ^homestead_stamp_ticks);
         $x = add($x, 1);
     }
-    loc_add(movecoord($origin, 14, 0, 7), fencing, 1, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 15, 0, 7), fencing, 1, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 16, 0, 7), fencing, 1, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 14, 0, 9), fencing, 3, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 15, 0, 9), fencing, 3, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 16, 0, 9), fencing, 3, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 14, 0, 8), fencing, 2, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 16, 0, 8), fencing, 0, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 15, 0, 8), fountain, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 12, 0, 10), well, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 16, 0, 11), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 15, 0, 8), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 11, 0, 8), oaktree, 1, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 10, 0, 12), tree2, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 17, 0, 12), tree3, 2, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 13, 0, 12), daisys, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 10, 0, 7), sunflower, 1, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 17, 0, 10), smallfern, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 9, 0, 10), redflower, 2, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 11, 0, 11), thistle, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    if (npc_find(movecoord($origin, 13, 0, 10), chicken, 8, 0) = false) {
-        npc_add(movecoord($origin, 13, 0, 10), chicken, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 14, 0, 11), tree2, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 10, 0, 11), daisys, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 16, 0, 10), smallfern, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 13, 0, 12), sunflower, 1, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 10, 0, 7), redflower, 2, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 16, 0, 7), thistle, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 16, 0, 3), daisys, 1, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 13, 0, 2), sunflower, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 11, 0, 4), smallfern, 2, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 15, 0, 16), blueflower, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 12, 0, 15), daisys, 3, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 10, 0, 17), smallfern, 1, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 17, 0, 15), thistle, 2, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 14, 0, 3), rockslide3, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 11, 0, 16), rockslide4, 2, centrepiece_straight, ^homestead_stamp_ticks);
+    if (npc_find(movecoord($origin, 13, 0, 9), chicken, 8, 0) = false) {
+        npc_add(movecoord($origin, 13, 0, 9), chicken, ^homestead_stamp_ticks);
     }
-    if (npc_find(movecoord($origin, 11, 0, 9), chicken_brown, 8, 0) = false) {
-        npc_add(movecoord($origin, 11, 0, 9), chicken_brown, ^homestead_stamp_ticks);
+    if (npc_find(movecoord($origin, 11, 0, 10), chicken_brown, 8, 0) = false) {
+        npc_add(movecoord($origin, 11, 0, 10), chicken_brown, ^homestead_stamp_ticks);
     }
-    if (npc_find(movecoord($origin, 15, 0, 8), duck, 4, 0) = false) {
-        npc_add(movecoord($origin, 15, 0, 8), duck, ^homestead_stamp_ticks);
+    if (npc_find(movecoord($origin, 15, 0, 15), duck, 6, 0) = false) {
+        npc_add(movecoord($origin, 15, 0, 15), duck, ^homestead_stamp_ticks);
     }
-    if (npc_find(movecoord($origin, 10, 0, 11), sheepunsheered, 8, 0) = false) {
-        npc_add(movecoord($origin, 10, 0, 11), sheepunsheered, ^homestead_stamp_ticks);
+    if (npc_find(movecoord($origin, 15, 0, 3), sheepunsheered, 6, 0) = false) {
+        npc_add(movecoord($origin, 15, 0, 3), sheepunsheered, ^homestead_stamp_ticks);
     }
-    if (npc_find(movecoord($origin, 12, 0, 12), butterfly, 8, 0) = false) {
-        npc_add(movecoord($origin, 12, 0, 12), butterfly, ^homestead_stamp_ticks);
+    if (npc_find(movecoord($origin, 12, 0, 4), butterfly, 8, 0) = false) {
+        npc_add(movecoord($origin, 12, 0, 4), butterfly, ^homestead_stamp_ticks);
     }
 }
 [proc,homestead_stamp_door](coord $origin, int $type)

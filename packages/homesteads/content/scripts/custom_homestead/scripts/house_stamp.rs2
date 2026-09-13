@@ -2,15 +2,16 @@
 // Extra planes are emitted ONLY when the source window had locs there.
 
 [proc,homestead_stamp_player_house]
-if (%homestead_house = 0) {
-    return;
+if (%homestead_plot > 0) {
+    if (%homestead_house ! 0) {
+        ~homestead_stamp_house(~homestead_plot_coord(%homestead_plot), %homestead_house);
+    }
 }
-if (%homestead_plot = 0) {
-    return;
+if (%homestead_plot2 > 0) {
+    if (%homestead_house2 ! 0) {
+        ~homestead_stamp_house(~homestead_plot_coord(%homestead_plot2), %homestead_house2);
+    }
 }
-def_coord $origin = ~homestead_plot_coord(%homestead_plot);
-~homestead_stamp_house($origin, %homestead_house);
-
 [proc,homestead_stamp_house](coord $origin, int $type)
 ~homestead_stamp_frontage($origin, $type);
 def_coord $home = ~homestead_house_origin($origin);
@@ -167,7 +168,7 @@ loc_add(movecoord($origin, 5, 0, 6), brickwall, 0, wall_straight, ^homestead_sta
 loc_add(movecoord($origin, 2, 0, 3), homestead_chest, 0, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 4, 0, 5), bed, 2, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 1, 0, 5), range, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 1, 0, 1), bookcase, 2, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 1, 0, 1), bookcase, 0, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 4, 0, 1), altar, 3, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 0, 1, 0), oldroof_wooden, 0, roof_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 0, 1, 1), oldroof_wooden, 0, roof_straight, ^homestead_stamp_ticks);

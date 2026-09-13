@@ -145,14 +145,17 @@ def_int $i = 0;
 while ($i < ^homestead_plot_count) {
     def_int $tmp = add(sub($start, 1), $i);
     def_int $plot = add(sub($tmp, multiply(divide($tmp, ^homestead_plot_count), ^homestead_plot_count)), 1);
-    def_coord $origin = ~homestead_plot_coord($plot);
-    if (~homestead_plot_vacant($origin) = true) {
-        return($plot);
+    if ($plot = %homestead_plot) {
+    } else if ($plot = %homestead_plot2) {
+    } else {
+        def_coord $origin = ~homestead_plot_coord($plot);
+        if (~homestead_plot_vacant($origin) = true) {
+            return($plot);
+        }
     }
     $i = add($i, 1);
 }
 return(0);
-
 [proc,homestead_assign_plot]()(int)
 if (%homestead_plot > 0) {
     return(%homestead_plot);

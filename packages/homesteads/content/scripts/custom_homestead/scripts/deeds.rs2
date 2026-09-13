@@ -36,13 +36,19 @@
 
 [proc,deed_read](int $type)
 if ($type = 0) {
-    mes("The deed is blank.");
-    return;
+    if (%homestead_house2 = 0) {
+        mes("The deed is blank.");
+        return;
+    }
 }
-mes("The deed names you as owner of a <~homestead_house_name($type)>.");
-mes("Copied from <~homestead_region_name($type)>. Size: <~homestead_size_name($type)>.");
-if (%homestead_plot > 0) {
-    mes("Plot <tostring(%homestead_plot)> on the homestead island.");
-} else {
-    mes("No plot has been pegged yet. Speak to the estate agent.");
+if (%homestead_house ! 0) {
+    mes("Plot <tostring(%homestead_plot)>: <~homestead_house_name(%homestead_house)>.");
+}
+if (%homestead_plot2 > 0) {
+    mes("Plot <tostring(%homestead_plot2)>: <~homestead_house_name(%homestead_house2)>.");
+}
+if (%homestead_house = 0) {
+    if (%homestead_house2 = 0) {
+        mes("No plot has been pegged yet. Speak to the estate agent.");
+    }
 }

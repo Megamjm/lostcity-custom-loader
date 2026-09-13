@@ -209,7 +209,7 @@ if (~homestead_take_gold($price) = false) {
 ~homestead_stamp_player_house;
 settimer(homestead_keep_timer, 100);
 mes("A second copy. The <~homestead_house_name($type)> stands on plot <tostring($plot)>.");
-mes("Same deed in your pack will take you to the first house.");
+mes("Rub the deed and pick which plot.");
 
 [proc,homestead_chest_has_items]()(boolean)
 if (inv_freespace(homestead_chest_inv) < inv_size(homestead_chest_inv)) {
