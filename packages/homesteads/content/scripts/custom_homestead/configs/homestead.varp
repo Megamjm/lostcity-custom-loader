@@ -47,3 +47,6 @@ scope=perm
 
 [homestead_guest_plot]
 scope=perm
+
+[homestead_wiped]
+scope=perm

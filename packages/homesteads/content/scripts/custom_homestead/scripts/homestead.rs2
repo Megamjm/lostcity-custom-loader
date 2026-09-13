@@ -1,6 +1,10 @@
 // Homestead entry points, plot math, purchase, persistence.
 
 [queue,homestead_login]
+if (%homestead_wiped < 1) {
+    ~homestead_wipe_player;
+    %homestead_wiped = 1;
+}
 ~homestead_seed_region_clerks;
 ~guild_seed;
 settimer(homestead_watch, 2);
