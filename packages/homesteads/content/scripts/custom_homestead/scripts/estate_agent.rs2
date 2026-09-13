@@ -1,7 +1,7 @@
 // Estate agent: walks in off-screen and sells named regional copies.
 
 [opnpc1,estate_agent]
-~estate_agent_dialog;
+@estate_agent_dialog;
 
 [label,estate_agent_dialog]
 ~chatnpc("<p,happy>Good day. I sell copies of houses that already stand in Gielinor.");

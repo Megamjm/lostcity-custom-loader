@@ -85,16 +85,16 @@ if (~homestead_on_own_plot = false) {
 }
 
 [proc,homestead_house_name](int $type)(string)
-return(enum(string, homestead_house_name, $type));
+return(enum(string, int, homestead_house_name, $type));
 
 [proc,homestead_price](int $type)(int)
-return(enum(int, homestead_house_price, $type));
+return(enum(int, int, homestead_house_price, $type));
 
 [proc,homestead_size_name](int $type)(string)
-return(enum(string, homestead_house_size, $type));
+return(enum(string, int, homestead_house_size, $type));
 
 [proc,homestead_region_name](int $type)(string)
-return(enum(string, homestead_house_region, $type));
+return(enum(string, int, homestead_house_region, $type));
 
 [proc,homestead_plot_coord](int $plot)(coord)
 def_int $index = sub($plot, 1);
@@ -104,17 +104,18 @@ if ($index < 0) {
 if ($index >= ^homestead_plot_count) {
     $index = sub(^homestead_plot_count, 1);
 }
-def_int $col = mod($index, ^homestead_plot_cols);
+def_int $col = sub($index, multiply(divide($index, ^homestead_plot_cols), ^homestead_plot_cols));
 def_int $row = divide($index, ^homestead_plot_cols);
 def_int $dx = multiply($col, ^homestead_plot_size);
 def_int $dz = multiply($row, ^homestead_plot_size);
 return(movecoord(^homestead_island_origin, $dx, 0, $dz));
 
 [proc,homestead_find_vacant_plot]()(int)
-def_int $start = add(mod(uid, ^homestead_plot_count), 1);
+def_int $start = add(sub(uid, multiply(divide(uid, ^homestead_plot_count), ^homestead_plot_count)), 1);
 def_int $i = 0;
 while ($i < ^homestead_plot_count) {
-    def_int $plot = add(mod(add(sub($start, 1), $i), ^homestead_plot_count), 1);
+    def_int $tmp = add(sub($start, 1), $i);
+    def_int $plot = add(sub($tmp, multiply(divide($tmp, ^homestead_plot_count), ^homestead_plot_count)), 1);
     def_coord $origin = ~homestead_plot_coord($plot);
     if (~homestead_plot_vacant($origin) = true) {
         return($plot);

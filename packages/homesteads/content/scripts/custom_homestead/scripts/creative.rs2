@@ -15,7 +15,7 @@ if (p_finduid(uid) = false) {
 if (p_finduid(uid) = false) {
     return;
 }
-mes("coord=<tostring(coord)> house=<tostring(%homestead_house)> plot=<tostring(%homestead_plot)> flags=<tostring(%homestead_flags)> staff=<tostring(staffmodlevel)>");
+mes("x=<tostring(coordx(coord))> z=<tostring(coordz(coord))> house=<tostring(%homestead_house)> plot=<tostring(%homestead_plot)> flags=<tostring(%homestead_flags)> staff=<tostring(staffmodlevel)>");
 
 [debugproc,home_creative]
 if (p_finduid(uid) = false) {
@@ -24,11 +24,11 @@ if (p_finduid(uid) = false) {
 if (~homestead_staff_ok = false) {
     return;
 }
-if (getbit_range(%homestead_flags, 0, 0) = 1) {
-    %homestead_flags = setbit_range(%homestead_flags, 0, 0, 0);
+if (%homestead_flags = 1) {
+    %homestead_flags = 0;
     mes("Creative off.");
 } else {
-    %homestead_flags = setbit_range(%homestead_flags, 0, 0, 1);
+    %homestead_flags = 1;
     mes("Creative on. Palette commands plant at your feet.");
 }
 
@@ -62,7 +62,7 @@ if (p_finduid(uid) = false) {
 if (~homestead_staff_ok = false) {
     return;
 }
-~homestead_seed_preview_village;
+~homestead_build_preview;
 ~homestead_seed_region_clerks;
 mes("Village green and town clerks seeded.");
 
@@ -231,7 +231,7 @@ if (p_finduid(uid) = false) {
 if (~homestead_staff_ok = false) {
     return;
 }
-if (getbit_range(%homestead_flags, 0, 0) = 0) {
+if (%homestead_flags = 0) {
     mes("Turn creative on first: ::~home_creative");
     return;
 }
