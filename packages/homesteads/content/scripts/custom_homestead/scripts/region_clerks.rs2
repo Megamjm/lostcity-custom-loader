@@ -1,20 +1,28 @@
 // Clerks stand outside the real houses in each region.
-// They sell only the copy of the building behind them.
 
 [opnpc1,_homestead_clerk]
 def_int $style = npc_param(homestead_style);
 if ($style < 1 | $style > 12) {
     $style = 1;
 }
-~chatnpc("<p,happy>This house stays where it is. I sell a copy of it, pegged on the homestead island.");
-~chatnpc("<p,quiz>The <~homestead_house_name($style)> is a <~homestead_size_name($style)> copy. <tostring(~homestead_price($style))> coins.");
+~chatnpc("<p,happy>My my, this is a nice home isn't it. Wouldn't you like to own one similar to this?");
+~chatnpc("<p,quiz>A <~homestead_house_name($style)> on the homestead island. <tostring(~homestead_price($style))> coins. Other adventurers keep plots along the same street.");
+if (%homestead_house ! 0) {
+    ~chatnpc("<p,neutral>You already hold plot <tostring(%homestead_plot)>. I can still sell you this copy as a second lot, or you can talk to the office on the green.");
+}
 def_int $c = ~p_choice3("I'll take a copy.", 1, "How do I get to the island?", 2, "No thanks.", 3);
 if ($c = 1) {
     ~chatplayer("<p,quiz>I'll take a copy.");
-    ~homestead_buy($style);
+    if (%homestead_house = 0) {
+        ~homestead_buy($style);
+    } else if (%homestead_plot2 = 0) {
+        ~homestead_buy_second($style);
+    } else {
+        ~chatnpc("<p,sad>Two plots is the office limit. Sell one first, then we can talk.");
+    }
 } else if ($c = 2) {
     ~chatplayer("<p,quiz>How do I get to the island?");
-    ~chatnpc("<p,neutral>Buy the deed and use it. Or find the portal on the homestead green.");
+    ~chatnpc("<p,neutral>Buy the deed and use it. Or find the clerks' office and the portal on the homestead green.");
 } else {
     ~chatplayer("<p,neutral>No thanks.");
 }

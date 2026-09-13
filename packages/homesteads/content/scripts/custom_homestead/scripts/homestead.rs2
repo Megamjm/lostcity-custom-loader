@@ -2,6 +2,7 @@
 
 [queue,homestead_login]
 ~homestead_seed_region_clerks;
+~homestead_stamp_office;
 if (%homestead_house ! 0) {
     ~homestead_stamp_player_house;
     settimer(homestead_keep_timer, 100);
@@ -22,15 +23,21 @@ if (~homestead_in_preview_village = true) {
 }
 settimer(homestead_agent_timer, 25);
 
-// Runtime locs expire. While the owner is on the island, restamp
-// so the house, chest and upstairs survive long sessions / restarts.
 [timer,homestead_keep_timer]
 if (%homestead_house = 0) {
-    cleartimer(homestead_keep_timer);
-    return;
+    if (%homestead_house2 = 0) {
+        cleartimer(homestead_keep_timer);
+        return;
+    }
 }
 if (~homestead_in_island = true) {
     ~homestead_stamp_player_house;
+    if (%homestead_plot2 > 0) {
+        if (%homestead_house2 ! 0) {
+            ~homestead_stamp_house(~homestead_plot_coord(%homestead_plot2), %homestead_house2);
+        }
+    }
+    ~homestead_stamp_office;
     ~homestead_enforce_plot;
 }
 if (~homestead_in_mine = true) {
@@ -60,13 +67,19 @@ if (inzone(0_11_8_0_0, 0_11_8_63_63, coord) = true) {
 return(false);
 
 [proc,homestead_on_own_plot]()(boolean)
-if (%homestead_plot = 0) {
-    return(false);
+if (%homestead_plot > 0) {
+    def_coord $origin = ~homestead_plot_coord(%homestead_plot);
+    def_coord $max = movecoord($origin, 15, 0, 15);
+    if (inzone($origin, $max, coord) = true) {
+        return(true);
+    }
 }
-def_coord $origin = ~homestead_plot_coord(%homestead_plot);
-def_coord $max = movecoord($origin, 15, 0, 15);
-if (inzone($origin, $max, coord) = true) {
-    return(true);
+if (%homestead_plot2 > 0) {
+    def_coord $origin2 = ~homestead_plot_coord(%homestead_plot2);
+    def_coord $max2 = movecoord($origin2, 15, 0, 15);
+    if (inzone($origin2, $max2, coord) = true) {
+        return(true);
+    }
 }
 return(false);
 
@@ -75,13 +88,11 @@ if (~homestead_in_preview_village = true) {
     return;
 }
 if (%homestead_house = 0) {
-    mes("Those lots are fenced off until you buy a deed.");
-    p_teleport(^homestead_preview_spawn);
-    return;
-}
-if (~homestead_on_own_plot = false) {
-    mes("The void between plots dumps you back on your own lot.");
-    ~homestead_teleport_home;
+    if (%homestead_house2 = 0) {
+        mes("Those lots are fenced off until you buy a deed.");
+        p_teleport(^homestead_preview_spawn);
+        return;
+    }
 }
 
 [proc,homestead_plot_coord](int $plot)(coord)
@@ -160,7 +171,6 @@ if (inv_total(inv, land_deed) < 1) {
     inv_add(inv, land_deed, 1);
 }
 
-// inv_del rejects count 0. First-time buyers have none of the old typed deeds.
 [proc,homestead_inv_del_all](obj $item)
 def_int $n = inv_total(inv, $item);
 if ($n > 0) {

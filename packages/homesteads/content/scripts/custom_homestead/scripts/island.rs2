@@ -8,11 +8,18 @@ if (%homestead_plot = 0) {
         return;
     }
 }
-def_coord $plot = ~homestead_plot_coord(%homestead_plot);
+def_int $plotid = %homestead_plot;
+if (%homestead_plot2 > 0) {
+    def_int $pick = ~p_choice2("Plot <tostring(%homestead_plot)> (<~homestead_house_name(%homestead_house)>).", 1, "Plot <tostring(%homestead_plot2)> (<~homestead_house_name(%homestead_house2)>).", 2);
+    if ($pick = 2) {
+        $plotid = %homestead_plot2;
+    }
+}
+def_coord $plot = ~homestead_plot_coord($plotid);
 ~homestead_stamp_player_house;
 settimer(homestead_keep_timer, 100);
-mes("You step through to plot <tostring(%homestead_plot)>.");
-p_teleport(movecoord($plot, 4, 0, 2));
+mes("You step through to plot <tostring($plotid)>.");
+p_teleport(movecoord($plot, 3, 0, 2));
 
 [proc,homestead_teleport_village]
 p_teleport(^homestead_preview_spawn);
@@ -41,14 +48,10 @@ mes("You open the bank closet.");
 @openbank;
 
 [oploc1,homestead_for_sale]
-mes("A wooden sign. 'Plot for sale. See the estate agent.'");
+mes("A wooden sign. 'Plot for sale. See the clerks office on the green.'");
 
 [oploc2,homestead_for_sale]
-if (npc_find(coord, estate_agent, 10, 0) = true) {
-    @estate_agent_size_menu;
-} else {
-    mes("The estate agent is on the village green.");
-}
+mes("The clerks office on the village green handles sales.");
 
 [oploc1,homestead_sold_sign]
 if (%homestead_house = 0) {

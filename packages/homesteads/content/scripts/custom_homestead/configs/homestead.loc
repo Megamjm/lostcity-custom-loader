@@ -1,6 +1,4 @@
 // Interactive homestead scenery.
-// Models are stock 2004 names that already exist in Content.
-// Swap model= later if you want a prettier portal / sign.
 
 [homestead_portal]
 name=Homestead portal
@@ -23,7 +21,7 @@ name=Storage chest
 desc=Your household chest.
 model=furniture_chestclosed
 op1=Open
-forceapproach=north
+forceapproach=east
 category=homestead_storage
 
 [homestead_bank_closet]
