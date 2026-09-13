@@ -1,23 +1,21 @@
-// Homestead island occupies unused map squares 8_8 .. 10_10 (3x3).
 // Plot 1 stays 0_8_8_16_16.
-// 8x8 lots of 16, 4-tile streets, stride 20.
-// N-S streets are cobble (u16). Even cols face east, odd cols face west.
-// South strip z 0-15 is the city square: office + preview homes.
+// Lots are 8x8 with a 4-tile cobble street. Stride 12.
+// Even columns face east, odd columns face west.
 
-^homestead_preview_spawn = 0_8_8_32_8
-^homestead_agent_offscreen = 0_8_8_32_2
-^homestead_agent_stand = 0_8_8_30_10
+^homestead_preview_spawn = 0_8_8_24_8
+^homestead_agent_offscreen = 0_8_8_24_2
+^homestead_agent_stand = 0_8_8_22_10
 ^homestead_island_origin = 0_8_8_16_16
-^homestead_island_exit = 0_8_8_32_4
+^homestead_island_exit = 0_8_8_24_4
 ^homestead_mine_entrance = 0_11_8_4_4
-^homestead_office_origin = 0_8_8_20_3
-^homestead_clerk_mabel = 0_8_8_22_5
-^homestead_clerk_oswald = 0_8_8_23_5
-^homestead_clerk_pip = 0_8_8_24_5
+^homestead_office_origin = 0_8_8_16_2
+^homestead_clerk_mabel = 0_8_8_19_5
+^homestead_clerk_oswald = 0_8_8_20_5
+^homestead_clerk_pip = 0_8_8_21_5
 
-^homestead_plot_size = 16
+^homestead_plot_size = 8
 ^homestead_street = 4
-^homestead_plot_stride = 20
+^homestead_plot_stride = 12
 ^homestead_plot_cols = 8
 ^homestead_plot_rows = 8
 ^homestead_plot_count = 64
@@ -69,12 +67,12 @@
 
 ^homestead_deed_fee = 1000
 ^homestead_combat_ticks = 17
-^homestead_preview_origin = 0_8_8_36_2
+^homestead_preview_origin = 0_8_8_28_2
 ^homestead_preview_plot = 8
 ^homestead_preview_street = 4
 ^homestead_preview_cols = 4
 ^homestead_preview_count = 16
-^homestead_preview_gate = 0_8_8_32_12
+^homestead_preview_gate = 0_8_8_24_12
 ^homestead_up_lanterns = 1
 ^homestead_up_hedge = 2
 ^homestead_up_garden = 4

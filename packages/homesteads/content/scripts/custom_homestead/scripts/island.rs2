@@ -29,11 +29,8 @@ mes("You return to the homestead square.");
 def_int $p = 1;
 while ($p <= ^homestead_plot_count) {
     def_coord $o = ~homestead_plot_coord($p);
-    def_coord $sign = ~homestead_sign_coord($o);
-    if (loc_find($sign, homestead_sold_sign) = false) {
-        if (loc_find($sign, homestead_for_sale) = false) {
-            loc_add($sign, homestead_for_sale, 0, centrepiece_straight, ^homestead_stamp_ticks);
-        }
+    if (~homestead_plot_vacant($o) = true) {
+        ~homestead_stamp_vacant_frontage($o);
     }
     $p = add($p, 1);
 }
