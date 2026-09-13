@@ -82,21 +82,33 @@ if (%homestead_plot2 = $n) {
     mes("Plot <tostring($n)>. Sold.");
 }
 [proc,homestead_stamp_shore]
-loc_add(0_8_8_10_20, smallfern, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_8_8_9_24, smallfern, 1, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_8_8_11_28, thistle, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_8_8_8_32, smallfern, 2, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_8_8_10_40, thistle, 1, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_8_8_9_48, smallfern, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_8_8_12_22, rockslide3, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_8_8_11_36, rockslide4, 2, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_8_8_13_44, rockslide3, 1, centrepiece_straight, ^homestead_stamp_ticks);
-if (npc_find(0_8_8_3_22, duck, 10, 0) = false) {
-    npc_add(0_8_8_3_22, duck, ^homestead_stamp_ticks);
+loc_add(0_8_8_8_18, smallfern, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_8_8_9_22, thistle, 1, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_8_8_7_26, smallfern, 2, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_8_8_10_30, blueflower, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_8_8_8_34, thistle, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_8_8_9_38, smallfern, 1, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_8_8_7_42, thistle, 2, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_8_8_10_46, smallfern, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_8_8_8_50, blueflower, 1, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_8_8_11_24, rockslide3, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_8_8_12_36, rockslide4, 2, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_8_8_11_48, rockslide3, 1, centrepiece_straight, ^homestead_stamp_ticks);
+if (npc_find(0_8_8_3_20, duck, 8, 0) = false) {
+    npc_add(0_8_8_3_20, duck, ^homestead_stamp_ticks);
 }
-if (npc_find(0_8_8_2_30, duck, 10, 0) = false) {
-    npc_add(0_8_8_2_30, duck, ^homestead_stamp_ticks);
+if (npc_find(0_8_8_2_26, duck, 8, 0) = false) {
+    npc_add(0_8_8_2_26, duck, ^homestead_stamp_ticks);
 }
-if (npc_find(0_8_8_4_40, duck, 10, 0) = false) {
-    npc_add(0_8_8_4_40, duck, ^homestead_stamp_ticks);
+if (npc_find(0_8_8_4_32, duck, 8, 0) = false) {
+    npc_add(0_8_8_4_32, duck, ^homestead_stamp_ticks);
+}
+if (npc_find(0_8_8_1_38, duck, 8, 0) = false) {
+    npc_add(0_8_8_1_38, duck, ^homestead_stamp_ticks);
+}
+if (npc_find(0_8_8_3_44, duck, 8, 0) = false) {
+    npc_add(0_8_8_3_44, duck, ^homestead_stamp_ticks);
+}
+if (npc_find(0_8_8_2_50, duck, 8, 0) = false) {
+    npc_add(0_8_8_2_50, duck, ^homestead_stamp_ticks);
 }
