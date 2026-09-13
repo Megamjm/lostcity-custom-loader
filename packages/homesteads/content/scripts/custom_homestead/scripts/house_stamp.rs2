@@ -64,10 +64,9 @@ loc_add(movecoord($origin, 0, 0, 1), brickwall, 2, wall_straight, ^homestead_sta
 loc_add(movecoord($origin, 0, 0, 2), brickwall, 2, wall_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 0, 0, 2), woodenwindow, 2, wall_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 0, 0, 3), brickwall, 2, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 0, 0, 4), brickwall, 2, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 0, 0, 4), woodenwindow, 2, wall_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 0, 0, 5), brickwall, 2, wall_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 0, 0, 6), brickwall, 2, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 0, 0, 4), loc_1530, 2, wall_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 5, 0, 1), brickwall, 0, wall_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 5, 0, 2), brickwall, 0, wall_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 5, 0, 3), brickwall, 0, wall_straight, ^homestead_stamp_ticks);

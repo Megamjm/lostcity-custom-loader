@@ -82,33 +82,33 @@ if ($east = true) {
         $z = add($z, 1);
     }
     $x = 1;
-    while ($x <= 11) {
+    while ($x <= 12) {
         loc_add(movecoord($origin, $x, 0, 6), fencing, 1, wall_straight, ^homestead_stamp_ticks);
         loc_add(movecoord($origin, $x, 0, 13), fencing, 3, wall_straight, ^homestead_stamp_ticks);
         $x = add($x, 1);
     }
     loc_add(movecoord($origin, 6, 0, 9), well, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 3, 0, 8), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 4, 0, 12), tree, 1, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 8, 0, 8), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 9, 0, 11), tree, 2, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 5, 0, 9), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 7, 0, 11), tree, 1, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 4, 0, 10), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 8, 0, 8), tree, 2, centrepiece_straight, ^homestead_stamp_ticks);
 } else {
     $z = 6;
     while ($z <= 13) {
         loc_add(movecoord($origin, 18, 0, $z), fencing, 0, wall_straight, ^homestead_stamp_ticks);
         $z = add($z, 1);
     }
-    $x = 8;
+    $x = 7;
     while ($x <= 18) {
         loc_add(movecoord($origin, $x, 0, 6), fencing, 1, wall_straight, ^homestead_stamp_ticks);
         loc_add(movecoord($origin, $x, 0, 13), fencing, 3, wall_straight, ^homestead_stamp_ticks);
         $x = add($x, 1);
     }
     loc_add(movecoord($origin, 13, 0, 9), well, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 16, 0, 8), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 15, 0, 12), tree, 1, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 11, 0, 8), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 10, 0, 11), tree, 2, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 15, 0, 9), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 12, 0, 11), tree, 1, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 16, 0, 10), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 11, 0, 8), tree, 2, centrepiece_straight, ^homestead_stamp_ticks);
 }
 [proc,homestead_stamp_door](coord $origin, int $type)
 if ($type < 4) {
