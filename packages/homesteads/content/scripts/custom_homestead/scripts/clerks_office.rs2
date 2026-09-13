@@ -1,0 +1,260 @@
+// Village clerks' office: buy, second plot, sell-back with chest-to-bank.
+
+[proc,homestead_stamp_frontage](coord $origin)
+loc_add(movecoord($origin, 2, 0, 0), loc_1530, 1, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 0, 0, 14), fencing, 0, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 4, 0, 14), fencing, 0, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 8, 0, 14), fencing, 0, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 12, 0, 14), fencing, 0, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 14, 0, 0), fencing, 1, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 14, 0, 4), fencing, 1, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 14, 0, 8), fencing, 1, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 14, 0, 12), fencing, 1, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 1, 0, 13), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 3, 0, 13), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+
+[proc,homestead_stamp_office]
+def_coord $o = ^homestead_office_origin;
+loc_add($o, timberwall, 1, wall_squarecorner, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 1, 0, 0), brickwall, 1, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 2, 0, 0), loc_1530, 1, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 3, 0, 0), brickwall, 1, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 4, 0, 0), timberwall, 0, wall_squarecorner, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 0, 0, 1), brickwall, 2, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 0, 0, 2), brickwall, 2, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 0, 0, 3), brickwall, 2, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 0, 0, 4), timberwall, 2, wall_squarecorner, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 4, 0, 1), brickwall, 0, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 4, 0, 2), brickwall, 0, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 4, 0, 3), brickwall, 0, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 4, 0, 4), timberwall, 3, wall_squarecorner, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 1, 0, 4), brickwall, 3, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 2, 0, 4), brickwall, 3, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 3, 0, 4), brickwall, 3, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 1, 0, 2), bigtable, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 3, 0, 2), bookcase2, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 2, 0, 5), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 0, 0, 5), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 4, 0, 5), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+~homestead_seed_named(^homestead_clerk_mabel, clerk_mabel);
+~homestead_seed_named(^homestead_clerk_oswald, clerk_oswald);
+~homestead_seed_named(^homestead_clerk_pip, clerk_pip);
+
+[opnpc1,clerk_mabel]
+@homestead_office_sales;
+
+[opnpc1,clerk_pip]
+@homestead_office_sales;
+
+[opnpc1,clerk_oswald]
+@homestead_office_ledger;
+
+[label,homestead_office_sales]
+~chatnpc("<p,happy>My my, this is a nice home isn't it. Wouldn't you like to own one similar to this? A plot on the island, where other adventurers like you live.");
+if (%homestead_house = 0) {
+    def_int $first = ~p_choice3("I'd like to buy a house.", 1, "What happens if I sell later?", 2, "Not today.", 3);
+    if ($first = 1) {
+        ~chatplayer("<p,quiz>I'd like to buy a house.");
+        @estate_agent_size_menu;
+    } else if ($first = 2) {
+        ~chatplayer("<p,quiz>What happens if I sell later?");
+        ~chatnpc("<p,neutral>Oswald across the desk handles the ugly part. Chest things go to your bank. If the bank is stuffed, we stop the sale so nothing vanishes.");
+        ~chatnpc("<p,sad>And you only get half the coin back. Deeds wrinkle once they leave this office.");
+    } else {
+        ~chatplayer("<p,neutral>Not today.");
+        ~chatnpc("<p,happy>The torches stay lit. Come back when the road looks inviting.");
+    }
+    return;
+}
+~chatnpc("<p,quiz>You already keep a <~homestead_house_name(%homestead_house)> on plot <tostring(%homestead_plot)>.");
+if (%homestead_plot2 > 0) {
+    ~chatnpc("<p,neutral>And a second <~homestead_house_name(%homestead_house2)> on plot <tostring(%homestead_plot2)>. Two deeds is the office limit.");
+    def_int $full = ~p_choice3("Take me home.", 1, "I want a different house on my first plot.", 2, "Goodbye.", 3);
+    if ($full = 1) {
+        ~homestead_teleport_home;
+    } else if ($full = 2) {
+        ~chatnpc("<p,shock>Replacing a house tears the old copy down. Chest things stay put unless you sell with Oswald first.");
+        @estate_agent_size_menu;
+    }
+    return;
+}
+def_int $owned = ~p_choice5("Buy another plot.", 1, "Replace my current house.", 2, "Take me home.", 3, "What about the chest?", 4, "Goodbye.", 5);
+if ($owned = 1) {
+    ~chatplayer("<p,quiz>I'd like another plot.");
+    ~chatnpc("<p,happy>A second lantern on the street. Same prices. The household chest is shared between your lots.");
+    @homestead_office_second;
+} else if ($owned = 2) {
+    ~chatplayer("<p,quiz>I want a different house on this plot.");
+    ~chatnpc("<p,neutral>You pay the full price. The old walls come down. Chest stays.");
+    @estate_agent_size_menu;
+} else if ($owned = 3) {
+    ~homestead_teleport_home;
+} else if ($owned = 4) {
+    ~chatnpc("<p,neutral>One chest, both houses. Sell a lot with Oswald and we try to bank whatever is inside before the deed is torn.");
+}
+
+[label,homestead_office_second]
+def_int $size = ~p_choice5("Small cottages.", 1, "Medium townhouses.", 2, "Large halls.", 3, "Workshops.", 4, "Never mind.", 5);
+if ($size = 1) {
+    def_int $s = ~p_choice3("Lumbridge cottage - 10k.", 1, "Draynor willow house - 18k.", 2, "Rimmington workshop - 35k.", 3);
+    if ($s = 1) ~homestead_buy_second(1);
+    else if ($s = 2) ~homestead_buy_second(2);
+    else ~homestead_buy_second(3);
+} else if ($size = 2) {
+    def_int $m = ~p_choice5("Falador stone - 50k.", 1, "Varrock townhouse - 65k.", 2, "Taverley lodge - 55k.", 3, "Catherby beach - 70k.", 4, "Back.", 5);
+    if ($m = 1) ~homestead_buy_second(4);
+    else if ($m = 2) ~homestead_buy_second(5);
+    else if ($m = 3) ~homestead_buy_second(6);
+    else if ($m = 4) ~homestead_buy_second(7);
+    else @homestead_office_second;
+} else if ($size = 3) {
+    def_int $l = ~p_choice3("Seers' hall - 120k.", 1, "Ardougne terrace - 140k.", 2, "Island manor - 200k.", 3);
+    if ($l = 1) ~homestead_buy_second(8);
+    else if ($l = 2) ~homestead_buy_second(9);
+    else ~homestead_buy_second(10);
+} else if ($size = 4) {
+    def_int $w = ~p_choice2("Crafter's yard - 90k.", 1, "Miner's hole - 45k.", 2);
+    if ($w = 1) ~homestead_buy_second(11);
+    else ~homestead_buy_second(12);
+}
+
+[label,homestead_office_ledger]
+~chatnpc("<p,neutral>Quill and ledger. I buy deeds back. Poorly.");
+if (%homestead_house = 0) {
+    ~chatnpc("<p,sad>You do not own a plot. Mabel sells the pretty ones.");
+    return;
+}
+def_int $c = ~p_choice3("I want to sell a house.", 1, "Explain the rules.", 2, "Never mind.", 3);
+if ($c = 2) {
+    ~chatnpc("<p,neutral>Selling a plot moves the household chest into your bank.");
+    ~chatnpc("<p,shock>If the bank cannot take every item, the sale stops. I will not lose a farmer's boots in a crack in the floor.");
+    ~chatnpc("<p,neutral>You get half the list price back. The house comes down. The street torch stays for the next buyer.");
+    return;
+}
+if ($c ! 1) {
+    return;
+}
+if (%homestead_plot2 = 0) {
+    ~homestead_confirm_sell(1);
+    return;
+}
+def_int $which = ~p_choice3("Sell plot <tostring(%homestead_plot)> (<~homestead_house_name(%homestead_house)>).", 1, "Sell plot <tostring(%homestead_plot2)> (<~homestead_house_name(%homestead_house2)>).", 2, "Keep both.", 3);
+if ($which = 1) {
+    ~homestead_confirm_sell(1);
+} else if ($which = 2) {
+    ~homestead_confirm_sell(2);
+}
+
+[proc,homestead_confirm_sell](int $slot)
+def_int $type = %homestead_house;
+def_int $plot = %homestead_plot;
+if ($slot = 2) {
+    $type = %homestead_house2;
+    $plot = %homestead_plot2;
+}
+def_int $refund = divide(~homestead_price($type), 2);
+~chatnpc("<p,shock>Plot <tostring($plot)>. A <~homestead_house_name($type)>. I can offer <tostring($refund)> coins.");
+~chatnpc("<p,quiz>The chest will be packed into your bank first. If the bank is full, we stop and you keep the house.");
+def_int $yes = ~p_choice2("Tear it down and pay me.", 1, "I've changed my mind.", 2);
+if ($yes ! 1) {
+    ~chatnpc("<p,neutral>Sensible. Walls are harder to put back than they are to pull down.");
+    return;
+}
+if (~homestead_chest_has_items = true) {
+    if (~homestead_chest_fits_bank = false) {
+        ~chatnpc("<p,sad>Your bank cannot take what is in the chest. Empty a few slots, then come back. I will not lose your things.");
+        return;
+    }
+    if (~homestead_chest_to_bank = false) {
+        ~chatnpc("<p,sad>The bank refused part of the chest. Sale cancelled.");
+        return;
+    }
+    ~chatnpc("<p,neutral>Chest is emptied into the bank.");
+}
+inv_add(inv, coins, $refund);
+if ($slot = 2) {
+    %homestead_house2 = 0;
+    %homestead_plot2 = 0;
+} else if (%homestead_plot2 > 0) {
+    %homestead_house = %homestead_house2;
+    %homestead_plot = %homestead_plot2;
+    %homestead_house2 = 0;
+    %homestead_plot2 = 0;
+} else {
+    %homestead_house = 0;
+    %homestead_plot = 0;
+    ~homestead_inv_del_all(land_deed);
+}
+~chatnpc("<p,happy>Sold. <tostring($refund)> coins, and the street is a little quieter.");
+
+[proc,homestead_buy_second](int $type)
+if (%homestead_house = 0) {
+    ~homestead_buy($type);
+    return;
+}
+if (%homestead_plot2 > 0) {
+    ~chatnpc("<p,sad>Two plots is the office limit.");
+    return;
+}
+if (~homestead_can_buy($type) = false) {
+    return;
+}
+def_int $plot = ~homestead_find_vacant_plot;
+if ($plot = 0) {
+    ~chatnpc("<p,sad>Every peg on the island is taken.");
+    return;
+}
+def_int $price = ~homestead_price($type);
+if (~homestead_take_gold($price) = false) {
+    ~chatnpc("<p,neutral>Come back when the purse is heavier.");
+    return;
+}
+%homestead_plot2 = $plot;
+%homestead_house2 = $type;
+%homestead_approached = 1;
+~homestead_give_deed($type);
+~homestead_stamp_player_house;
+settimer(homestead_keep_timer, 100);
+~chatnpc("<p,happy>A second copy. The <~homestead_house_name($type)> stands on plot <tostring($plot)>.");
+~chatnpc("<p,quiz>Same deed in your pack will take you to the first house. Speak to us if you need the other lot.");
+
+[proc,homestead_chest_has_items]()(boolean)
+if (inv_freespace(homestead_chest_inv) < inv_size(homestead_chest_inv)) {
+    return(true);
+}
+return(false);
+
+[proc,homestead_chest_fits_bank]()(boolean)
+~reorganize_inv(homestead_chest_inv);
+def_int $used = sub(inv_size(homestead_chest_inv), inv_freespace(homestead_chest_inv));
+def_int $slot = 0;
+while ($slot < $used) {
+    def_obj $obj = inv_getobj(homestead_chest_inv, $slot);
+    def_int $n = inv_total(homestead_chest_inv, $obj);
+    if ($n > 0) {
+        if (inv_itemspace(bank, oc_uncert($obj), $n, inv_size(bank)) = false) {
+            return(false);
+        }
+    }
+    $slot = add($slot, 1);
+}
+return(true);
+
+[proc,homestead_chest_to_bank]()(boolean)
+~reorganize_inv(homestead_chest_inv);
+def_int $guard = 0;
+while (inv_freespace(homestead_chest_inv) < inv_size(homestead_chest_inv)) {
+    def_obj $obj = inv_getobj(homestead_chest_inv, 0);
+    def_int $n = inv_total(homestead_chest_inv, $obj);
+    if ($n < 1) {
+        return(true);
+    }
+    if (~bank_deposit_request(homestead_chest_inv, $obj, $n, 0, 1) = false) {
+        return(false);
+    }
+    $guard = add($guard, 1);
+    if ($guard > 32) {
+        return(false);
+    }
+}
+return(true);

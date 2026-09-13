@@ -9,6 +9,13 @@ scope=perm
 [homestead_approached]
 scope=perm
 
+// Second deed. 0 = none.
+[homestead_house2]
+scope=perm
+
+[homestead_plot2]
+scope=perm
+
 // Bit flags for later upgrades. Unused bits stay 0.
 [homestead_flags]
 scope=perm
