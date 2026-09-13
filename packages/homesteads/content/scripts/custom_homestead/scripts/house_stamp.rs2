@@ -12,7 +12,7 @@ def_coord $origin = ~homestead_plot_coord(%homestead_plot);
 ~homestead_stamp_house($origin, %homestead_house);
 
 [proc,homestead_stamp_house](coord $origin, int $type)
-~homestead_stamp_frontage($origin);
+~homestead_stamp_frontage($origin, $type);
 if ($type = 1) {
     ~stamp_lumbridge_cottage($origin);
 } else if ($type = 2) {
@@ -40,7 +40,7 @@ if ($type = 1) {
 }
 
 [proc,homestead_plot_vacant](coord $origin)(boolean)
-def_coord $sign = movecoord($origin, 16, 0, 1);
+def_coord $sign = ~homestead_sign_coord($origin);
 if (loc_find($sign, homestead_sold_sign) = true) {
     return(false);
 }

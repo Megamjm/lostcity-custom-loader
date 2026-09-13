@@ -1,30 +1,34 @@
-// Village clerks' office: buy, second plot, sell-back with chest-to-bank.
-// Frontage lives in frontage.rs2 — do not redefine homestead_stamp_frontage here.
+// 10 x 8 stone hall on the south plaza. Frontage lives in frontage.rs2.
 
 [proc,homestead_stamp_office]
 def_coord $o = ^homestead_office_origin;
 loc_add($o, timberwall, 1, wall_squarecorner, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 1, 0, 0), brickwall, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 2, 0, 0), loc_1530, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 3, 0, 0), brickwall, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 4, 0, 0), timberwall, 0, wall_squarecorner, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 0, 0, 1), brickwall, 2, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 0, 0, 2), brickwall, 2, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 0, 0, 3), brickwall, 2, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 0, 0, 4), timberwall, 2, wall_squarecorner, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 4, 0, 1), brickwall, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 4, 0, 2), brickwall, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 4, 0, 3), brickwall, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 4, 0, 4), timberwall, 3, wall_squarecorner, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 1, 0, 4), brickwall, 3, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 2, 0, 4), brickwall, 3, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 3, 0, 4), brickwall, 3, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 1, 0, 2), bigtable, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 3, 0, 2), bookcase2, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 2, 0, 5), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 0, 0, 5), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 4, 0, 5), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($o, 3, 0, 3), social_ledger, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 9, 0, 0), timberwall, 0, wall_squarecorner, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 0, 0, 7), timberwall, 2, wall_squarecorner, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 9, 0, 7), timberwall, 3, wall_squarecorner, ^homestead_stamp_ticks);
+def_int $x = 1;
+while ($x <= 8) {
+    if ($x ! 4) {
+        loc_add(movecoord($o, $x, 0, 0), brickwall, 1, wall_straight, ^homestead_stamp_ticks);
+    }
+    loc_add(movecoord($o, $x, 0, 7), brickwall, 3, wall_straight, ^homestead_stamp_ticks);
+    $x = add($x, 1);
+}
+loc_add(movecoord($o, 4, 0, 0), loc_1530, 1, wall_straight, ^homestead_stamp_ticks);
+def_int $z = 1;
+while ($z <= 6) {
+    loc_add(movecoord($o, 0, 0, $z), brickwall, 2, wall_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($o, 9, 0, $z), brickwall, 0, wall_straight, ^homestead_stamp_ticks);
+    $z = add($z, 1);
+}
+loc_add(movecoord($o, 2, 0, 3), bigtable, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 3, 0, 3), bigtable, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 6, 0, 3), bookcase2, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 7, 0, 3), bookcase2, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 8, 0, 3), social_ledger, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 4, 0, 8), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 0, 0, 8), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 9, 0, 8), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
 ~homestead_seed_named(^homestead_clerk_mabel, clerk_mabel);
 ~homestead_seed_named(^homestead_clerk_oswald, clerk_oswald);
 ~homestead_seed_named(^homestead_clerk_pip, clerk_pip);
