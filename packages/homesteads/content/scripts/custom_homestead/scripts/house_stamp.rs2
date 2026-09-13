@@ -12,7 +12,6 @@ def_coord $origin = ~homestead_plot_coord(%homestead_plot);
 ~homestead_stamp_house($origin, %homestead_house);
 
 [proc,homestead_stamp_house](coord $origin, int $type)
-loc_add($origin, homestead_sold_sign, 0, centrepiece_straight, ^homestead_stamp_ticks);
 ~homestead_stamp_frontage($origin);
 if ($type = 1) {
     ~stamp_lumbridge_cottage($origin);
@@ -41,14 +40,11 @@ if ($type = 1) {
 }
 
 [proc,homestead_plot_vacant](coord $origin)(boolean)
-if (map_blocked($origin) = true) {
-    return(false);
-}
-if (loc_find($origin, homestead_sold_sign) = true) {
+def_coord $sign = movecoord($origin, 16, 0, 1);
+if (loc_find($sign, homestead_sold_sign) = true) {
     return(false);
 }
 return(true);
-
 [proc,stamp_lumbridge_cottage](coord $origin)
 loc_add(movecoord($origin, 0, 0, 0), timberwall, 1, wall_squarecorner, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 0, 0, 1), woodenwindow, 2, wall_straight, ^homestead_stamp_ticks);
@@ -87,29 +83,6 @@ loc_add(movecoord($origin, 5, 0, 4), brickwall, 0, wall_straight, ^homestead_sta
 loc_add(movecoord($origin, 5, 0, 5), brickwall, 0, wall_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 5, 0, 6), brickwall, 0, wall_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 5, 0, 7), timberwall, 3, wall_squarecorner, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 6, 0, 4), inviswall_blockrange, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 7, 0, 12), inviswall_blockrange, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 7, 0, 13), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 7, 0, 14), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 7, 0, 15), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 8, 0, 5), inviswall_blockrange, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 8, 0, 6), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 8, 0, 7), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 8, 0, 8), inviswall_blockrange, 3, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 8, 0, 11), inviswall_blockrange, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 8, 0, 12), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 9, 0, 1), inviswall_blockrange, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 9, 0, 2), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 9, 0, 3), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 9, 0, 4), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 9, 0, 5), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 9, 0, 8), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 9, 0, 9), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 9, 0, 10), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 9, 0, 11), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 10, 0, 0), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 10, 0, 1), inviswall_blockrange, 0, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 11, 0, 5), inviswall_blockrange, 2, wall_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 1, 0, 1), homestead_chest, 1, centrepiece_straight, ^homestead_stamp_ticks);
 [proc,stamp_draynor_willow](coord $origin)
 loc_add(movecoord($origin, 0, 0, 4), oldwall, 1, wall_straight, ^homestead_stamp_ticks);
