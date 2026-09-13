@@ -1,0 +1,7 @@
+// Player-owned cottage chest. Separate from the main bank.
+// Medium/large homes also open the real bank via @openbank.
+
+[homestead_chest_inv]
+scope=perm
+size=16
+stackall=yes

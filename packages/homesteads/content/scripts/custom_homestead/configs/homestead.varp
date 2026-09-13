@@ -1,0 +1,14 @@
+// Permanent player state. These write into the .sav and survive restarts.
+
+[homestead_house]
+scope=perm
+
+[homestead_plot]
+scope=perm
+
+[homestead_approached]
+scope=perm
+
+// Bit flags for later upgrades. Unused bits stay 0.
+[homestead_flags]
+scope=perm

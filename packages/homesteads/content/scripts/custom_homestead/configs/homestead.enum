@@ -1,0 +1,67 @@
+[homestead_house_name]
+inputtype=int
+outputtype=string
+val=0,Vacant lot
+val=1,Lumbridge cottage
+val=2,Draynor willow house
+val=3,Rimmington workshop
+val=4,Falador stone house
+val=5,Varrock townhouse
+val=6,Taverley lodge
+val=7,Catherby beach house
+val=8,Seers' hall
+val=9,Ardougne terrace
+val=10,Island manor
+val=11,Crafter's yard
+val=12,Miner's hole
+
+[homestead_house_price]
+inputtype=int
+outputtype=int
+val=0,0
+val=1,10000
+val=2,18000
+val=3,35000
+val=4,50000
+val=5,65000
+val=6,55000
+val=7,70000
+val=8,120000
+val=9,140000
+val=10,200000
+val=11,90000
+val=12,45000
+
+[homestead_house_size]
+inputtype=int
+outputtype=string
+val=0,none
+val=1,small
+val=2,small
+val=3,small
+val=4,medium
+val=5,medium
+val=6,medium
+val=7,medium
+val=8,large
+val=9,large
+val=10,large
+val=11,workshop
+val=12,workshop
+
+[homestead_house_region]
+inputtype=int
+outputtype=string
+val=0,Nowhere
+val=1,Lumbridge
+val=2,Draynor Village
+val=3,Rimmington
+val=4,Falador
+val=5,Varrock
+val=6,Taverley
+val=7,Catherby
+val=8,Seers' Village
+val=9,East Ardougne
+val=10,the island
+val=11,the island workshops
+val=12,the island mines

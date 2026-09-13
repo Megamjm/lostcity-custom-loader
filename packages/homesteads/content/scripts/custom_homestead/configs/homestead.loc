@@ -1,0 +1,63 @@
+// Interactive homestead scenery.
+// Models are stock 2004 names that already exist in Content.
+
+[homestead_portal]
+name=Homestead portal
+desc=A shimmering doorway to the homestead grounds.
+model=furniture_bankbooth
+op1=Enter
+blockrange=no
+category=homestead_portal
+
+[homestead_exit_portal]
+name=Return portal
+desc=Takes you back to the homestead village.
+model=furniture_bankbooth
+op1=Leave
+blockrange=no
+category=homestead_portal
+
+[homestead_chest]
+name=Storage chest
+desc=Your household chest.
+model=furniture_chestclosed
+op1=Open
+forceapproach=north
+category=homestead_storage
+
+[homestead_bank_closet]
+name=Bank closet
+desc=A closet lined with deposit boxes.
+model=furniture_bankbooth
+op1=Use
+blockrange=no
+category=homestead_bank
+
+[homestead_mine_hole]
+name=Miner's hole
+desc=A boarded shaft. It smells of wet stone.
+model=outdoorfurniture_manholeclosed
+op1=Climb-down
+category=homestead_mine
+
+[homestead_mine_rope]
+name=Climbing rope
+desc=The way back to your plot.
+model=outdoorfurniture_manholeclosed
+op1=Climb-up
+category=homestead_mine
+
+[homestead_for_sale]
+name=For-sale sign
+desc=This plot is available.
+model=furniture_chestclosed
+op1=Read
+op2=Buy
+category=homestead_sign
+
+[homestead_sold_sign]
+name=House sign
+desc=Someone lives here.
+model=furniture_chestclosed
+op1=Read
+category=homestead_sign
