@@ -80,14 +80,16 @@ while ($z < $last) {
     $z = add($z, 1);
 }
 
-[proc,homestead_stamp_door](coord $origin)
+[proc,homestead_stamp_door](coord $origin, int $type)
+if ($type < 4) {
+    return;
+}
 def_coord $home = ~homestead_house_origin($origin);
 if (~homestead_faces_east(~homestead_plot_from_coord($origin)) = true) {
     loc_add(movecoord($home, 5, 0, 4), loc_1530, 2, wall_straight, ^homestead_stamp_ticks);
 } else {
     loc_add(movecoord($home, 0, 0, 4), loc_1530, 0, wall_straight, ^homestead_stamp_ticks);
 }
-
 [proc,homestead_stamp_gate](coord $origin)
 if (~homestead_faces_east(~homestead_plot_from_coord($origin)) = true) {
     loc_add(movecoord($origin, 20, 0, 9), homestead_sold_sign, 0, centrepiece_straight, ^homestead_stamp_ticks);
@@ -102,7 +104,7 @@ if (~homestead_uses_yard_wall($type) = true) {
     ~homestead_stamp_yard($origin);
 }
 ~homestead_stamp_gate($origin);
-~homestead_stamp_door($origin);
+~homestead_stamp_door($origin, $type);
 
 [proc,homestead_stamp_vacant_frontage](coord $origin)
 ~homestead_stamp_gate($origin);
