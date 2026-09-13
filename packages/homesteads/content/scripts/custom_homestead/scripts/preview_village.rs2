@@ -1,17 +1,67 @@
+// Preview green behind the office. Called from login so it actually lands.
+
+[proc,homestead_stamp_lid](coord $origin)
+loc_add(movecoord($origin, 1, 1, 1), timberwall, 1, wall_squarecorner, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 4, 1, 1), timberwall, 0, wall_squarecorner, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 1, 1, 6), timberwall, 2, wall_squarecorner, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 4, 1, 6), timberwall, 3, wall_squarecorner, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 2, 1, 1), brickwall, 1, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 3, 1, 1), brickwall, 1, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 2, 1, 6), brickwall, 3, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 3, 1, 6), brickwall, 3, wall_straight, ^homestead_stamp_ticks);
+
+[proc,homestead_preview_coord](int $i)(coord)
+def_int $col = sub($i, multiply(divide($i, 2), 2));
+def_int $row = divide($i, 2);
+def_int $dx = multiply($col, 12);
+def_int $dz = multiply($row, 12);
+return(movecoord(^homestead_preview_origin, $dx, 0, $dz));
+
+[proc,homestead_preview_type](int $i)(int)
+if ($i = 0) return(1);
+if ($i = 1) return(4);
+if ($i = 2) return(10);
+return(11);
+
 [proc,homestead_build_preview]
 if (npc_find(^homestead_agent_stand, homestead_caretaker, 8, 0) = false) {
     npc_add(^homestead_agent_stand, homestead_caretaker, ^homestead_npc_ticks);
 }
 loc_add(^homestead_preview_spawn, homestead_portal, 0, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(^homestead_island_exit, homestead_exit_portal, 0, centrepiece_straight, ^homestead_stamp_ticks);
-~homestead_stamp_house(movecoord(^homestead_preview_spawn, 16, 0, 0), 1);
-loc_add(movecoord(^homestead_preview_spawn, 16, 0, 0), homestead_for_sale, 0, centrepiece_straight, ^homestead_stamp_ticks);
-~homestead_stamp_house(movecoord(^homestead_preview_spawn, 32, 0, 0), 4);
-loc_add(movecoord(^homestead_preview_spawn, 32, 0, 0), homestead_for_sale, 0, centrepiece_straight, ^homestead_stamp_ticks);
-~homestead_stamp_house(movecoord(^homestead_preview_spawn, 48, 0, 0), 10);
-loc_add(movecoord(^homestead_preview_spawn, 48, 0, 0), homestead_for_sale, 0, centrepiece_straight, ^homestead_stamp_ticks);
-~homestead_stamp_house(movecoord(^homestead_preview_spawn, 16, 0, 8), 11);
-~homestead_stamp_house(movecoord(^homestead_preview_spawn, 32, 0, 8), 12);
+loc_add(movecoord(^homestead_preview_origin, 8, 0, 8), well, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord(^homestead_preview_origin, 7, 0, 8), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord(^homestead_preview_origin, 9, 0, 8), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord(^homestead_preview_origin, 8, 0, 7), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord(^homestead_preview_origin, 8, 0, 9), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord(^homestead_preview_origin, 0, 0, 10), fencing, 1, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord(^homestead_preview_origin, 4, 0, 10), fencing, 1, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord(^homestead_preview_origin, 10, 0, 0), fencing, 0, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord(^homestead_preview_origin, 10, 0, 4), fencing, 0, wall_straight, ^homestead_stamp_ticks);
+def_int $w = 0;
+while ($w < 8) {
+    loc_add(movecoord(^homestead_preview_origin, $w, 0, 24), oldcastlewall, 1, wall_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord(^homestead_preview_origin, add($w, 8), 0, 24), oldcastlewall, 1, wall_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord(^homestead_preview_origin, $w, 0, 26), well, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    $w = add($w, 2);
+}
+def_int $i = 0;
+while ($i < 4) {
+    def_coord $at = ~homestead_preview_coord($i);
+    ~homestead_stamp_house($at, ~homestead_preview_type($i));
+    ~homestead_stamp_lid($at);
+    loc_add($at, homestead_for_sale, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($at, 2, 0, 0), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    $i = add($i, 1);
+}
+if (npc_find(movecoord(^homestead_preview_origin, 8, 0, 6), chicken, 6, 0) = false) {
+    npc_add(movecoord(^homestead_preview_origin, 8, 0, 6), chicken, ^homestead_npc_ticks);
+    npc_add(movecoord(^homestead_preview_origin, 9, 0, 10), chicken, ^homestead_npc_ticks);
+}
+
+[proc,homestead_walk_preview]
+p_teleport(movecoord(^homestead_preview_origin, 8, 0, 6));
+mes("The yard behind the office. Four empty copies.");
 
 [debugproc,homestead_setup]
 if (p_finduid(uid) = false) {
@@ -37,6 +87,7 @@ if (~homestead_assign_plot = 0) {
 }
 ~homestead_give_deed(1);
 ~homestead_stamp_player_house;
+~homestead_stamp_lid(~homestead_plot_coord(%homestead_plot));
 mes("Debug: Lumbridge cottage granted on plot <tostring(%homestead_plot)>.");
 
 [debugproc,homestead_go]
