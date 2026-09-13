@@ -47,15 +47,15 @@ op1=Climb-up
 category=homestead_mine
 
 [homestead_for_sale]
-name=For-sale sign
-desc=This plot is available.
+name=Plot sign
+desc=This lot is on the island grid.
 model=furniture_chestclosed
 op1=Read
 op2=Buy
 category=homestead_sign
 
 [homestead_sold_sign]
-name=House sign
+name=Plot sign
 desc=Someone lives here.
 model=furniture_chestclosed
 op1=Read
@@ -83,4 +83,26 @@ desc=Back down to the hall.
 model=outdoorfurniture_manholeclosed
 op1=Climb-down
 blockrange=no
+category=homestead_mine
+
+[homestead_stairs]
+name=Staircase
+desc=Up to the next floor of this copy.
+model=furniture_stairs
+width=2
+length=3
+op1=Climb-up
+forceapproach=south
+sharelight=yes
+category=homestead_mine
+
+[homestead_stairstop]
+name=Staircase
+desc=Back down to the hall.
+model=furniture_stairstop
+width=2
+length=2
+op1=Climb-down
+forceapproach=north
+sharelight=yes
 category=homestead_mine
