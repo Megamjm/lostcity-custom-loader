@@ -10,7 +10,7 @@ settimer(homestead_watch, 2);
 if (%homestead_house ! 0) {
     ~homestead_stamp_player_house;
     if (%homestead_house < 4) {
-        ~homestead_stamp_lid(~homestead_plot_coord(%homestead_plot));
+        ~homestead_stamp_lid(~homestead_house_origin(~homestead_plot_coord(%homestead_plot)));
     }
     settimer(homestead_keep_timer, 100);
 }
@@ -41,14 +41,14 @@ if (~homestead_in_island = true) {
     ~homestead_stamp_player_house;
     if (%homestead_house < 4) {
         if (%homestead_plot > 0) {
-            ~homestead_stamp_lid(~homestead_plot_coord(%homestead_plot));
+            ~homestead_stamp_lid(~homestead_house_origin(~homestead_plot_coord(%homestead_plot)));
         }
     }
     if (%homestead_plot2 > 0) {
         if (%homestead_house2 ! 0) {
             ~homestead_stamp_house(~homestead_plot_coord(%homestead_plot2), %homestead_house2);
             if (%homestead_house2 < 4) {
-                ~homestead_stamp_lid(~homestead_plot_coord(%homestead_plot2));
+                ~homestead_stamp_lid(~homestead_house_origin(~homestead_plot_coord(%homestead_plot2)));
             }
         }
     }
@@ -86,14 +86,14 @@ return(false);
 [proc,homestead_on_own_plot]()(boolean)
 if (%homestead_plot > 0) {
     def_coord $origin = ~homestead_plot_coord(%homestead_plot);
-    def_coord $max = movecoord($origin, 7, 0, 7);
+    def_coord $max = movecoord($origin, 19, 0, 19);
     if (inzone($origin, $max, coord) = true) {
         return(true);
     }
 }
 if (%homestead_plot2 > 0) {
     def_coord $origin2 = ~homestead_plot_coord(%homestead_plot2);
-    def_coord $max2 = movecoord($origin2, 7, 0, 7);
+    def_coord $max2 = movecoord($origin2, 19, 0, 19);
     if (inzone($origin2, $max2, coord) = true) {
         return(true);
     }
@@ -235,7 +235,7 @@ if (~homestead_take_gold($price) = false) {
 ~homestead_give_deed($type);
 ~homestead_stamp_player_house;
 if ($type < 4) {
-    ~homestead_stamp_lid(~homestead_plot_coord(%homestead_plot));
+    ~homestead_stamp_lid(~homestead_house_origin(~homestead_plot_coord(%homestead_plot)));
 }
 settimer(homestead_keep_timer, 100);
 mes("Sold. Plot <tostring(%homestead_plot)>. The deed is in your pack.");

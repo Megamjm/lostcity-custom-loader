@@ -67,7 +67,7 @@ if (~homestead_assign_plot = 0) {
 }
 ~homestead_give_deed(1);
 ~homestead_stamp_player_house;
-~homestead_stamp_lid(~homestead_plot_coord(%homestead_plot));
+~homestead_stamp_lid(~homestead_house_origin(~homestead_plot_coord(%homestead_plot)));
 mes("Debug: Lumbridge cottage granted on plot <tostring(%homestead_plot)>.");
 
 [debugproc,homestead_go]

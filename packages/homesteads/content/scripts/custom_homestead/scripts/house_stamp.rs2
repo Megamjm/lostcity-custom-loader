@@ -13,32 +13,19 @@ def_coord $origin = ~homestead_plot_coord(%homestead_plot);
 
 [proc,homestead_stamp_house](coord $origin, int $type)
 ~homestead_stamp_frontage($origin, $type);
-if ($type = 1) {
-    ~stamp_lumbridge_cottage($origin);
-} else if ($type = 2) {
-    ~stamp_draynor_willow($origin);
-} else if ($type = 3) {
-    ~stamp_rimmington_workshop($origin);
-} else if ($type = 4) {
-    ~stamp_falador_stone($origin);
-} else if ($type = 5) {
-    ~stamp_varrock_townhouse($origin);
-} else if ($type = 6) {
-    ~stamp_taverley_lodge($origin);
-} else if ($type = 7) {
-    ~stamp_catherby_beach($origin);
-} else if ($type = 8) {
-    ~stamp_seers_hall($origin);
-} else if ($type = 9) {
-    ~stamp_ardougne_terrace($origin);
-} else if ($type = 10) {
-    ~stamp_island_manor($origin);
-} else if ($type = 11) {
-    ~stamp_crafter_yard($origin);
-} else if ($type = 12) {
-    ~stamp_miner_slice($origin);
-}
-
+def_coord $home = ~homestead_house_origin($origin);
+    ~stamp_lumbridge_cottage($home);
+    ~stamp_draynor_willow($home);
+    ~stamp_rimmington_workshop($home);
+    ~stamp_falador_stone($home);
+    ~stamp_varrock_townhouse($home);
+    ~stamp_taverley_lodge($home);
+    ~stamp_catherby_beach($home);
+    ~stamp_seers_hall($home);
+    ~stamp_ardougne_terrace($home);
+    ~stamp_island_manor($home);
+    ~stamp_crafter_yard($home);
+    ~stamp_miner_slice($home);
 [proc,homestead_plot_vacant](coord $origin)(boolean)
 def_coord $sign = ~homestead_sign_coord($origin);
 if (loc_find($sign, homestead_sold_sign) = true) {

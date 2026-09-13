@@ -1,11 +1,5 @@
-// loc_add(coord, loc, rotation, shape, ticks)
-// wall_straight rotation matches the working office stamp:
-//   1 = south edge (runs east-west)
-//   0 = east edge  (runs north-south)
-//   2 = west edge
-//   3 = north edge
-// centrepiece_straight for signs, torches, gates-as-props.
-// Cheap / vacant = fencing. House type 4+ = brickwall.
+// 20x20 rim. House is inset +2,+2 so it sits inside the posts.
+// wall_straight: 1 south, 0 east, 2 west, 3 north.
 
 [proc,homestead_plot_col](int $plot)(int)
 def_int $index = sub($plot, 1);
@@ -30,31 +24,34 @@ if ($type = 12) {
 }
 return(brickwall);
 
+[proc,homestead_house_origin](coord $origin)(coord)
+return(movecoord($origin, ^homestead_house_inset, 0, ^homestead_house_inset));
+
 [proc,homestead_sign_coord](coord $origin)(coord)
 def_int $plot = ~homestead_plot_from_coord($origin);
 if (~homestead_faces_east($plot) = true) {
-    return(movecoord($origin, ^homestead_plot_size, 0, 1));
+    return(movecoord($origin, 20, 0, 9));
 }
-return(movecoord($origin, 0, 0, 1));
+return(movecoord($origin, 0, 0, 9));
 
 [proc,homestead_gate_coord](coord $origin)(coord)
 def_int $plot = ~homestead_plot_from_coord($origin);
 if (~homestead_faces_east($plot) = true) {
-    return(movecoord($origin, 7, 0, 2));
+    return(movecoord($origin, 19, 0, 10));
 }
-return(movecoord($origin, 0, 0, 2));
+return(movecoord($origin, 0, 0, 10));
 
 [proc,homestead_inside_coord](coord $origin)(coord)
 def_int $plot = ~homestead_plot_from_coord($origin);
 if (~homestead_faces_east($plot) = true) {
-    return(movecoord($origin, 5, 0, 2));
+    return(movecoord($origin, 16, 0, 10));
 }
-return(movecoord($origin, 2, 0, 2));
+return(movecoord($origin, 3, 0, 10));
 
 [proc,homestead_stamp_rim](coord $origin, loc $wall)
 def_int $plot = ~homestead_plot_from_coord($origin);
 def_boolean $east = ~homestead_faces_east($plot);
-def_int $last = 7;
+def_int $last = 19;
 def_int $x = 0;
 while ($x <= $last) {
     loc_add(movecoord($origin, $x, 0, 0), $wall, 1, wall_straight, ^homestead_stamp_ticks);
@@ -63,7 +60,7 @@ while ($x <= $last) {
 }
 def_int $z = 1;
 while ($z < $last) {
-    if ($z ! 2) {
+    if ($z ! 10) {
         loc_add(movecoord($origin, 0, 0, $z), $wall, 2, wall_straight, ^homestead_stamp_ticks);
         loc_add(movecoord($origin, $last, 0, $z), $wall, 0, wall_straight, ^homestead_stamp_ticks);
     } else if ($east = true) {
@@ -79,13 +76,13 @@ def_loc $wall = ~homestead_rim_loc($type);
 ~homestead_stamp_rim($origin, $wall);
 def_int $plot = ~homestead_plot_from_coord($origin);
 if (~homestead_faces_east($plot) = true) {
-    loc_add(movecoord($origin, 7, 0, 2), homestead_gate, 0, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 8, 0, 1), homestead_sold_sign, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 8, 0, 3), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 19, 0, 10), homestead_gate, 0, wall_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 20, 0, 9), homestead_sold_sign, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 20, 0, 11), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
 } else {
-    loc_add(movecoord($origin, 0, 0, 2), homestead_gate, 2, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 0, 0, 1), homestead_sold_sign, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 0, 0, 3), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 0, 0, 10), homestead_gate, 2, wall_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 0, 0, 9), homestead_sold_sign, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 0, 0, 11), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
 }
 
 [proc,homestead_stamp_vacant_frontage](coord $origin)

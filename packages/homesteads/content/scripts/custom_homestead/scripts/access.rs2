@@ -5,7 +5,7 @@ if ($plot < 1) {
     return(false);
 }
 def_coord $origin = ~homestead_plot_coord($plot);
-def_coord $max = movecoord($origin, 7, 0, 7);
+def_coord $max = movecoord($origin, 19, 0, 19);
 if (inzone($origin, $max, coord) = true) {
     return(true);
 }
