@@ -49,7 +49,7 @@ category=homestead_mine
 [homestead_for_sale]
 name=Plot sign
 desc=This lot is on the island grid.
-model=signpost
+model=furniture_chestclosed
 width=1
 length=1
 op1=Read
@@ -60,7 +60,7 @@ category=homestead_sign
 [homestead_sold_sign]
 name=Plot sign
 desc=Someone lives here.
-model=signpost
+model=furniture_chestclosed
 width=1
 length=1
 op1=Read
