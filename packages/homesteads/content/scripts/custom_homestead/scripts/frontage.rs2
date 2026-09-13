@@ -1,6 +1,6 @@
-// Lumbridge / Draynor / Rimmington / miner: cottage only.
-// Sign and torch sit on the cobble. No extra doors, no booth, no paddock.
-// Falador+: brick yard with a 2-tile walk gap on the street face.
+// House sits on the cobble walkway (plot z=10).
+// East plots: door on the east wall. West plots: door on the west wall.
+// Cosmetic steps are plane 0 slates. They do not change level.
 
 [proc,homestead_plot_col](int $plot)(int)
 def_int $index = sub($plot, 1);
@@ -26,7 +26,10 @@ if ($type = 12) {
 return(true);
 
 [proc,homestead_house_origin](coord $origin)(coord)
-return(movecoord($origin, ^homestead_house_inset, 0, ^homestead_house_inset));
+if (~homestead_faces_east(~homestead_plot_from_coord($origin)) = true) {
+    return(movecoord($origin, 12, 0, 6));
+}
+return(movecoord($origin, 2, 0, 6));
 
 [proc,homestead_sign_coord](coord $origin)(coord)
 if (~homestead_faces_east(~homestead_plot_from_coord($origin)) = true) {
@@ -47,7 +50,11 @@ if (~homestead_faces_east(~homestead_plot_from_coord($origin)) = true) {
 return(movecoord($origin, -2, 0, 10));
 
 [proc,homestead_inside_coord](coord $origin)(coord)
-return(~homestead_house_origin($origin));
+def_coord $home = ~homestead_house_origin($origin);
+if (~homestead_faces_east(~homestead_plot_from_coord($origin)) = true) {
+    return(movecoord($home, 3, 0, 4));
+}
+return(movecoord($home, 2, 0, 4));
 
 [proc,homestead_stamp_yard](coord $origin)
 def_boolean $east = ~homestead_faces_east(~homestead_plot_from_coord($origin));
@@ -73,9 +80,19 @@ while ($z < $last) {
     $z = add($z, 1);
 }
 
+[proc,homestead_stamp_door](coord $home, int $type)
+if (~homestead_faces_east(~homestead_plot_from_coord($home)) = true) {
+    loc_add(movecoord($home, 5, 0, 4), loc_1530, 0, wall_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($home, 6, 0, 4), homestead_stairs, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($home, 6, 0, 5), homestead_stairs, 0, centrepiece_straight, ^homestead_stamp_ticks);
+} else {
+    loc_add(movecoord($home, 0, 0, 4), loc_1530, 2, wall_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($home, -1, 0, 4), homestead_stairs, 2, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($home, -1, 0, 5), homestead_stairs, 2, centrepiece_straight, ^homestead_stamp_ticks);
+}
+
 [proc,homestead_stamp_gate](coord $origin)
-def_boolean $east = ~homestead_faces_east(~homestead_plot_from_coord($origin));
-if ($east = true) {
+if (~homestead_faces_east(~homestead_plot_from_coord($origin)) = true) {
     loc_add(movecoord($origin, 20, 0, 9), homestead_sold_sign, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 20, 0, 11), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
 } else {
@@ -88,6 +105,7 @@ if (~homestead_uses_yard_wall($type) = true) {
     ~homestead_stamp_yard($origin);
 }
 ~homestead_stamp_gate($origin);
+~homestead_stamp_door(~homestead_house_origin($origin), $type);
 
 [proc,homestead_stamp_vacant_frontage](coord $origin)
 ~homestead_stamp_gate($origin);
