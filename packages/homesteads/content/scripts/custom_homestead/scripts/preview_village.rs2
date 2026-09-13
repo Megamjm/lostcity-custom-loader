@@ -1,4 +1,4 @@
-// Compact showhomes west of plot 1 so they do not overlap 0_8_8_16_16.
+// Compact showhomes in the west strip (x 2-11), not on the map edge at x=0.
 
 [proc,homestead_stamp_lid](coord $origin)
 loc_add(movecoord($origin, 1, 1, 1), timberwall, 1, wall_squarecorner, ^homestead_stamp_ticks);
@@ -13,9 +13,9 @@ loc_add(movecoord($origin, 3, 1, 6), brickwall, 3, wall_straight, ^homestead_sta
 [proc,homestead_preview_coord](int $i)(coord)
 def_int $col = sub($i, multiply(divide($i, 2), 2));
 def_int $row = divide($i, 2);
-def_int $dx = multiply($col, 7);
-def_int $dz = multiply($row, 12);
-return(movecoord(^homestead_preview_origin, $dx, 0, add($dz, 2)));
+def_int $dx = add(2, multiply($col, 7));
+def_int $dz = add(4, multiply($row, 12));
+return(movecoord(^homestead_preview_origin, $dx, 0, $dz));
 
 [proc,homestead_preview_type](int $i)(int)
 if ($i = 0) return(1);
@@ -38,7 +38,6 @@ while ($i < 4) {
     ~stamp_lumbridge_cottage($at);
     ~homestead_stamp_lid($at);
     loc_add(movecoord($at, 2, 0, 0), loc_1530, 1, wall_straight, ^homestead_stamp_ticks);
-    loc_add($at, homestead_for_sale, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($at, 2, 0, -1), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
     $i = add($i, 1);
 }

@@ -66,7 +66,8 @@ if (~homestead_in_mine = true) {
 settimer(homestead_keep_timer, 200);
 
 [proc,homestead_in_preview_village]()(boolean)
-if (inzone(0_8_8_0_0, 0_8_8_15_15, coord) = true) {
+// Office green plus the west strip (x 0-11) so showhomes are public.
+if (inzone(0_8_8_0_0, 0_8_8_11_63, coord) = true) {
     return(true);
 }
 return(false);
