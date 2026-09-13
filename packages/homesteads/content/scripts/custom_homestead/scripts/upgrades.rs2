@@ -1,0 +1,221 @@
+// Lot works. Street curb is cosmetic. Workshops are one skill each.
+
+[proc,homestead_bit_on](int $flags, int $bit)(boolean)
+if ($bit < 1) {
+    return(false);
+}
+def_int $q = divide($flags, $bit);
+def_int $odd = sub($q, multiply(divide($q, 2), 2));
+if ($odd = 1) {
+    return(true);
+}
+return(false);
+
+[proc,homestead_bit_set](int $flags, int $bit)(int)
+if (~homestead_bit_on($flags, $bit) = true) {
+    return($flags);
+}
+return(add($flags, $bit));
+
+[proc,homestead_has_mine_access]()(boolean)
+if (%homestead_house = 12) {
+    return(true);
+}
+if (%homestead_house2 = 12) {
+    return(true);
+}
+if (~homestead_bit_on(%homestead_upgrades, ^homestead_up_mine) = true) {
+    return(true);
+}
+if (~homestead_bit_on(%homestead_upgrades2, ^homestead_up_mine) = true) {
+    return(true);
+}
+return(false);
+
+[proc,homestead_up_name](int $bit)(string)
+if ($bit = ^homestead_up_lanterns) return("street lanterns");
+if ($bit = ^homestead_up_hedge) return("front hedge");
+if ($bit = ^homestead_up_garden) return("doorstep garden");
+if ($bit = ^homestead_up_stall) return("street stall");
+if ($bit = ^homestead_up_gate) return("brick gate");
+if ($bit = ^homestead_up_fountain) return("street fountain");
+if ($bit = ^homestead_up_lake) return("fishing pond");
+if ($bit = ^homestead_up_mine) return("mine shaft");
+if ($bit = ^homestead_up_smith) return("smithy");
+if ($bit = ^homestead_up_cook) return("kitchen");
+if ($bit = ^homestead_up_craft) return("craft shed");
+if ($bit = ^homestead_up_wood) return("woodlot");
+if ($bit = ^homestead_up_story) return("second storey");
+if ($bit = ^homestead_up_coop) return("chicken run");
+return("upgrade");
+
+[proc,homestead_up_price](int $bit)(int)
+if ($bit = ^homestead_up_lanterns) return(^homestead_up_price_lanterns);
+if ($bit = ^homestead_up_hedge) return(^homestead_up_price_hedge);
+if ($bit = ^homestead_up_garden) return(^homestead_up_price_garden);
+if ($bit = ^homestead_up_stall) return(^homestead_up_price_stall);
+if ($bit = ^homestead_up_gate) return(^homestead_up_price_gate);
+if ($bit = ^homestead_up_fountain) return(^homestead_up_price_fountain);
+if ($bit = ^homestead_up_lake) return(^homestead_up_price_lake);
+if ($bit = ^homestead_up_mine) return(^homestead_up_price_mine);
+if ($bit = ^homestead_up_smith) return(^homestead_up_price_smith);
+if ($bit = ^homestead_up_cook) return(^homestead_up_price_cook);
+if ($bit = ^homestead_up_craft) return(^homestead_up_price_craft);
+if ($bit = ^homestead_up_wood) return(^homestead_up_price_wood);
+if ($bit = ^homestead_up_story) return(^homestead_up_price_story);
+if ($bit = ^homestead_up_coop) return(^homestead_up_price_coop);
+return(0);
+
+[proc,homestead_stamp_upgrades](coord $origin, int $flags, int $plot)
+if ($flags < 1) {
+    return;
+}
+if (~homestead_bit_on($flags, ^homestead_up_lanterns) = true) {
+    loc_add(movecoord($origin, 0, 0, 0), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 8, 0, 0), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 12, 0, 0), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+}
+if (~homestead_bit_on($flags, ^homestead_up_hedge) = true) {
+    loc_add(movecoord($origin, 0, 0, 0), fencing, 1, wall_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 13, 0, 0), fencing, 1, wall_straight, ^homestead_stamp_ticks);
+}
+if (~homestead_bit_on($flags, ^homestead_up_garden) = true) {
+    loc_add(movecoord($origin, 5, 0, 1), chair, 0, centrepiece_straight, ^homestead_stamp_ticks);
+}
+if (~homestead_bit_on($flags, ^homestead_up_stall) = true) {
+    loc_add(movecoord($origin, 11, 0, 1), bigtable, 0, centrepiece_straight, ^homestead_stamp_ticks);
+}
+if (~homestead_bit_on($flags, ^homestead_up_gate) = true) {
+    loc_add(movecoord($origin, 2, 0, 0), loc_1530, 1, wall_straight, ^homestead_stamp_ticks);
+}
+if (~homestead_bit_on($flags, ^homestead_up_fountain) = true) {
+    loc_add(movecoord($origin, 7, 0, 1), well, 0, centrepiece_straight, ^homestead_stamp_ticks);
+}
+if (~homestead_bit_on($flags, ^homestead_up_lake) = true) {
+    loc_add(movecoord($origin, 12, 0, 11), homestead_fish_spot, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 13, 0, 12), seaweedrock_1, 0, centrepiece_straight, ^homestead_stamp_ticks);
+}
+if (~homestead_bit_on($flags, ^homestead_up_mine) = true) {
+    loc_add(movecoord($origin, 8, 0, 8), homestead_mine_hole, 0, centrepiece_straight, ^homestead_stamp_ticks);
+}
+if (~homestead_bit_on($flags, ^homestead_up_smith) = true) {
+    loc_add(movecoord($origin, 13, 0, 4), furnace, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 12, 0, 4), anvil, 0, centrepiece_straight, ^homestead_stamp_ticks);
+}
+if (~homestead_bit_on($flags, ^homestead_up_cook) = true) {
+    loc_add(movecoord($origin, 10, 0, 3), range, 0, centrepiece_straight, ^homestead_stamp_ticks);
+}
+if (~homestead_bit_on($flags, ^homestead_up_craft) = true) {
+    loc_add(movecoord($origin, 10, 0, 6), spinning_wheel, 0, centrepiece_straight, ^homestead_stamp_ticks);
+}
+if (~homestead_bit_on($flags, ^homestead_up_wood) = true) {
+    loc_add(movecoord($origin, 1, 0, 13), oaktree, 0, centrepiece_straight, ^homestead_stamp_ticks);
+}
+if (~homestead_bit_on($flags, ^homestead_up_story) = true) {
+    loc_add(movecoord($origin, 3, 0, 3), homestead_ladder_up, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 3, 1, 3), homestead_ladder_down, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 1, 1, 2), bed, 0, centrepiece_straight, ^homestead_stamp_ticks);
+}
+if (~homestead_bit_on($flags, ^homestead_up_coop) = true) {
+    loc_add(movecoord($origin, 13, 0, 8), fencing, 0, wall_straight, ^homestead_stamp_ticks);
+}
+
+[proc,homestead_refresh_street]
+~homestead_stamp_player_house;
+if (%homestead_plot > 0) {
+    ~homestead_stamp_upgrades(~homestead_plot_coord(%homestead_plot), %homestead_upgrades, %homestead_plot);
+}
+if (%homestead_plot2 > 0) {
+    ~homestead_stamp_upgrades(~homestead_plot_coord(%homestead_plot2), %homestead_upgrades2, %homestead_plot2);
+}
+settimer(homestead_keep_timer, 50);
+mes("The lot takes the new work.");
+
+[label,homestead_upgrade_menu]
+if (%homestead_house = 0) {
+    ~chatnpc("<p,sad>Buy a house first.");
+    return;
+}
+%homestead_up_slot = 1;
+if (%homestead_plot2 > 0) {
+    def_int $which = ~p_choice3("Work on plot <tostring(%homestead_plot)>.", 1, "Work on plot <tostring(%homestead_plot2)>.", 2, "Just refresh.", 3);
+    if ($which = 3) {
+        ~homestead_refresh_street;
+        return;
+    }
+    if ($which = 2) {
+        %homestead_up_slot = 2;
+    }
+}
+@homestead_upgrade_cats;
+
+[label,homestead_upgrade_cats]
+def_int $cat = ~p_choice5("Street and curb.", 1, "Workshops.", 2, "Pond, mine, wood.", 3, "Upper floor.", 4, "Refresh the lot.", 5);
+if ($cat = 1) {
+    def_int $s = ~p_choice5("Lanterns - 5k.", 1, "Hedge - 8k.", 2, "Garden - 15k.", 3, "Stall - 25k.", 4, "Fountain - 50k.", 5);
+    if ($s = 1) ~homestead_buy_upgrade(%homestead_up_slot, ^homestead_up_lanterns);
+    if ($s = 2) ~homestead_buy_upgrade(%homestead_up_slot, ^homestead_up_hedge);
+    if ($s = 3) ~homestead_buy_upgrade(%homestead_up_slot, ^homestead_up_garden);
+    if ($s = 4) ~homestead_buy_upgrade(%homestead_up_slot, ^homestead_up_stall);
+    if ($s = 5) ~homestead_buy_upgrade(%homestead_up_slot, ^homestead_up_fountain);
+} else if ($cat = 2) {
+    def_int $w = ~p_choice5("Smithy - 30k.", 1, "Kitchen - 20k.", 2, "Craft shed - 25k.", 3, "Chicken run - 12k.", 4, "Back.", 5);
+    if ($w = 1) ~homestead_buy_upgrade(%homestead_up_slot, ^homestead_up_smith);
+    if ($w = 2) ~homestead_buy_upgrade(%homestead_up_slot, ^homestead_up_cook);
+    if ($w = 3) ~homestead_buy_upgrade(%homestead_up_slot, ^homestead_up_craft);
+    if ($w = 4) ~homestead_buy_upgrade(%homestead_up_slot, ^homestead_up_coop);
+} else if ($cat = 3) {
+    def_int $g = ~p_choice3("Fishing pond - 40k.", 1, "Mine shaft - 45k.", 2, "Woodlot - 15k.", 3);
+    if ($g = 1) ~homestead_buy_upgrade(%homestead_up_slot, ^homestead_up_lake);
+    if ($g = 2) ~homestead_buy_upgrade(%homestead_up_slot, ^homestead_up_mine);
+    if ($g = 3) ~homestead_buy_upgrade(%homestead_up_slot, ^homestead_up_wood);
+} else if ($cat = 4) {
+    ~homestead_buy_upgrade(%homestead_up_slot, ^homestead_up_story);
+} else {
+    ~homestead_refresh_street;
+}
+
+[proc,homestead_buy_upgrade](int $slot, int $bit)
+def_int $flags = %homestead_upgrades;
+if ($slot = 2) {
+    $flags = %homestead_upgrades2;
+}
+if (~homestead_bit_on($flags, $bit) = true) {
+    ~chatnpc("<p,quiz>That work is already on the lot.");
+    return;
+}
+def_int $price = ~homestead_up_price($bit);
+~chatnpc("<p,quiz><~homestead_up_name($bit)>. <tostring($price)> coins.");
+def_int $yes = ~p_choice2("Pay and plant it.", 1, "Not today.", 2);
+if ($yes ! 1) {
+    return;
+}
+if (~homestead_take_gold($price) = false) {
+    ~chatnpc("<p,neutral>Come back with the purse.");
+    return;
+}
+$flags = ~homestead_bit_set($flags, $bit);
+if ($slot = 2) {
+    %homestead_upgrades2 = $flags;
+} else {
+    %homestead_upgrades = $flags;
+}
+~homestead_refresh_street;
+~chatnpc("<p,happy>Done.");
+
+[oploc1,homestead_fish_spot]
+p_delay(0);
+mes("You fish the homestead pond.");
+p_delay(2);
+inv_add(inv, raw_shrimps, 1);
+mes("You catch a shrimp.");
+
+[oploc1,homestead_ladder_up]
+p_delay(0);
+p_teleport(movecoord(coord, 0, 1, 0));
+mes("You climb to the upper floor.");
+
+[oploc1,homestead_ladder_down]
+p_delay(0);
+p_teleport(movecoord(coord, 0, -1, 0));
+mes("You climb down.");

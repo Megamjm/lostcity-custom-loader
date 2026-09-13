@@ -1,0 +1,55 @@
+// Wilderness / combat window. Exact-tile return off the island.
+
+[proc,homestead_can_teleport]()(boolean)
+if (coordz(coord) >= 3520) {
+    mes("A mysterious force blocks your teleport.");
+    return(false);
+}
+if (%homestead_combatclock > 0) {
+    def_int $gone = sub(map_clock, %homestead_combatclock);
+    if ($gone < ^homestead_combat_ticks) {
+        mes("You cannot teleport until the fight settles.");
+        return(false);
+    }
+}
+return(true);
+
+[proc,homestead_mark_return]
+if (~homestead_in_island = true) {
+    return;
+}
+if (~homestead_in_mine = true) {
+    return;
+}
+%homestead_return = coord;
+%homestead_return_set = 1;
+
+[proc,homestead_go](coord $dest)
+if (~homestead_can_teleport = false) {
+    return;
+}
+~homestead_mark_return;
+p_delay(0);
+p_teleport($dest);
+
+[proc,homestead_send_back]
+if (%homestead_return_set = 0) {
+    ~homestead_teleport_village;
+    return;
+}
+p_delay(0);
+p_teleport(%homestead_return);
+
+[timer,homestead_watch]
+if (p_finduid(uid) = false) {
+    settimer(homestead_watch, 2);
+    return;
+}
+def_int $hp = stat(hitpoints);
+if (%homestead_hp_seen = 0) {
+    %homestead_hp_seen = $hp;
+} else if ($hp < %homestead_hp_seen) {
+    %homestead_combatclock = map_clock;
+}
+%homestead_hp_seen = $hp;
+settimer(homestead_watch, 2);

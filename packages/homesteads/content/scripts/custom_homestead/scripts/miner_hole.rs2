@@ -3,8 +3,8 @@
 // mine baked on m11_8 (plane 0 only).
 
 [oploc1,homestead_mine_hole]
-if (%homestead_house ! 12) {
-    mes("This shaft is boarded over. You need a miner's deed.");
+if (~homestead_has_mine_access = false) {
+    mes("This shaft is boarded over. Buy the mine upgrade, or hold a miner deed.");
     return;
 }
 mes("You drop into a cut of the dwarven mines.");

@@ -86,3 +86,16 @@ weight=5g
 iop1=Read
 iop2=Teleport
 tradeable=no
+
+[homestead_invite_slip]
+name=Homestead invitation
+desc=Use this on a friend. They then speak to a clerk to register as a guest.
+cost=1
+model=inv_scroll
+2dzoom=1040
+2dyan=120
+2dxan=380
+weight=5g
+iop1=Read
+iop2=Social
+tradeable=no

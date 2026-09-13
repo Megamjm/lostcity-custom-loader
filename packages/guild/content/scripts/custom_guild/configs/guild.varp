@@ -1,0 +1,8 @@
+[guild_id]
+scope=perm
+
+[guild_rank]
+scope=perm
+
+[guild_plot]
+scope=perm

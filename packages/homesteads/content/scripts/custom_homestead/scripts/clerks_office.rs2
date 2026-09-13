@@ -36,6 +36,7 @@ loc_add(movecoord($o, 3, 0, 2), bookcase2, 0, centrepiece_straight, ^homestead_s
 loc_add(movecoord($o, 2, 0, 5), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($o, 0, 0, 5), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($o, 4, 0, 5), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($o, 3, 0, 3), social_ledger, 0, centrepiece_straight, ^homestead_stamp_ticks);
 ~homestead_seed_named(^homestead_clerk_mabel, clerk_mabel);
 ~homestead_seed_named(^homestead_clerk_oswald, clerk_oswald);
 ~homestead_seed_named(^homestead_clerk_pip, clerk_pip);

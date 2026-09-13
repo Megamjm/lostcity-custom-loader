@@ -1,4 +1,4 @@
-// Clerks stand outside the real houses in each region.
+// World clerks. New-buyer ferry, bound deed, guest book.
 
 [opnpc1,_homestead_clerk]
 def_int $style = npc_param(homestead_style);
@@ -6,25 +6,36 @@ if ($style < 1 | $style > 12) {
     $style = 1;
 }
 ~chatnpc("<p,happy>My my, this is a nice home isn't it. Wouldn't you like to own one similar to this?");
-~chatnpc("<p,quiz>A <~homestead_house_name($style)> on the homestead island. <tostring(~homestead_price($style))> coins. Other adventurers keep plots along the same street.");
-if (%homestead_house ! 0) {
-    ~chatnpc("<p,neutral>You already hold plot <tostring(%homestead_plot)>. I can still sell you this copy as a second lot, or you can talk to the office on the green.");
-}
-def_int $c = ~p_choice3("I'll take a copy.", 1, "How do I get to the island?", 2, "No thanks.", 3);
-if ($c = 1) {
-    ~chatplayer("<p,quiz>I'll take a copy.");
-    if (%homestead_house = 0) {
+~chatnpc("<p,quiz>A <~homestead_house_name($style)> on the homestead island. <tostring(~homestead_price($style))> coins.");
+if (%homestead_house = 0) {
+    def_int $new = ~p_choice5("I'm new. Take me to the island.", 1, "I'll take a copy.", 2, "I lost a deed.", 3, "Friend and guest paper.", 4, "No thanks.", 5);
+    if ($new = 1) {
+        ~homestead_go(^homestead_preview_spawn);
+        mes("The clerk sends you to the homestead green.");
+    } else if ($new = 2) {
         ~homestead_buy($style);
-    } else if (%homestead_plot2 = 0) {
-        ~homestead_buy_second($style);
-    } else {
-        ~chatnpc("<p,sad>Two plots is the office limit. Sell one first, then we can talk.");
+    } else if ($new = 3) {
+        ~homestead_reissue_deed;
+    } else if ($new = 4) {
+        @homestead_guest_menu;
     }
-} else if ($c = 2) {
-    ~chatplayer("<p,quiz>How do I get to the island?");
-    ~chatnpc("<p,neutral>Buy the deed and use it. Or find the clerks' office and the portal on the homestead green.");
+    return;
+}
+~chatnpc("<p,neutral>You already hold plot <tostring(%homestead_plot)>. The deed is bound to your name.");
+def_int $own = ~p_choice5("Take me home.", 1, "I lost my deed.", 2, "Send me back where I was.", 3, "Friend and guest paper.", 4, "Upgrade the lot.", 5);
+if ($own = 1) {
+    if (~homestead_can_teleport = false) {
+        return;
+    }
+    ~homestead_go(movecoord(~homestead_plot_coord(%homestead_plot), 3, 0, 2));
+} else if ($own = 2) {
+    ~homestead_reissue_deed;
+} else if ($own = 3) {
+    ~homestead_send_back;
+} else if ($own = 4) {
+    @homestead_guest_menu;
 } else {
-    ~chatplayer("<p,neutral>No thanks.");
+    @homestead_upgrade_menu;
 }
 
 [proc,homestead_seed_region_clerks]

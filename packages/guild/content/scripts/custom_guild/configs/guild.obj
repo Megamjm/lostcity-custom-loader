@@ -1,0 +1,24 @@
+[guild_license]
+name=Guild license
+desc=Stamped in Falador. Read it, or open the social ledger.
+cost=1
+model=inv_scroll
+2dzoom=1040
+2dyan=120
+2dxan=380
+weight=5g
+iop1=Read
+iop2=Social
+tradeable=no
+
+[guild_invite_slip]
+name=Guild invitation
+desc=Use this on a player to write them into your guild.
+cost=1
+model=inv_scroll
+2dzoom=1040
+2dyan=120
+2dxan=380
+weight=5g
+iop1=Read
+tradeable=no

@@ -1,0 +1,151 @@
+[proc,guild_rank_name](int $rank)(string)
+if ($rank = ^guild_rank_owner) return("founder");
+if ($rank = ^guild_rank_officer) return("officer");
+if ($rank = ^guild_rank_member) return("member");
+return("none");
+
+[proc,guild_seed]
+if (npc_find(^guild_registrar_coord, guild_registrar, 4, 0) = true) {
+    return;
+}
+npc_add(^guild_registrar_coord, guild_registrar, 2000);
+
+[proc,guild_leave]
+%guild_id = 0;
+%guild_rank = 0;
+%guild_plot = 0;
+~homestead_inv_del_all(guild_license);
+
+[opheld1,guild_license]
+mes("A Falador seal. Charter <tostring(%guild_id)>.");
+
+[opheld2,guild_license]
+@social_open;
+
+[opheld1,guild_invite_slip]
+mes("Use this on a player to write them into your guild.");
+
+[opnpc1,guild_registrar]
+~chatnpc("<p,neutral>Falador stamps guild paper.");
+if (%guild_rank = ^guild_rank_owner) {
+    def_int $own = ~p_choice5("Open the ledger.", 1, "Buy a guild house.", 2, "Invite paper.", 3, "I lost my license.", 4, "Good day.", 5);
+    if ($own = 1) @social_open;
+    if ($own = 2) ~guild_buy_house;
+    if ($own = 3) ~guild_give_slip;
+    if ($own = 4) ~guild_reissue_license;
+    return;
+}
+if (%guild_rank > 0) {
+    def_int $mem = ~p_choice3("Open the ledger.", 1, "Take me to the hall.", 2, "Leave the guild.", 3);
+    if ($mem = 1) @social_open;
+    if ($mem = 2) ~guild_teleport_hall;
+    if ($mem = 3) ~guild_leave;
+    return;
+}
+def_int $new = ~p_choice3("Buy a guild license - 100k.", 1, "Open the ledger.", 2, "Not today.", 3);
+if ($new = 1) ~guild_buy_license;
+if ($new = 2) @social_open;
+
+[label,guild_page]
+if (%guild_rank = 0) {
+    mes("No charter. The registrar stands in Falador, east of the homestead clerk.");
+    return;
+}
+mes("Charter <tostring(%guild_id)>. You are the <~guild_rank_name(%guild_rank)>.");
+if (%guild_rank = ^guild_rank_owner) {
+    def_int $g = ~p_choice5("Invite paper.", 1, "Buy a guild house.", 2, "Take me to the hall.", 3, "Disband.", 4, "Back.", 5);
+    if ($g = 1) ~guild_give_slip;
+    if ($g = 2) ~guild_buy_house;
+    if ($g = 3) ~guild_teleport_hall;
+    if ($g = 4) ~guild_leave;
+    return;
+}
+def_int $m = ~p_choice3("Take me to the hall.", 1, "Leave the guild.", 2, "Back.", 3);
+if ($m = 1) ~guild_teleport_hall;
+if ($m = 2) ~guild_leave;
+
+[proc,guild_buy_license]
+if (%guild_rank > 0) {
+    ~chatnpc("<p,quiz>You already sit on a charter.");
+    return;
+}
+if (~homestead_take_gold(^guild_license_fee) = false) {
+    ~chatnpc("<p,neutral>A hundred thousand.");
+    return;
+}
+%guild_id = uid;
+%guild_rank = ^guild_rank_owner;
+if (inv_total(inv, guild_license) < 1) {
+    if (inv_freespace(inv) > 0) {
+        inv_add(inv, guild_license, 1);
+    }
+}
+~chatnpc("<p,happy>Sealed. You are the founder.");
+
+[proc,guild_reissue_license]
+if (%guild_rank ! ^guild_rank_owner) {
+    return;
+}
+if (inv_total(inv, guild_license) > 0) {
+    return;
+}
+if (~homestead_take_gold(^guild_reissue_fee) = false) {
+    return;
+}
+inv_add(inv, guild_license, 1);
+
+[proc,guild_give_slip]
+if (%guild_rank < ^guild_rank_officer) {
+    mes("Only a founder or officer writes guild paper.");
+    return;
+}
+if (inv_total(inv, guild_invite_slip) < 1) {
+    if (inv_freespace(inv) > 0) {
+        inv_add(inv, guild_invite_slip, 1);
+    }
+}
+
+[proc,guild_buy_house]
+if (%guild_rank ! ^guild_rank_owner) {
+    return;
+}
+if (%guild_plot > 0) {
+    ~guild_teleport_hall;
+    return;
+}
+if (%homestead_plot = 0) {
+    ~homestead_buy(^homestead_house_seers);
+    %guild_plot = %homestead_plot;
+} else if (%homestead_plot2 = 0) {
+    ~homestead_buy_second(^homestead_house_seers);
+    %guild_plot = %homestead_plot2;
+} else {
+    ~chatnpc("<p,sad>Two homestead plots is the limit.");
+}
+
+[proc,guild_teleport_hall]
+if (%guild_plot < 1) {
+    mes("No hall is on the charter yet.");
+    return;
+}
+if (~homestead_can_teleport = false) {
+    return;
+}
+~homestead_go(movecoord(~homestead_plot_coord(%guild_plot), 3, 0, 2));
+
+[opplayeru,guild_invite_slip]
+if (%guild_rank < ^guild_rank_officer) {
+    return;
+}
+if (uid = .uid) {
+    return;
+}
+if (~social_other_blocks_me = true) {
+    mes("They will not take paper from you.");
+    return;
+}
+.%guild_id = %guild_id;
+.%guild_rank = ^guild_rank_member;
+.%guild_plot = %guild_plot;
+mes("Written into charter <tostring(%guild_id)>.");
+.mes("You have been written into a guild.");

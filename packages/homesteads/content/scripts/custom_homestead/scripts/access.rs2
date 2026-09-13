@@ -1,0 +1,112 @@
+// Friend then guest. Owner uses the slip. Visitor registers at a clerk.
+
+[proc,homestead_on_plot](int $plot)(boolean)
+if ($plot < 1) {
+    return(false);
+}
+def_coord $origin = ~homestead_plot_coord($plot);
+def_coord $max = movecoord($origin, 15, 0, 15);
+if (inzone($origin, $max, coord) = true) {
+    return(true);
+}
+return(false);
+
+[proc,homestead_is_visitor]()(boolean)
+if (%homestead_guest_plot > 0) {
+    return(true);
+}
+if (%homestead_friend_plot > 0) {
+    return(true);
+}
+return(false);
+
+[proc,homestead_give_slip]
+if (inv_total(inv, homestead_invite_slip) > 0) {
+    mes("You already carry an invitation.");
+    return;
+}
+if (inv_freespace(inv) < 1) {
+    mes("Make a space in your pack first.");
+    return;
+}
+inv_add(inv, homestead_invite_slip, 1);
+mes("The clerk slides a paper across. Use it on a friend.");
+
+[opheld2,homestead_invite_slip]
+@social_open;
+
+[opheld1,homestead_invite_slip]
+if (%homestead_house = 0) {
+    mes("This paper is blank without a plot in your name.");
+    return;
+}
+mes("Use this on another player to name them a friend of plot <tostring(%homestead_plot)>.");
+
+[opplayeru,homestead_invite_slip]
+if (%homestead_house = 0) {
+    mes("You do not own a homestead to share.");
+    return;
+}
+if (uid = .uid) {
+    mes("Invite someone else.");
+    return;
+}
+if (~social_other_blocks_me = true) {
+    mes("They will not take paper from you.");
+    return;
+}
+.%homestead_friend_plot = %homestead_plot;
+mes("You name them a friend of plot <tostring(%homestead_plot)>.");
+.mes("You have been named a friend of a homestead. Speak to a clerk to register as a guest.");
+
+[proc,homestead_register_guest]
+if (%homestead_friend_plot < 1) {
+    ~chatnpc("<p,quiz>Nobody has named you a friend yet. The owner must use an invitation on you first.");
+    return;
+}
+%homestead_guest_plot = %homestead_friend_plot;
+~chatnpc("<p,happy>Written. You are a guest of plot <tostring(%homestead_guest_plot)>.");
+
+[proc,homestead_clear_visit]
+%homestead_friend_plot = 0;
+%homestead_guest_plot = 0;
+~chatnpc("<p,neutral>Your name is off the guest book.");
+
+[proc,homestead_teleport_visit]
+if (%homestead_guest_plot < 1) {
+    if (%homestead_friend_plot < 1) {
+        mes("You are not written as a guest.");
+        return;
+    }
+    mes("Register as a guest at a clerk first.");
+    return;
+}
+if (~homestead_can_teleport = false) {
+    return;
+}
+def_coord $origin = ~homestead_plot_coord(%homestead_guest_plot);
+~homestead_go(movecoord($origin, 3, 0, 2));
+
+[label,homestead_guest_menu]
+if (%homestead_house = 0) {
+    if (%homestead_friend_plot > 0) {
+        def_int $v = ~p_choice3("Register as a guest.", 1, "Take me there.", 2, "Take my name off.", 3);
+        if ($v = 1) {
+            ~homestead_register_guest;
+        } else if ($v = 2) {
+            ~homestead_teleport_visit;
+        } else {
+            ~homestead_clear_visit;
+        }
+        return;
+    }
+    ~chatnpc("<p,quiz>Nobody has named you a friend yet.");
+    return;
+}
+~chatnpc("<p,happy>You hold a plot. Paper from here names a friend, then they register as a guest.");
+def_int $o = ~p_choice3("Give me invitation paper.", 1, "Open the social ledger.", 2, "Never mind.", 3);
+if ($o = 1) {
+    ~homestead_give_slip;
+} else if ($o = 2) {
+    @social_open;
+}

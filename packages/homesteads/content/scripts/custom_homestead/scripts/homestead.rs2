@@ -2,6 +2,8 @@
 
 [queue,homestead_login]
 ~homestead_seed_region_clerks;
+~guild_seed;
+settimer(homestead_watch, 2);
 ~homestead_stamp_office;
 if (%homestead_house ! 0) {
     ~homestead_stamp_player_house;
@@ -41,7 +43,7 @@ if (~homestead_in_island = true) {
     ~homestead_enforce_plot;
 }
 if (~homestead_in_mine = true) {
-    if (%homestead_house ! 12) {
+    if (~homestead_has_mine_access = false) {
         mes("This shaft is not yours.");
         ~homestead_teleport_village;
     }
@@ -208,3 +210,48 @@ if (~homestead_take_gold($price) = false) {
 settimer(homestead_keep_timer, 100);
 ~chatnpc("<p,happy>Sold! A copy of the <~homestead_house_name($type)> from <~homestead_region_name($type)> is on plot <tostring(%homestead_plot)>.");
 ~chatnpc("<p,quiz>The deed is in your pack. Read it, or use it to go home.");
+
+[proc,homestead_buy_second](int $type)
+if (%homestead_plot2 > 0) {
+    ~chatnpc("<p,sad>Two plots is the office limit.");
+    return;
+}
+if (~homestead_can_buy($type) = false) {
+    return;
+}
+def_int $plot = ~homestead_find_vacant_plot;
+if ($plot = 0) {
+    ~chatnpc("<p,sad>The island is full.");
+    return;
+}
+if ($plot = %homestead_plot) {
+    ~chatnpc("<p,sad>No second lot is free.");
+    return;
+}
+def_int $price = ~homestead_price($type);
+if (~homestead_take_gold($price) = false) {
+    ~chatnpc("<p,neutral>Come back when you have the coins.");
+    return;
+}
+%homestead_plot2 = $plot;
+%homestead_house2 = $type;
+~homestead_give_deed($type);
+~homestead_stamp_player_house;
+settimer(homestead_keep_timer, 100);
+~chatnpc("<p,happy>Second lot. Plot <tostring(%homestead_plot2)>.");
+
+[proc,homestead_reissue_deed]
+if (%homestead_house = 0) {
+    ~chatnpc("<p,sad>You do not hold a plot. I will not stamp a blank to someone else's name.");
+    return;
+}
+if (inv_total(inv, land_deed) > 0) {
+    ~chatnpc("<p,quiz>You already carry the deed.");
+    return;
+}
+if (~homestead_take_gold(^homestead_deed_fee) = false) {
+    ~chatnpc("<p,neutral>A thousand for the clerk's copy.");
+    return;
+}
+inv_add(inv, land_deed, 1);
+~chatnpc("<p,happy>Your name is on it. Nobody else can use it.");

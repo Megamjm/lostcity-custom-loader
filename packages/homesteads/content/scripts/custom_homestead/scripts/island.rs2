@@ -19,7 +19,7 @@ def_coord $plot = ~homestead_plot_coord($plotid);
 ~homestead_stamp_player_house;
 settimer(homestead_keep_timer, 100);
 mes("You step through to plot <tostring($plotid)>.");
-p_teleport(movecoord($plot, 3, 0, 2));
+~homestead_go(movecoord($plot, 3, 0, 2));
 
 [proc,homestead_teleport_village]
 p_teleport(^homestead_preview_spawn);

@@ -1,0 +1,7 @@
+^guild_registrar_coord = 0_46_52_42_28
+^guild_license_fee = 100000
+^guild_reissue_fee = 1000
+^guild_rank_none = 0
+^guild_rank_member = 1
+^guild_rank_officer = 2
+^guild_rank_owner = 3

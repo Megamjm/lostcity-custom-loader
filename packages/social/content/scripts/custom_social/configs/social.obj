@@ -1,0 +1,11 @@
+[social_block_slate]
+name=Block slate
+desc=Use this on a player to refuse their paper.
+cost=1
+model=inv_scroll
+2dzoom=1040
+2dyan=120
+2dxan=380
+weight=5g
+iop1=Read
+tradeable=no

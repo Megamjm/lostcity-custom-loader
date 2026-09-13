@@ -1,0 +1,18 @@
+[guild_registrar]
+vislevel=hide
+name=Guild registrar
+desc=Sells Falador guild licenses.
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
+op1=Talk-to
+model1=man_head_shorthair
+model2=man_jaw_medium
+model3=man_torso_basic
+model4=man_arms_basic
+model5=man_hands_basic
+model6=man_legs_basic
+model7=man_feet_basic
+head1=chat_male_head_shorthair
+wanderrange=0
+maxrange=4
+category=guild_npc
