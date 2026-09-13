@@ -194,6 +194,30 @@ if (~homestead_faces_east(~homestead_plot_from_coord($origin)) = true) {
     loc_add(movecoord($origin, -1, 0, 11), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
 }
 
+[proc,homestead_stamp_street_hedge](coord $origin)
+def_boolean $east = ~homestead_faces_east(~homestead_plot_from_coord($origin));
+def_int $z = 0;
+if ($east = true) {
+    while ($z <= 19) {
+        if ($z = 9 | $z = 10 | $z = 11) {
+        } else {
+            loc_add(movecoord($origin, 18, 0, $z), bush, 0, centrepiece_straight, ^homestead_stamp_ticks);
+        }
+        $z = add($z, 2);
+    }
+    loc_add(movecoord($origin, 18, 0, 8), bush, 1, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 18, 0, 12), bush, 1, centrepiece_straight, ^homestead_stamp_ticks);
+} else {
+    while ($z <= 19) {
+        if ($z = 9 | $z = 10 | $z = 11) {
+        } else {
+            loc_add(movecoord($origin, 1, 0, $z), bush, 0, centrepiece_straight, ^homestead_stamp_ticks);
+        }
+        $z = add($z, 2);
+    }
+    loc_add(movecoord($origin, 1, 0, 8), bush, 1, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 1, 0, 12), bush, 1, centrepiece_straight, ^homestead_stamp_ticks);
+}
 [proc,homestead_stamp_frontage](coord $origin, int $type)
 if (~homestead_uses_yard_wall($type) = true) {
     ~homestead_stamp_yard($origin);
@@ -201,10 +225,12 @@ if (~homestead_uses_yard_wall($type) = true) {
 if ($type = 1) {
     ~homestead_stamp_backyard($origin);
 }
+~homestead_stamp_street_hedge($origin);
 ~homestead_stamp_gate($origin);
 ~homestead_stamp_door($origin, $type);
 
 [proc,homestead_stamp_vacant_frontage](coord $origin)
+~homestead_stamp_street_hedge($origin);
 ~homestead_stamp_gate($origin);
 def_coord $sign = ~homestead_sign_coord($origin);
 if (loc_find($sign, homestead_sold_sign) = false) {
