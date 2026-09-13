@@ -1,11 +1,77 @@
-// Door faces the south avenue. Sign sits on the east curb.
+// Even columns face the east cobble. Odd columns face the west cobble.
+// Walkway sits next to the sign. Torch is on the other side of the walkway.
 
-[proc,homestead_stamp_frontage](coord $origin)
-loc_add(movecoord($origin, 2, 0, 0), loc_1530, 1, wall_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 2, 0, -1), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 16, 0, 1), homestead_sold_sign, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 16, 0, 2), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 2, 0, 16), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+[proc,homestead_plot_col](int $plot)(int)
+def_int $index = sub($plot, 1);
+if ($index < 0) {
+    $index = 0;
+}
+return(sub($index, multiply(divide($index, ^homestead_plot_cols), ^homestead_plot_cols)));
+
+[proc,homestead_faces_east](int $plot)(boolean)
+def_int $col = ~homestead_plot_col($plot);
+if (sub($col, multiply(divide($col, 2), 2)) = 0) {
+    return(true);
+}
+return(false);
 
 [proc,homestead_sign_coord](coord $origin)(coord)
-return(movecoord($origin, 16, 0, 1));
+def_int $plot = ~homestead_plot_from_coord($origin);
+if (~homestead_faces_east($plot) = true) {
+    return(movecoord($origin, 16, 0, 1));
+}
+return(movecoord($origin, 0, 0, 1));
+
+[proc,homestead_gate_coord](coord $origin)(coord)
+def_int $plot = ~homestead_plot_from_coord($origin);
+if (~homestead_faces_east($plot) = true) {
+    return(movecoord($origin, 15, 0, 2));
+}
+return(movecoord($origin, 0, 0, 2));
+
+[proc,homestead_door_coord](coord $origin)(coord)
+def_int $plot = ~homestead_plot_from_coord($origin);
+if (~homestead_faces_east($plot) = true) {
+    return(movecoord($origin, 5, 0, 2));
+}
+return(movecoord($origin, 0, 0, 2));
+
+[proc,homestead_inside_coord](coord $origin)(coord)
+def_int $plot = ~homestead_plot_from_coord($origin);
+if (~homestead_faces_east($plot) = true) {
+    return(movecoord($origin, 12, 0, 2));
+}
+return(movecoord($origin, 3, 0, 2));
+
+[proc,homestead_stamp_fence](coord $origin)
+def_int $plot = ~homestead_plot_from_coord($origin);
+def_int $x = 0;
+while ($x < 16) {
+    if ($x ! 2) {
+        loc_add(movecoord($origin, $x, 0, 0), fencing, 0, wall_straight, ^homestead_stamp_ticks);
+        loc_add(movecoord($origin, $x, 0, 15), fencing, 0, wall_straight, ^homestead_stamp_ticks);
+    }
+    $x = add($x, 1);
+}
+def_int $z = 1;
+while ($z < 15) {
+    if ($z ! 2) {
+        loc_add(movecoord($origin, 0, 0, $z), fencing, 1, wall_straight, ^homestead_stamp_ticks);
+        loc_add(movecoord($origin, 15, 0, $z), fencing, 1, wall_straight, ^homestead_stamp_ticks);
+    }
+    $z = add($z, 1);
+}
+
+[proc,homestead_stamp_frontage](coord $origin)
+~homestead_stamp_fence($origin);
+def_int $plot = ~homestead_plot_from_coord($origin);
+if (~homestead_faces_east($plot) = true) {
+    loc_add(movecoord($origin, 5, 0, 2), loc_1530, 0, wall_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 15, 0, 2), homestead_gate, 0, wall_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 16, 0, 1), homestead_sold_sign, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 16, 0, 3), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+} else {
+    loc_add(movecoord($origin, 0, 0, 2), homestead_gate, 2, wall_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 0, 0, 1), homestead_sold_sign, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 0, 0, 3), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+}

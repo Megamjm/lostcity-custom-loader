@@ -112,3 +112,12 @@ op1=Climb-down
 forceapproach=north
 sharelight=yes
 category=homestead_mine
+
+[homestead_gate]
+name=Plot gate
+desc=A latched gate onto the walkway.
+model=furniture_chestclosed
+width=1
+length=1
+op1=Open
+category=homestead_sign

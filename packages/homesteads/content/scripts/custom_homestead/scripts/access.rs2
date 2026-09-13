@@ -20,6 +20,44 @@ if (%homestead_friend_plot > 0) {
 }
 return(false);
 
+[proc,homestead_may_open_gate](int $plot)(boolean)
+if ($plot < 1) {
+    return(false);
+}
+if (%homestead_plot = $plot) {
+    return(true);
+}
+if (%homestead_plot2 = $plot) {
+    return(true);
+}
+if (inv_total(inv, land_deed) > 0) {
+    if (%homestead_plot = $plot) {
+        return(true);
+    }
+    if (%homestead_plot2 = $plot) {
+        return(true);
+    }
+}
+if (%homestead_guest_plot = $plot) {
+    return(true);
+}
+if (%homestead_friend_plot = $plot) {
+    return(true);
+}
+return(false);
+
+[oploc1,homestead_gate]
+p_delay(0);
+def_int $plot = ~homestead_plot_from_coord(coord);
+if (~homestead_may_open_gate($plot) = false) {
+    mes("The gate is latched. Bring a deed, or be named a friend of this plot.");
+    return;
+}
+def_coord $origin = ~homestead_plot_coord($plot);
+def_coord $inside = ~homestead_inside_coord($origin);
+mes("The latch lifts. The gate swings and shuts behind you.");
+p_teleport($inside);
+
 [proc,homestead_give_slip]
 if (inv_total(inv, homestead_invite_slip) > 0) {
     mes("You already carry an invitation.");
@@ -89,7 +127,7 @@ if (~homestead_can_teleport = false) {
     return;
 }
 def_coord $origin = ~homestead_plot_coord(%homestead_guest_plot);
-~homestead_go(movecoord($origin, 3, 0, 2));
+~homestead_go(~homestead_inside_coord($origin));
 
 [label,homestead_guest_menu]
 if (%homestead_house = 0) {

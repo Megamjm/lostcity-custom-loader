@@ -19,24 +19,22 @@ def_coord $plot = ~homestead_plot_coord($plotid);
 ~homestead_stamp_player_house;
 settimer(homestead_keep_timer, 100);
 mes("You step through to plot <tostring($plotid)>.");
-~homestead_go(movecoord($plot, 3, 0, 2));
+~homestead_go(~homestead_inside_coord($plot));
 
 [proc,homestead_teleport_village]
 p_teleport(^homestead_preview_spawn);
-mes("You return to the homestead green.");
+mes("You return to the homestead square.");
 
 [proc,homestead_stamp_grid_signs]
 def_int $p = 1;
 while ($p <= ^homestead_plot_count) {
     def_coord $o = ~homestead_plot_coord($p);
-    def_coord $sign = movecoord($o, 16, 0, 1);
+    def_coord $sign = ~homestead_sign_coord($o);
     if (loc_find($sign, homestead_sold_sign) = false) {
         if (loc_find($sign, homestead_for_sale) = false) {
             loc_add($sign, homestead_for_sale, 0, centrepiece_straight, ^homestead_stamp_ticks);
         }
     }
-    loc_add(movecoord($o, 16, 0, 2), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($o, 2, 0, 16), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
     $p = add($p, 1);
 }
 
@@ -65,13 +63,13 @@ mes("You open the bank closet.");
 [oploc1,homestead_for_sale]
 def_int $n = ~homestead_plot_from_coord(coord);
 if ($n = 0) {
-    mes("Plot peg. See the clerks on the green.");
+    mes("Plot peg. See the clerks on the square.");
 } else {
-    mes("Plot <tostring($n)>. For sale. Clerks on the green hold the deed.");
+    mes("Plot <tostring($n)>. For sale. Clerks on the square hold the deed.");
 }
 
 [oploc2,homestead_for_sale]
-mes("The office on the green handles sales.");
+mes("The office on the square handles sales.");
 
 [oploc1,homestead_sold_sign]
 def_int $n = ~homestead_plot_from_coord(coord);
