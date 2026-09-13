@@ -1,9 +1,7 @@
-// Cosmetic slate only. Do not change plane.
-
 [oploc1,homestead_stairs]
 p_delay(0);
-mes("A slate step. The house sits on this pad.");
+mes("These stairs are not in use.");
 
 [oploc1,homestead_stairstop]
 p_delay(0);
-mes("A slate step. The house sits on this pad.");
+mes("These stairs are not in use.");

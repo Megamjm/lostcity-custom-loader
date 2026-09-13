@@ -1,6 +1,4 @@
-// House sits on the cobble walkway (plot z=10).
-// East plots: door on the east wall. West plots: door on the west wall.
-// Cosmetic steps are plane 0 slates. They do not change level.
+// Cottage on the cobble walkway. Door only. No stairs loc — that mesh is 2x3 and blocks.
 
 [proc,homestead_plot_col](int $plot)(int)
 def_int $index = sub($plot, 1);
@@ -83,12 +81,8 @@ while ($z < $last) {
 [proc,homestead_stamp_door](coord $home, int $type)
 if (~homestead_faces_east(~homestead_plot_from_coord($home)) = true) {
     loc_add(movecoord($home, 5, 0, 4), loc_1530, 0, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($home, 6, 0, 4), homestead_stairs, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($home, 6, 0, 5), homestead_stairs, 0, centrepiece_straight, ^homestead_stamp_ticks);
 } else {
     loc_add(movecoord($home, 0, 0, 4), loc_1530, 2, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($home, -1, 0, 4), homestead_stairs, 2, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($home, -1, 0, 5), homestead_stairs, 2, centrepiece_straight, ^homestead_stamp_ticks);
 }
 
 [proc,homestead_stamp_gate](coord $origin)
