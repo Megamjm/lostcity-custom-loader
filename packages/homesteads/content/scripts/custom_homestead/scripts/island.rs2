@@ -1,0 +1,58 @@
+[proc,homestead_teleport_home]
+if (%homestead_house = 0) {
+    mes("You do not own a homestead.");
+    return;
+}
+if (%homestead_plot = 0) {
+    if (~homestead_assign_plot = 0) {
+        return;
+    }
+}
+def_coord $plot = ~homestead_plot_coord(%homestead_plot);
+~homestead_stamp_player_house;
+settimer(homestead_keep_timer, 100);
+mes("You step through to plot <tostring(%homestead_plot)>.");
+p_teleport(movecoord($plot, 4, 0, 2));
+
+[proc,homestead_teleport_village]
+p_teleport(^homestead_preview_spawn);
+mes("You return to the homestead green.");
+
+[oploc1,homestead_portal]
+p_delay(0);
+if (%homestead_house = 0) {
+    mes("The portal hums, then settles. You need a deed first.");
+    return;
+}
+~homestead_teleport_home;
+
+[oploc1,homestead_exit_portal]
+p_delay(0);
+~homestead_teleport_village;
+
+[oploc1,homestead_chest]
+mes("You open your household chest.");
+inv_transmit(inv, bank_side:inv);
+inv_transmit(homestead_chest_inv, bank_main:inv);
+if_openmain_side(bank_main, bank_side);
+
+[oploc1,homestead_bank_closet]
+mes("You open the bank closet.");
+@openbank;
+
+[oploc1,homestead_for_sale]
+mes("A wooden sign. 'Plot for sale. See the estate agent.'");
+
+[oploc2,homestead_for_sale]
+if (npc_find(coord, estate_agent, 10, 0) = true) {
+    @estate_agent_size_menu;
+} else {
+    mes("The estate agent is on the village green.");
+}
+
+[oploc1,homestead_sold_sign]
+if (%homestead_house = 0) {
+    mes("Someone has already claimed this lot.");
+} else {
+    mes("Your <~homestead_house_name(%homestead_house)> stands on plot <tostring(%homestead_plot)>.");
+}

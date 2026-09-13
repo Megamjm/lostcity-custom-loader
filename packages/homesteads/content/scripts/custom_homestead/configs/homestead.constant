@@ -1,16 +1,28 @@
 // Homestead island occupies unused map squares 8_8 .. 10_10 (3x3).
+// Each square is 64x64. Together they are 192x192 tiles.
+//
+// Plane 0 only on the island maps. Upper floors are loc_add'd
+// solely when that template's source house actually has them.
+// The shared mine is a separate square (m11_8), plane 0.
+//
+// 10 x 10 plots of 16 tiles = 100 lots, with a 16-tile border
+// used as the village green and roads.
+
 ^homestead_preview_spawn = 0_8_8_8_8
 ^homestead_agent_offscreen = 0_8_8_8_2
 ^homestead_agent_stand = 0_8_8_8_12
 ^homestead_island_origin = 0_8_8_16_16
 ^homestead_island_exit = 0_8_8_10_10
 ^homestead_mine_entrance = 0_11_8_4_4
+
 ^homestead_plot_size = 16
 ^homestead_plot_cols = 10
 ^homestead_plot_rows = 10
 ^homestead_plot_count = 100
+
 ^homestead_stamp_ticks = 500000
 ^homestead_npc_ticks = 2000
+
 ^homestead_house_none = 0
 ^homestead_house_lumbridge = 1
 ^homestead_house_draynor = 2
@@ -24,9 +36,12 @@
 ^homestead_house_manor = 10
 ^homestead_house_crafter = 11
 ^homestead_house_miner = 12
+
+// Keep old ids working as aliases for existing saves.
 ^homestead_house_small = 1
 ^homestead_house_medium = 4
 ^homestead_house_large = 10
+
 ^homestead_price_lumbridge = 10000
 ^homestead_price_draynor = 18000
 ^homestead_price_rimmington = 35000
@@ -39,6 +54,8 @@
 ^homestead_price_manor = 200000
 ^homestead_price_crafter = 90000
 ^homestead_price_miner = 45000
+
+// Approximate 2004 town squares used to plant style clerks.
 ^homestead_lumbridge_clerk = 0_50_50_21_18
 ^homestead_draynor_clerk = 0_48_50_24_20
 ^homestead_rimmington_clerk = 0_46_48_30_30

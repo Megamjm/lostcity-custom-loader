@@ -1,0 +1,48 @@
+[opheld1,land_deed]
+~deed_read(%homestead_house);
+
+[opheld2,land_deed]
+~homestead_teleport_home;
+
+[opheld1,land_deed_small]
+~deed_read(%homestead_house);
+
+[opheld1,land_deed_medium]
+~deed_read(%homestead_house);
+
+[opheld1,land_deed_large]
+~deed_read(%homestead_house);
+
+[opheld1,land_deed_crafter]
+~deed_read(%homestead_house);
+
+[opheld1,land_deed_miner]
+~deed_read(%homestead_house);
+
+[opheld2,land_deed_small]
+~homestead_teleport_home;
+
+[opheld2,land_deed_medium]
+~homestead_teleport_home;
+
+[opheld2,land_deed_large]
+~homestead_teleport_home;
+
+[opheld2,land_deed_crafter]
+~homestead_teleport_home;
+
+[opheld2,land_deed_miner]
+~homestead_teleport_home;
+
+[proc,deed_read](int $type)
+if ($type = 0) {
+    mes("The deed is blank.");
+    return;
+}
+mes("The deed names you as owner of a <~homestead_house_name($type)>.");
+mes("Copied from <~homestead_region_name($type)>. Size: <~homestead_size_name($type)>.");
+if (%homestead_plot > 0) {
+    mes("Plot <tostring(%homestead_plot)> on the homestead island.");
+} else {
+    mes("No plot has been pegged yet. Speak to the estate agent.");
+}

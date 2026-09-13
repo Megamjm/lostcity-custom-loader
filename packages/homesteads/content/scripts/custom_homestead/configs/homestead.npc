@@ -1,0 +1,305 @@
+[estate_agent]
+vislevel=hide
+name=Estate agent
+desc=Sells land deeds to adventurers with more gold than sense.
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
+op1=Talk-to
+recol1s=2340
+recol1d=4226
+recol2s=14724
+recol2d=10570
+model1=man_head_shorthair2
+model2=man_jaw_medium
+model3=man_torso_basic
+model4=man_arms_basic
+model5=man_hands_basic
+model6=man_legs_basic
+model7=man_feet_basic
+model8=man_torsoextra_cloak
+head1=chat_male_head_shorthair2
+head2=chat_male_jaw_medium
+wanderrange=0
+maxrange=12
+moverestrict=normal
+category=homestead_npc
+
+[homestead_caretaker]
+vislevel=hide
+name=Caretaker
+desc=Keeps the showhomes tidy.
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
+op1=Talk-to
+recol1s=2340
+recol1d=8354
+recol2s=14724
+recol2d=13539
+model1=man_head_shorthair
+model2=man_jaw_none
+model3=man_torso_apron
+model4=man_arms_basic
+model5=man_hands_basic
+model6=man_legs_basic
+model7=man_feet_basic
+head1=chat_male_head_shorthair
+wanderrange=3
+maxrange=6
+moverestrict=indoors
+category=homestead_npc
+
+[clerk_lumbridge]
+vislevel=hide
+name=Homestead clerk
+desc=Sells copies of the Lumbridge cottage.
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
+op1=Talk-to
+model1=man_head_shorthair
+model2=man_jaw_medium
+model3=man_torso_basic
+model4=man_arms_basic
+model5=man_hands_basic
+model6=man_legs_basic
+model7=man_feet_basic
+head1=chat_male_head_shorthair
+wanderrange=0
+maxrange=4
+category=homestead_clerk
+param=homestead_style,1
+
+[clerk_draynor]
+vislevel=hide
+name=Homestead clerk
+desc=Sells copies of a Draynor willow house.
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
+op1=Talk-to
+model1=man_head_shorthair
+model2=man_jaw_medium
+model3=man_torso_basic
+model4=man_arms_basic
+model5=man_hands_basic
+model6=man_legs_basic
+model7=man_feet_basic
+head1=chat_male_head_shorthair
+wanderrange=0
+maxrange=4
+category=homestead_clerk
+param=homestead_style,2
+
+[clerk_rimmington]
+vislevel=hide
+name=Homestead clerk
+desc=Sells copies of a Rimmington workshop.
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
+op1=Talk-to
+model1=man_head_shorthair
+model2=man_jaw_medium
+model3=man_torso_basic
+model4=man_arms_basic
+model5=man_hands_basic
+model6=man_legs_basic
+model7=man_feet_basic
+head1=chat_male_head_shorthair
+wanderrange=0
+maxrange=4
+category=homestead_clerk
+param=homestead_style,3
+
+[clerk_falador]
+vislevel=hide
+name=Homestead clerk
+desc=Sells copies of a Falador stone house.
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
+op1=Talk-to
+model1=man_head_shorthair
+model2=man_jaw_medium
+model3=man_torso_basic
+model4=man_arms_basic
+model5=man_hands_basic
+model6=man_legs_basic
+model7=man_feet_basic
+head1=chat_male_head_shorthair
+wanderrange=0
+maxrange=4
+category=homestead_clerk
+param=homestead_style,4
+
+[clerk_varrock]
+vislevel=hide
+name=Homestead clerk
+desc=Sells copies of a Varrock townhouse.
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
+op1=Talk-to
+model1=man_head_shorthair
+model2=man_jaw_medium
+model3=man_torso_basic
+model4=man_arms_basic
+model5=man_hands_basic
+model6=man_legs_basic
+model7=man_feet_basic
+head1=chat_male_head_shorthair
+wanderrange=0
+maxrange=4
+category=homestead_clerk
+param=homestead_style,5
+
+[clerk_taverley]
+vislevel=hide
+name=Homestead clerk
+desc=Sells copies of a Taverley lodge.
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
+op1=Talk-to
+model1=man_head_shorthair
+model2=man_jaw_medium
+model3=man_torso_basic
+model4=man_arms_basic
+model5=man_hands_basic
+model6=man_legs_basic
+model7=man_feet_basic
+head1=chat_male_head_shorthair
+wanderrange=0
+maxrange=4
+category=homestead_clerk
+param=homestead_style,6
+
+[clerk_catherby]
+vislevel=hide
+name=Homestead clerk
+desc=Sells copies of a Catherby beach house.
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
+op1=Talk-to
+model1=man_head_shorthair
+model2=man_jaw_medium
+model3=man_torso_basic
+model4=man_arms_basic
+model5=man_hands_basic
+model6=man_legs_basic
+model7=man_feet_basic
+head1=chat_male_head_shorthair
+wanderrange=0
+maxrange=4
+category=homestead_clerk
+param=homestead_style,7
+
+[clerk_seers]
+vislevel=hide
+name=Homestead clerk
+desc=Sells copies of a Seers' hall.
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
+op1=Talk-to
+model1=man_head_shorthair
+model2=man_jaw_medium
+model3=man_torso_basic
+model4=man_arms_basic
+model5=man_hands_basic
+model6=man_legs_basic
+model7=man_feet_basic
+head1=chat_male_head_shorthair
+wanderrange=0
+maxrange=4
+category=homestead_clerk
+param=homestead_style,8
+
+[clerk_ardougne]
+vislevel=hide
+name=Homestead clerk
+desc=Sells copies of an Ardougne terrace.
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
+op1=Talk-to
+model1=man_head_shorthair
+model2=man_jaw_medium
+model3=man_torso_basic
+model4=man_arms_basic
+model5=man_hands_basic
+model6=man_legs_basic
+model7=man_feet_basic
+head1=chat_male_head_shorthair
+wanderrange=0
+maxrange=4
+category=homestead_clerk
+param=homestead_style,9
+
+[clerk_edgeville]
+vislevel=hide
+name=Homestead clerk
+desc=Sells copies of a miner's hole.
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
+op1=Talk-to
+model1=man_head_shorthair
+model2=man_jaw_medium
+model3=man_torso_basic
+model4=man_arms_basic
+model5=man_hands_basic
+model6=man_legs_basic
+model7=man_feet_basic
+head1=chat_male_head_shorthair
+wanderrange=0
+maxrange=4
+category=homestead_clerk
+param=homestead_style,12
+
+[homestead_clerk]
+vislevel=hide
+name=Homestead clerk
+desc=Takes names for copies of the house behind him.
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
+op1=Talk-to
+recol1s=2340
+recol1d=4226
+recol2s=14724
+recol2d=21702
+model1=man_head_shorthair
+model2=man_jaw_medium
+model3=man_torso_basic
+model4=man_arms_basic
+model5=man_hands_basic
+model6=man_legs_basic
+model7=man_feet_basic
+head1=chat_male_head_shorthair
+head2=chat_male_jaw_medium
+wanderrange=0
+maxrange=4
+moverestrict=normal
+category=homestead_clerk
+param=homestead_style,1
+
+[homestead_mine_rat]
+name=Mine rat
+desc=It lives off crumbs and ore dust.
+vislevel=2
+walkanim=rat_walk
+readyanim=rat_ready
+op1=Attack
+size=1
+wanderrange=6
+maxrange=8
+huntrange=4
+respawnrate=30
+stats=5,5,5,5,1,1
+category=homestead_mine_critter
+
+[homestead_mine_scorpion]
+name=Mine scorpion
+desc=The deeper you dig, the worse they get.
+vislevel=14
+walkanim=scorpion_walk
+readyanim=scorpion_ready
+op1=Attack
+size=2
+wanderrange=7
+maxrange=10
+huntrange=5
+respawnrate=40
+stats=20,20,20,21,1,1
+category=homestead_mine_critter

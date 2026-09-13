@@ -1,0 +1,239 @@
+// Staff creative overlay. Type ::~home_help
+// debugprocs only fire for accounts that can use :: commands.
+
+[debugproc,home_help]
+if_close;
+if (p_finduid(uid) = false) {
+    return;
+}
+~mesbox("@blu@Homestead staff|@whi@::~home_creative@bla@ toggle build mode|@whi@::~home_info@bla@ coord / plot / house|@whi@::~home_village@bla@ ::~home_go ::~home_mine ::~home_setup");
+~mesbox("@blu@Deeds|@whi@::~home_give 1-12@bla@ grant that house on a free plot|@whi@::~home_stamp@bla@ restamp your current house|@whi@::~home_clearplot@bla@ wipe sold sign + varps");
+~mesbox("@blu@Palette (stands on the tile)|@whi@::~home_chest ::~home_bank ::~home_portal ::~home_sign ::~home_hole|@whi@::~home_chair ::~home_table ::~home_bed ::~home_book ::~home_wall ::~home_door|@whi@::~home_del@bla@ remove a homestead loc under you");
+~mesbox("@blu@Map|Edit the island files with tools/mapedit.py then let the world repack.|True private instances still need the engine overlay, not a plugin.");
+
+[debugproc,home_info]
+if (p_finduid(uid) = false) {
+    return;
+}
+mes("coord=<tostring(coord)> house=<tostring(%homestead_house)> plot=<tostring(%homestead_plot)> flags=<tostring(%homestead_flags)> staff=<tostring(staffmodlevel)>");
+
+[debugproc,home_creative]
+if (p_finduid(uid) = false) {
+    return;
+}
+if (~homestead_staff_ok = false) {
+    return;
+}
+if (getbit_range(%homestead_flags, 0, 0) = 1) {
+    %homestead_flags = setbit_range(%homestead_flags, 0, 0, 0);
+    mes("Creative off.");
+} else {
+    %homestead_flags = setbit_range(%homestead_flags, 0, 0, 1);
+    mes("Creative on. Palette commands plant at your feet.");
+}
+
+[debugproc,home_village]
+if (p_finduid(uid) = false) {
+    return;
+}
+~homestead_teleport_village;
+
+[debugproc,home_go]
+if (p_finduid(uid) = false) {
+    return;
+}
+if (%homestead_house = 0) {
+    ~homestead_teleport_village;
+    return;
+}
+~homestead_teleport_home;
+
+[debugproc,home_mine]
+if (p_finduid(uid) = false) {
+    return;
+}
+p_teleport(^homestead_mine_entrance);
+mes("Staff jump into the shared mine slice.");
+
+[debugproc,home_setup]
+if (p_finduid(uid) = false) {
+    return;
+}
+if (~homestead_staff_ok = false) {
+    return;
+}
+~homestead_seed_preview_village;
+~homestead_seed_region_clerks;
+mes("Village green and town clerks seeded.");
+
+[debugproc,home_give](int $type)
+if (p_finduid(uid) = false) {
+    return;
+}
+if (~homestead_staff_ok = false) {
+    return;
+}
+if ($type < 1 | $type > 12) {
+    mes("::~home_give 1-12");
+    return;
+}
+%homestead_house = $type;
+if (%homestead_plot = 0) {
+    if (~homestead_assign_plot = 0) {
+        return;
+    }
+}
+~homestead_stamp_player_house;
+settimer(homestead_keep_timer, 100);
+mes("Granted <~homestead_house_name($type)> on plot <tostring(%homestead_plot)>.");
+~homestead_teleport_home;
+
+[debugproc,home_stamp]
+if (p_finduid(uid) = false) {
+    return;
+}
+if (~homestead_staff_ok = false) {
+    return;
+}
+~homestead_stamp_player_house;
+mes("House restamped.");
+
+[debugproc,home_clearplot]
+if (p_finduid(uid) = false) {
+    return;
+}
+if (~homestead_staff_ok = false) {
+    return;
+}
+if (%homestead_plot ! 0) {
+    def_coord $origin = ~homestead_plot_coord(%homestead_plot);
+    if (loc_find($origin, homestead_sold_sign) = true) {
+        loc_del(1);
+    }
+}
+%homestead_house = 0;
+%homestead_plot = 0;
+mes("Deed cleared. Furniture fades on the next restamp window.");
+
+[debugproc,home_chest]
+~homestead_creative_plant(homestead_chest);
+
+[debugproc,home_bank]
+~homestead_creative_plant(homestead_bank_closet);
+
+[debugproc,home_portal]
+~homestead_creative_plant(homestead_portal);
+
+[debugproc,home_sign]
+~homestead_creative_plant(homestead_sold_sign);
+
+[debugproc,home_hole]
+~homestead_creative_plant(homestead_mine_hole);
+
+[debugproc,home_chair]
+~homestead_creative_plant(chair);
+
+[debugproc,home_table]
+~homestead_creative_plant(bigtable);
+
+[debugproc,home_bed]
+~homestead_creative_plant(bed);
+
+[debugproc,home_book]
+~homestead_creative_plant(bookcase);
+
+[debugproc,home_wall]
+~homestead_creative_plant(timberwall);
+
+[debugproc,home_door]
+~homestead_creative_plant(homestead_for_sale);
+
+[debugproc,home_del]
+if (p_finduid(uid) = false) {
+    return;
+}
+if (~homestead_staff_ok = false) {
+    return;
+}
+if (loc_find(coord, homestead_chest) = true) {
+    loc_del(1);
+    mes("Removed chest.");
+    return;
+}
+if (loc_find(coord, homestead_bank_closet) = true) {
+    loc_del(1);
+    mes("Removed bank closet.");
+    return;
+}
+if (loc_find(coord, homestead_portal) = true) {
+    loc_del(1);
+    mes("Removed portal.");
+    return;
+}
+if (loc_find(coord, homestead_exit_portal) = true) {
+    loc_del(1);
+    mes("Removed exit portal.");
+    return;
+}
+if (loc_find(coord, homestead_sold_sign) = true) {
+    loc_del(1);
+    mes("Removed sold sign.");
+    return;
+}
+if (loc_find(coord, homestead_mine_hole) = true) {
+    loc_del(1);
+    mes("Removed mine hole.");
+    return;
+}
+if (loc_find(coord, homestead_for_sale) = true) {
+    loc_del(1);
+    mes("Removed sale sign.");
+    return;
+}
+if (loc_find(coord, chair) = true) {
+    loc_del(1);
+    mes("Removed chair.");
+    return;
+}
+if (loc_find(coord, bigtable) = true) {
+    loc_del(1);
+    mes("Removed table.");
+    return;
+}
+if (loc_find(coord, bed) = true) {
+    loc_del(1);
+    mes("Removed bed.");
+    return;
+}
+if (loc_find(coord, bookcase) = true) {
+    loc_del(1);
+    mes("Removed bookcase.");
+    return;
+}
+if (loc_find(coord, timberwall) = true) {
+    loc_del(1);
+    mes("Removed wall.");
+    return;
+}
+mes("No homestead loc on this tile.");
+
+[proc,homestead_staff_ok]()(boolean)
+if (staffmodlevel < 1) {
+    mes("Staff only.");
+    return(false);
+}
+return(true);
+
+[proc,homestead_creative_plant](loc $type)
+if (p_finduid(uid) = false) {
+    return;
+}
+if (~homestead_staff_ok = false) {
+    return;
+}
+if (getbit_range(%homestead_flags, 0, 0) = 0) {
+    mes("Turn creative on first: ::~home_creative");
+    return;
+}
+loc_add(coord, $type, 0, centrepiece_straight, ^homestead_stamp_ticks);
+mes("Planted.");

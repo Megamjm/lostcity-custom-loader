@@ -1,0 +1,38 @@
+// Clerks stand outside the real houses in each region.
+// They sell only the copy of the building behind them.
+
+[opnpc1,_homestead_clerk]
+def_int $style = npc_param(homestead_style);
+if ($style < 1 | $style > 12) {
+    $style = 1;
+}
+~chatnpc("<p,happy>This house stays where it is. I sell a copy of it, pegged on the homestead island.");
+~chatnpc("<p,quiz>The <~homestead_house_name($style)> is a <~homestead_size_name($style)> copy. <tostring(~homestead_price($style))> coins.");
+def_int $c = ~p_choice3("I'll take a copy.", 1, "How do I get to the island?", 2, "No thanks.", 3);
+if ($c = 1) {
+    ~chatplayer("<p,quiz>I'll take a copy.");
+    ~homestead_buy($style);
+} else if ($c = 2) {
+    ~chatplayer("<p,quiz>How do I get to the island?");
+    ~chatnpc("<p,neutral>Buy the deed and use it. Or find the portal on the homestead green.");
+} else {
+    ~chatplayer("<p,neutral>No thanks.");
+}
+
+[proc,homestead_seed_region_clerks]
+~homestead_seed_named(^homestead_lumbridge_clerk, clerk_lumbridge);
+~homestead_seed_named(^homestead_draynor_clerk, clerk_draynor);
+~homestead_seed_named(^homestead_rimmington_clerk, clerk_rimmington);
+~homestead_seed_named(^homestead_falador_clerk, clerk_falador);
+~homestead_seed_named(^homestead_varrock_clerk, clerk_varrock);
+~homestead_seed_named(^homestead_taverley_clerk, clerk_taverley);
+~homestead_seed_named(^homestead_catherby_clerk, clerk_catherby);
+~homestead_seed_named(^homestead_seers_clerk, clerk_seers);
+~homestead_seed_named(^homestead_ardougne_clerk, clerk_ardougne);
+~homestead_seed_named(^homestead_edgeville_clerk, clerk_edgeville);
+
+[proc,homestead_seed_named](coord $at, npc $type)
+if (npc_find($at, $type, 4, 0) = true) {
+    return;
+}
+npc_add($at, $type, ^homestead_npc_ticks);

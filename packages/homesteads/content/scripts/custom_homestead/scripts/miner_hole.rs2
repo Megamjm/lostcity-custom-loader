@@ -1,0 +1,47 @@
+// Miner plots do not contain a mine.
+// The hole is a door into a shared 32x24 slice of the dwarven
+// mine baked on m11_8 (plane 0 only).
+
+[oploc1,homestead_mine_hole]
+if (%homestead_house ! 12) {
+    mes("This shaft is boarded over. You need a miner's deed.");
+    return;
+}
+mes("You drop into a cut of the dwarven mines.");
+p_delay(0);
+p_teleport(^homestead_mine_entrance);
+~homestead_seed_mine;
+
+[oploc1,homestead_mine_rope]
+mes("You climb the rope back to your plot.");
+p_delay(0);
+if (%homestead_plot = 0) {
+    ~homestead_teleport_village;
+    return;
+}
+def_coord $origin = ~homestead_plot_coord(%homestead_plot);
+p_teleport(movecoord($origin, 8, 0, 7));
+
+[proc,homestead_seed_mine]
+loc_add(^homestead_mine_entrance, homestead_mine_rope, 0, centrepiece_straight, ^homestead_stamp_ticks);
+~homestead_seed_mine_critters(^homestead_mine_entrance);
+
+[proc,homestead_seed_mine_critters](coord $hole)
+def_int $mining = stat(mining);
+def_coord $a = movecoord($hole, 6, 0, 4);
+def_coord $b = movecoord($hole, 12, 0, 8);
+if ($mining < 20) {
+    if (npc_find($a, homestead_mine_rat, 6, 0) = false) {
+        npc_add($a, homestead_mine_rat, 500);
+    }
+    return;
+}
+if (npc_find($b, homestead_mine_scorpion, 8, 0) = false) {
+    npc_add($b, homestead_mine_scorpion, 500);
+}
+if ($mining >= 50) {
+    def_coord $c = movecoord($hole, 18, 0, 6);
+    if (npc_find($c, homestead_mine_scorpion, 8, 0) = false) {
+        npc_add($c, homestead_mine_scorpion, 500);
+    }
+}

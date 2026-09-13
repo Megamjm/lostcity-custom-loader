@@ -1,0 +1,111 @@
+// Estate agent: walks in off-screen and sells named regional copies.
+
+[opnpc1,estate_agent]
+~estate_agent_dialog;
+
+[label,estate_agent_dialog]
+~chatnpc("<p,happy>Good day. I sell copies of houses that already stand in Gielinor.");
+if (%homestead_house = 0) {
+    def_int $choice = ~p_choice3("Show me the catalogue.", 1, "What is this island?", 2, "No thanks.", 3);
+    switch_int ($choice) {
+        case 1 :
+            ~chatplayer("<p,quiz>Show me the catalogue.");
+            @estate_agent_size_menu;
+        case 2 :
+            ~chatplayer("<p,neutral>What is this island?");
+            ~chatnpc("<p,quiz>A new stretch of land west of the known map. One hundred plots, four floors, nobody's quest stuffed in a cupboard.");
+            ~chatnpc("<p,neutral>Walk the real houses in town if you want to see the original. A clerk waits outside each one.");
+        case 3 :
+            ~chatplayer("<p,neutral>No thanks.");
+    }
+    return;
+}
+def_int $owned = ~p_choice3("Take me to my house.", 1, "I want a different copy.", 2, "Just passing through.", 3);
+switch_int ($owned) {
+    case 1 :
+        ~chatplayer("<p,happy>Take me to my house.");
+        ~homestead_teleport_home;
+    case 2 :
+        ~chatplayer("<p,quiz>I want a different copy.");
+        ~chatnpc("<p,neutral>You pay the full price of the new house. The old deed is torn up.");
+        @estate_agent_size_menu;
+    case 3 :
+        ~chatplayer("<p,neutral>Just passing through.");
+}
+
+[label,estate_agent_size_menu]
+~chatnpc("<p,quiz>Size first. Bigger copies cost more.");
+def_int $size = ~p_choice5("Small cottages.", 1, "Medium townhouses.", 2, "Large halls.", 3, "Workshops.", 4, "Never mind.", 5);
+switch_int ($size) {
+    case 1 :
+        @estate_agent_small;
+    case 2 :
+        @estate_agent_medium;
+    case 3 :
+        @estate_agent_large;
+    case 4 :
+        @estate_agent_work;
+}
+
+[label,estate_agent_small]
+def_int $s = ~p_choice3("Lumbridge cottage - 10k.", 1, "Draynor willow house - 18k.", 2, "Rimmington workshop - 35k.", 3);
+if ($s = 1) {
+    ~homestead_buy(1);
+} else if ($s = 2) {
+    ~homestead_buy(2);
+} else {
+    ~homestead_buy(3);
+}
+
+[label,estate_agent_medium]
+def_int $m = ~p_choice5("Falador stone house - 50k.", 1, "Varrock townhouse - 65k.", 2, "Taverley lodge - 55k.", 3, "Catherby beach house - 70k.", 4, "Back.", 5);
+if ($m = 1) {
+    ~homestead_buy(4);
+} else if ($m = 2) {
+    ~homestead_buy(5);
+} else if ($m = 3) {
+    ~homestead_buy(6);
+} else if ($m = 4) {
+    ~homestead_buy(7);
+} else {
+    @estate_agent_size_menu;
+}
+
+[label,estate_agent_large]
+def_int $l = ~p_choice3("Seers' hall - 120k.", 1, "Ardougne terrace - 140k.", 2, "Island manor - 200k.", 3);
+if ($l = 1) {
+    ~homestead_buy(8);
+} else if ($l = 2) {
+    ~homestead_buy(9);
+} else {
+    ~homestead_buy(10);
+}
+
+[label,estate_agent_work]
+def_int $w = ~p_choice2("Crafter's yard - 90k.", 1, "Miner's hole - 45k.", 2);
+if ($w = 1) {
+    ~homestead_buy(11);
+} else {
+    ~homestead_buy(12);
+}
+
+[proc,homestead_spawn_approaching_agent]
+if (npc_find(^homestead_agent_stand, estate_agent, 12, 0) = true) {
+    return;
+}
+npc_add(^homestead_agent_offscreen, estate_agent, ^homestead_npc_ticks);
+npc_say("You there!");
+npc_walk(^homestead_agent_stand);
+%homestead_approached = 1;
+mes("An estate agent hurries in from the new road, waving a sheaf of deeds.");
+
+[opnpc1,homestead_caretaker]
+~chatnpc("<p,happy>One hundred plots on this island. Four floors. The showhomes on the green are empty on purpose.");
+if (%homestead_house = 0) {
+    def_int $c = ~p_choice2("Where is the estate agent?", 1, "I'll look around.", 2);
+    if ($c = 1) {
+        ~homestead_spawn_approaching_agent;
+    }
+} else {
+    ~chatnpc("<p,happy>Your copy is on plot <tostring(%homestead_plot)>. The portal will take you.");
+}

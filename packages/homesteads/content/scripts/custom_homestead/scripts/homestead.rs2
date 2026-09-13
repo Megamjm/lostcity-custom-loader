@@ -1,0 +1,201 @@
+// Homestead entry points, plot math, purchase, persistence.
+
+[queue,homestead_login]
+~homestead_seed_region_clerks;
+if (%homestead_house ! 0) {
+    ~homestead_stamp_player_house;
+    settimer(homestead_keep_timer, 100);
+}
+if (%homestead_approached = 0) {
+    settimer(homestead_agent_timer, 15);
+}
+
+[timer,homestead_agent_timer]
+if (%homestead_house ! 0) {
+    cleartimer(homestead_agent_timer);
+    return;
+}
+if (~homestead_in_preview_village = true) {
+    ~homestead_spawn_approaching_agent;
+    cleartimer(homestead_agent_timer);
+    return;
+}
+settimer(homestead_agent_timer, 25);
+
+// Runtime locs expire. While the owner is on the island, restamp
+// so the house, chest and upstairs survive long sessions / restarts.
+[timer,homestead_keep_timer]
+if (%homestead_house = 0) {
+    cleartimer(homestead_keep_timer);
+    return;
+}
+if (~homestead_in_island = true) {
+    ~homestead_stamp_player_house;
+    ~homestead_enforce_plot;
+}
+if (~homestead_in_mine = true) {
+    if (%homestead_house ! 12) {
+        mes("This shaft is not yours.");
+        ~homestead_teleport_village;
+    }
+}
+settimer(homestead_keep_timer, 200);
+
+[proc,homestead_in_preview_village]()(boolean)
+if (inzone(0_8_8_0_0, 0_8_8_15_15, coord) = true) {
+    return(true);
+}
+return(false);
+
+[proc,homestead_in_island]()(boolean)
+if (inzone(0_8_8_0_0, 0_10_10_63_63, coord) = true) {
+    return(true);
+}
+return(false);
+
+[proc,homestead_in_mine]()(boolean)
+if (inzone(0_11_8_0_0, 0_11_8_63_63, coord) = true) {
+    return(true);
+}
+return(false);
+
+[proc,homestead_on_own_plot]()(boolean)
+if (%homestead_plot = 0) {
+    return(false);
+}
+def_coord $origin = ~homestead_plot_coord(%homestead_plot);
+def_coord $max = movecoord($origin, 15, 0, 15);
+if (inzone($origin, $max, coord) = true) {
+    return(true);
+}
+return(false);
+
+[proc,homestead_enforce_plot]
+if (~homestead_in_preview_village = true) {
+    return;
+}
+if (%homestead_house = 0) {
+    mes("Those lots are fenced off until you buy a deed.");
+    p_teleport(^homestead_preview_spawn);
+    return;
+}
+if (~homestead_on_own_plot = false) {
+    mes("The void between plots dumps you back on your own lot.");
+    ~homestead_teleport_home;
+}
+
+[proc,homestead_house_name](int $type)(string)
+return(enum(string, homestead_house_name, $type));
+
+[proc,homestead_price](int $type)(int)
+return(enum(int, homestead_house_price, $type));
+
+[proc,homestead_size_name](int $type)(string)
+return(enum(string, homestead_house_size, $type));
+
+[proc,homestead_region_name](int $type)(string)
+return(enum(string, homestead_house_region, $type));
+
+[proc,homestead_plot_coord](int $plot)(coord)
+def_int $index = sub($plot, 1);
+if ($index < 0) {
+    $index = 0;
+}
+if ($index >= ^homestead_plot_count) {
+    $index = sub(^homestead_plot_count, 1);
+}
+def_int $col = mod($index, ^homestead_plot_cols);
+def_int $row = divide($index, ^homestead_plot_cols);
+def_int $dx = multiply($col, ^homestead_plot_size);
+def_int $dz = multiply($row, ^homestead_plot_size);
+return(movecoord(^homestead_island_origin, $dx, 0, $dz));
+
+[proc,homestead_find_vacant_plot]()(int)
+def_int $start = add(mod(uid, ^homestead_plot_count), 1);
+def_int $i = 0;
+while ($i < ^homestead_plot_count) {
+    def_int $plot = add(mod(add(sub($start, 1), $i), ^homestead_plot_count), 1);
+    def_coord $origin = ~homestead_plot_coord($plot);
+    if (~homestead_plot_vacant($origin) = true) {
+        return($plot);
+    }
+    $i = add($i, 1);
+}
+return(0);
+
+[proc,homestead_assign_plot]()(int)
+if (%homestead_plot > 0) {
+    return(%homestead_plot);
+}
+def_int $plot = ~homestead_find_vacant_plot;
+if ($plot = 0) {
+    mes("Every plot on the island is taken.");
+    return(0);
+}
+%homestead_plot = $plot;
+return($plot);
+
+[proc,homestead_can_buy](int $type)(boolean)
+if ($type < 1 | $type > 12) {
+    mes("That deed is not for sale.");
+    return(false);
+}
+if (~homestead_busy = true) {
+    return(false);
+}
+def_int $price = ~homestead_price($type);
+if (inv_total(inv, coins) < $price) {
+    mes("You need <tostring($price)> coins to buy that copy.");
+    return(false);
+}
+return(true);
+
+[proc,homestead_busy]()(boolean)
+if (p_finduid(uid) = false) {
+    return(true);
+}
+return(false);
+
+[proc,homestead_take_gold](int $price)(boolean)
+if (inv_total(inv, coins) < $price) {
+    return(false);
+}
+inv_del(inv, coins, $price);
+return(true);
+
+[proc,homestead_give_deed](int $type)
+if (inv_total(inv, land_deed) < 1) {
+    inv_add(inv, land_deed, 1);
+}
+
+[proc,homestead_clear_old_deed]
+inv_del(inv, land_deed_small, inv_total(inv, land_deed_small));
+inv_del(inv, land_deed_medium, inv_total(inv, land_deed_medium));
+inv_del(inv, land_deed_large, inv_total(inv, land_deed_large));
+inv_del(inv, land_deed_crafter, inv_total(inv, land_deed_crafter));
+inv_del(inv, land_deed_miner, inv_total(inv, land_deed_miner));
+
+[proc,homestead_buy](int $type)
+if (~homestead_can_buy($type) = false) {
+    return;
+}
+def_int $price = ~homestead_price($type);
+if (~homestead_take_gold($price) = false) {
+    ~chatnpc("<p,neutral>Come back when you have the coins.");
+    return;
+}
+if (%homestead_plot = 0) {
+    if (~homestead_assign_plot = 0) {
+        inv_add(inv, coins, $price);
+        ~chatnpc("<p,sad>I have to give you the coins back. The island is full.");
+        return;
+    }
+}
+~homestead_clear_old_deed;
+%homestead_house = $type;
+%homestead_approached = 1;
+~homestead_give_deed($type);
+~homestead_stamp_player_house;
+settimer(homestead_keep_timer, 100);
+~chatnpc("<p,happy>Sold! A copy of the <~homestead_house_name($type)> from <~homestead_region_name($type)> is on plot <tostring(%homestead_plot)>.");
+~chatnpc("<p,quiz>The deed is in your pack. Read it, or use it to go home.");

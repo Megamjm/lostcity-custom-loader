@@ -3,3 +3,7 @@
 @@
  [login,_]
 +queue(homestead_login, 1);
+ // existing login body continues...
++
++// Homesteads: restamp the player's house and start the estate-agent
++// approach timer if they do not own land yet.

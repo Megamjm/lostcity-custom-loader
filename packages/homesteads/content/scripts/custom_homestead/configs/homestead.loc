@@ -1,5 +1,6 @@
 // Interactive homestead scenery.
 // Models are stock 2004 names that already exist in Content.
+// Swap model= later if you want a prettier portal / sign.
 
 [homestead_portal]
 name=Homestead portal

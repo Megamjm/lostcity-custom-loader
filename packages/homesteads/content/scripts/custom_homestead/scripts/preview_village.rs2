@@ -1,0 +1,42 @@
+[proc,homestead_build_preview]
+if (npc_find(^homestead_agent_stand, homestead_caretaker, 8, 0) = false) {
+    npc_add(^homestead_agent_stand, homestead_caretaker, ^homestead_npc_ticks);
+}
+loc_add(^homestead_preview_spawn, homestead_portal, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(^homestead_island_exit, homestead_exit_portal, 0, centrepiece_straight, ^homestead_stamp_ticks);
+
+~homestead_stamp_house(movecoord(^homestead_preview_spawn, 16, 0, 0), 1);
+loc_add(movecoord(^homestead_preview_spawn, 16, 0, 0), homestead_for_sale, 0, centrepiece_straight, ^homestead_stamp_ticks);
+
+~homestead_stamp_house(movecoord(^homestead_preview_spawn, 32, 0, 0), 4);
+loc_add(movecoord(^homestead_preview_spawn, 32, 0, 0), homestead_for_sale, 0, centrepiece_straight, ^homestead_stamp_ticks);
+
+~homestead_stamp_house(movecoord(^homestead_preview_spawn, 48, 0, 0), 10);
+loc_add(movecoord(^homestead_preview_spawn, 48, 0, 0), homestead_for_sale, 0, centrepiece_straight, ^homestead_stamp_ticks);
+
+~homestead_stamp_house(movecoord(^homestead_preview_spawn, 16, 0, 8), 11);
+~homestead_stamp_house(movecoord(^homestead_preview_spawn, 32, 0, 8), 12);
+
+[debugproc,homestead_setup]
+~homestead_build_preview;
+~homestead_seed_region_clerks;
+mes("Homestead island, showhomes and town clerks are in.");
+
+[debugproc,homestead_here]
+mes("house=<tostring(%homestead_house)> plot=<tostring(%homestead_plot)>");
+
+[debugproc,homestead_grant]
+%homestead_house = 1;
+if (~homestead_assign_plot = 0) {
+    return;
+}
+~homestead_give_deed(1);
+~homestead_stamp_player_house;
+mes("Debug: Lumbridge cottage granted on plot <tostring(%homestead_plot)>.");
+
+[debugproc,homestead_go]
+if (%homestead_house = 0) {
+    p_teleport(^homestead_preview_spawn);
+} else {
+    ~homestead_teleport_home;
+}

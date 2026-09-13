@@ -1,4 +1,4 @@
 // Paste this single line near the top of scripts/login_logout/login.rs2
-// inside the [login,_] trigger:
+// inside the [login,_] trigger, after the welcome/camera setup:
 
 queue(homestead_login, 1);
