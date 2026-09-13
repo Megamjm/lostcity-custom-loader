@@ -51,6 +51,7 @@ if (loc_find($sign, homestead_sold_sign) = true) {
 }
 return(true);
 [proc,stamp_lumbridge_cottage](coord $origin)
+~homestead_stamp_cottage_ceiling($origin);
 loc_add(movecoord($origin, 0, 0, 0), timberwall, 1, wall_squarecorner, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 5, 0, 0), timberwall, 0, wall_squarecorner, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 0, 0, 7), timberwall, 2, wall_squarecorner, ^homestead_stamp_ticks);
@@ -135,6 +136,7 @@ loc_add(movecoord($origin, 5, 1, 5), oldroof_wooden, 2, roof_straight, ^homestea
 loc_add(movecoord($origin, 5, 1, 6), oldroof_wooden, 2, roof_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 5, 1, 7), oldroof_wooden, 2, roof_straight, ^homestead_stamp_ticks);
 [proc,stamp_lumbridge_cottage_west](coord $origin)
+~homestead_stamp_cottage_ceiling($origin);
 loc_add(movecoord($origin, 0, 0, 0), timberwall, 1, wall_squarecorner, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 5, 0, 0), timberwall, 0, wall_squarecorner, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 0, 0, 7), timberwall, 2, wall_squarecorner, ^homestead_stamp_ticks);
