@@ -1,4 +1,4 @@
-// 20x20 rim. House is inset +2,+2 so it sits inside the posts.
+// 20x20 rim. House inset +2,+2. Col 0 faces east at the boulevard. Col 1 faces west.
 // wall_straight: 1 south, 0 east, 2 west, 3 north.
 
 [proc,homestead_plot_col](int $plot)(int)
@@ -10,7 +10,7 @@ return(sub($index, multiply(divide($index, ^homestead_plot_cols), ^homestead_plo
 
 [proc,homestead_faces_east](int $plot)(boolean)
 def_int $col = ~homestead_plot_col($plot);
-if (sub($col, multiply(divide($col, 2), 2)) = 0) {
+if ($col = 0) {
     return(true);
 }
 return(false);
@@ -32,7 +32,7 @@ def_int $plot = ~homestead_plot_from_coord($origin);
 if (~homestead_faces_east($plot) = true) {
     return(movecoord($origin, 20, 0, 9));
 }
-return(movecoord($origin, 0, 0, 9));
+return(movecoord($origin, -1, 0, 9));
 
 [proc,homestead_gate_coord](coord $origin)(coord)
 def_int $plot = ~homestead_plot_from_coord($origin);
@@ -81,8 +81,8 @@ if (~homestead_faces_east($plot) = true) {
     loc_add(movecoord($origin, 20, 0, 11), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
 } else {
     loc_add(movecoord($origin, 0, 0, 10), homestead_gate, 2, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 0, 0, 9), homestead_sold_sign, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 0, 0, 11), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, -1, 0, 9), homestead_sold_sign, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, -1, 0, 11), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
 }
 
 [proc,homestead_stamp_vacant_frontage](coord $origin)

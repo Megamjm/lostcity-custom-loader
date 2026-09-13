@@ -1,24 +1,25 @@
 // Plot 1 stays 0_8_8_16_16.
-// 20 lots of 20x20. 6-tile cobble streets. Stride 26.
-// 5 columns x 4 rows. Plane 0, no height offset.
+// 10 lots of 20x20. Two columns, five rows.
+// 8-tile cobble boulevard between the columns. Stride 28.
+// Plane 0, no height — same ground as the mainland.
 
-^homestead_preview_spawn = 0_8_8_28_8
-^homestead_agent_offscreen = 0_8_8_28_2
-^homestead_agent_stand = 0_8_8_26_10
+^homestead_preview_spawn = 0_8_8_36_8
+^homestead_agent_offscreen = 0_8_8_36_2
+^homestead_agent_stand = 0_8_8_34_10
 ^homestead_island_origin = 0_8_8_16_16
-^homestead_island_exit = 0_8_8_28_4
+^homestead_island_exit = 0_8_8_36_4
 ^homestead_mine_entrance = 0_11_8_4_4
-^homestead_office_origin = 0_8_8_18_2
-^homestead_clerk_mabel = 0_8_8_21_5
-^homestead_clerk_oswald = 0_8_8_22_5
-^homestead_clerk_pip = 0_8_8_23_5
+^homestead_office_origin = 0_8_8_28_2
+^homestead_clerk_mabel = 0_8_8_31_5
+^homestead_clerk_oswald = 0_8_8_32_5
+^homestead_clerk_pip = 0_8_8_33_5
 
 ^homestead_plot_size = 20
-^homestead_street = 6
-^homestead_plot_stride = 26
-^homestead_plot_cols = 5
-^homestead_plot_rows = 4
-^homestead_plot_count = 20
+^homestead_street = 8
+^homestead_plot_stride = 28
+^homestead_plot_cols = 2
+^homestead_plot_rows = 5
+^homestead_plot_count = 10
 ^homestead_house_inset = 2
 
 ^homestead_stamp_ticks = 500000
@@ -68,12 +69,12 @@
 
 ^homestead_deed_fee = 1000
 ^homestead_combat_ticks = 17
-^homestead_preview_origin = 0_8_8_36_2
+^homestead_preview_origin = 0_8_8_44_2
 ^homestead_preview_plot = 8
 ^homestead_preview_street = 4
-^homestead_preview_cols = 4
-^homestead_preview_count = 16
-^homestead_preview_gate = 0_8_8_28_12
+^homestead_preview_cols = 2
+^homestead_preview_count = 4
+^homestead_preview_gate = 0_8_8_36_12
 ^homestead_up_lanterns = 1
 ^homestead_up_hedge = 2
 ^homestead_up_garden = 4
