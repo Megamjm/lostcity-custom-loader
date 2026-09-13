@@ -5,24 +5,24 @@ def_int $style = npc_param(homestead_style);
 if ($style < 1 | $style > 12) {
     $style = 1;
 }
-~chatnpc("<p,happy>My my, this is a nice home isn't it. Wouldn't you like to own one similar to this?");
-~chatnpc("<p,quiz>A <~homestead_house_name($style)> on the homestead island. <tostring(~homestead_price($style))> coins.");
+~chatnpc("<p,happy>A nice home, isn't it? A copy can stand on the island.");
+~chatnpc("<p,quiz>A <~homestead_house_name($style)>. <tostring(~homestead_price($style))> coins.");
 if (%homestead_house = 0) {
-    def_int $new = ~p_choice5("I'm new. Take me to the island.", 1, "I'll take a copy.", 2, "I lost a deed.", 3, "Friend and guest paper.", 4, "No thanks.", 5);
+    def_int $new = ~p_choice5("Take me to the island.", 1, "I'll take a copy.", 2, "I lost a deed.", 3, "More.", 4, "No thanks.", 5);
     if ($new = 1) {
         ~homestead_go(^homestead_preview_spawn);
-        mes("The clerk sends you to the homestead green.");
+        mes("The clerk sends you to the green.");
     } else if ($new = 2) {
         ~homestead_buy($style);
     } else if ($new = 3) {
         ~homestead_reissue_deed;
     } else if ($new = 4) {
-        @homestead_guest_menu;
+        @homestead_clerk_more;
     }
     return;
 }
-~chatnpc("<p,neutral>You already hold plot <tostring(%homestead_plot)>. The deed is bound to your name.");
-def_int $own = ~p_choice5("Take me home.", 1, "I lost my deed.", 2, "Send me back where I was.", 3, "Friend and guest paper.", 4, "Upgrade the lot.", 5);
+~chatnpc("<p,neutral>Plot <tostring(%homestead_plot)> is bound to your name.");
+def_int $own = ~p_choice5("Take me home.", 1, "I lost my deed.", 2, "Send me back.", 3, "More.", 4, "Goodbye.", 5);
 if ($own = 1) {
     if (~homestead_can_teleport = false) {
         return;
@@ -33,9 +33,19 @@ if ($own = 1) {
 } else if ($own = 3) {
     ~homestead_send_back;
 } else if ($own = 4) {
+    @homestead_clerk_more;
+}
+
+[label,homestead_clerk_more]
+def_int $m = ~p_choice5("Friend paper.", 1, "Upgrade the lot.", 2, "The preview yard.", 3, "Walk me there.", 4, "Back.", 5);
+if ($m = 1) {
     @homestead_guest_menu;
-} else {
+} else if ($m = 2) {
     @homestead_upgrade_menu;
+} else if ($m = 3) {
+    ~chatnpc("<p,neutral>Four empty copies behind the office. Walk them first.");
+} else if ($m = 4) {
+    ~homestead_walk_preview;
 }
 
 [proc,homestead_seed_region_clerks]
