@@ -63,3 +63,13 @@ echo "[custom-loader] wrote engine .env with BUILD_VERIFY=false"
 echo "[custom-loader] migrate + start (tsx)"
 npm run sqlite:migrate || true
 exec node_modules/.bin/tsx src/app.ts
+
+# --- homestead login hook (274 queue needs 3 args) ---
+LOGIN=/opt/lost-city-rs/content/scripts/login_logout/login.rs2
+if [ -f "$LOGIN" ]; then
+  sed -i 's/queue(homestead_login, 1);/queue(homestead_login, 1, 0);/g' "$LOGIN"
+  if ! grep -q homestead_login "$LOGIN"; then
+    sed -i 's/^\[login,_\]/[login,_]\nqueue(homestead_login, 1, 0);/' "$LOGIN"
+  fi
+  echo "[custom-loader] login hook -> $LOGIN"
+fi

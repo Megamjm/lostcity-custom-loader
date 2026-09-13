@@ -1,0 +1,51 @@
+[proc,homestead_house_name](int $type)(string)
+if ($type = 1) return("Lumbridge cottage");
+if ($type = 2) return("Draynor willow house");
+if ($type = 3) return("Rimmington workshop");
+if ($type = 4) return("Falador stone house");
+if ($type = 5) return("Varrock townhouse");
+if ($type = 6) return("Taverley lodge");
+if ($type = 7) return("Catherby beach house");
+if ($type = 8) return("Seers hall");
+if ($type = 9) return("Ardougne terrace");
+if ($type = 10) return("Island manor");
+if ($type = 11) return("Crafter yard");
+if ($type = 12) return("Miner hole");
+return("Vacant lot");
+
+[proc,homestead_price](int $type)(int)
+if ($type = 1) return(10000);
+if ($type = 2) return(18000);
+if ($type = 3) return(35000);
+if ($type = 4) return(50000);
+if ($type = 5) return(65000);
+if ($type = 6) return(55000);
+if ($type = 7) return(70000);
+if ($type = 8) return(120000);
+if ($type = 9) return(140000);
+if ($type = 10) return(200000);
+if ($type = 11) return(90000);
+if ($type = 12) return(45000);
+return(0);
+
+[proc,homestead_size_name](int $type)(string)
+if ($type = 1 | $type = 2 | $type = 3) return("small");
+if ($type = 4 | $type = 5 | $type = 6 | $type = 7) return("medium");
+if ($type = 8 | $type = 9 | $type = 10) return("large");
+if ($type = 11 | $type = 12) return("workshop");
+return("none");
+
+[proc,homestead_region_name](int $type)(string)
+if ($type = 1) return("Lumbridge");
+if ($type = 2) return("Draynor Village");
+if ($type = 3) return("Rimmington");
+if ($type = 4) return("Falador");
+if ($type = 5) return("Varrock");
+if ($type = 6) return("Taverley");
+if ($type = 7) return("Catherby");
+if ($type = 8) return("Seers Village");
+if ($type = 9) return("East Ardougne");
+if ($type = 10) return("the island");
+if ($type = 11) return("the island workshops");
+if ($type = 12) return("the island mines");
+return("Nowhere");

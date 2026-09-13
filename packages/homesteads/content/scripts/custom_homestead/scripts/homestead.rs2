@@ -84,18 +84,6 @@ if (~homestead_on_own_plot = false) {
     ~homestead_teleport_home;
 }
 
-[proc,homestead_house_name](int $type)(string)
-return(enum(string, int, homestead_house_name, $type));
-
-[proc,homestead_price](int $type)(int)
-return(enum(int, int, homestead_house_price, $type));
-
-[proc,homestead_size_name](int $type)(string)
-return(enum(string, int, homestead_house_size, $type));
-
-[proc,homestead_region_name](int $type)(string)
-return(enum(string, int, homestead_house_region, $type));
-
 [proc,homestead_plot_coord](int $plot)(coord)
 def_int $index = sub($plot, 1);
 if ($index < 0) {
@@ -111,7 +99,7 @@ def_int $dz = multiply($row, ^homestead_plot_size);
 return(movecoord(^homestead_island_origin, $dx, 0, $dz));
 
 [proc,homestead_find_vacant_plot]()(int)
-def_int $start = add(sub(uid, multiply(divide(uid, ^homestead_plot_count), ^homestead_plot_count)), 1);
+def_int $start = 1;
 def_int $i = 0;
 while ($i < ^homestead_plot_count) {
     def_int $tmp = add(sub($start, 1), $i);
