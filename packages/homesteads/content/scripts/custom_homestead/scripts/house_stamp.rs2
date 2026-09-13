@@ -14,18 +14,31 @@ def_coord $origin = ~homestead_plot_coord(%homestead_plot);
 [proc,homestead_stamp_house](coord $origin, int $type)
 ~homestead_stamp_frontage($origin, $type);
 def_coord $home = ~homestead_house_origin($origin);
+if ($type = 1) {
     ~stamp_lumbridge_cottage($home);
+} else if ($type = 2) {
     ~stamp_draynor_willow($home);
+} else if ($type = 3) {
     ~stamp_rimmington_workshop($home);
+} else if ($type = 4) {
     ~stamp_falador_stone($home);
+} else if ($type = 5) {
     ~stamp_varrock_townhouse($home);
+} else if ($type = 6) {
     ~stamp_taverley_lodge($home);
+} else if ($type = 7) {
     ~stamp_catherby_beach($home);
+} else if ($type = 8) {
     ~stamp_seers_hall($home);
+} else if ($type = 9) {
     ~stamp_ardougne_terrace($home);
+} else if ($type = 10) {
     ~stamp_island_manor($home);
+} else if ($type = 11) {
     ~stamp_crafter_yard($home);
+} else if ($type = 12) {
     ~stamp_miner_slice($home);
+}
 [proc,homestead_plot_vacant](coord $origin)(boolean)
 def_coord $sign = ~homestead_sign_coord($origin);
 if (loc_find($sign, homestead_sold_sign) = true) {
