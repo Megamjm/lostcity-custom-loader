@@ -286,7 +286,11 @@ wanderrange=6
 maxrange=8
 huntrange=4
 respawnrate=30
-stats=5,5,5,5,1,1
+hitpoints=5
+attack=5
+strength=5
+defence=5
+attackrate=4
 category=homestead_mine_critter
 
 [homestead_mine_scorpion]
@@ -301,5 +305,9 @@ wanderrange=7
 maxrange=10
 huntrange=5
 respawnrate=40
-stats=20,20,20,21,1,1
+hitpoints=20
+attack=20
+strength=20
+defence=21
+attackrate=4
 category=homestead_mine_critter
