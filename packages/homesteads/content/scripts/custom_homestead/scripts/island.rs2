@@ -82,15 +82,15 @@ if (%homestead_plot2 = $n) {
     mes("Plot <tostring($n)>. Sold.");
 }
 [proc,homestead_stamp_shore]
-loc_add(0_10_8_40_24, reeds, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_10_8_42_28, reeds, 1, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_10_8_38_32, reeds, 2, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_10_8_44_20, reeds, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_10_9_40_40, reeds, 1, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_10_9_36_44, reeds, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_10_10_40_40, reeds, 2, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_8_10_40_40, reeds, 1, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(0_9_10_20_42, reeds, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_10_8_40_24, smallfern, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_10_8_42_28, smallfern, 1, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_10_8_38_32, smallfern, 2, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_10_8_44_20, smallfern, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_10_9_40_40, smallfern, 1, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_10_9_36_44, smallfern, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_10_10_40_40, smallfern, 2, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_8_10_40_40, smallfern, 1, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(0_9_10_20_42, smallfern, 0, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(0_10_8_36_22, rockslide3, 0, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(0_10_8_34_26, rockslide4, 2, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(0_10_8_38_18, rockslide3, 1, centrepiece_straight, ^homestead_stamp_ticks);
