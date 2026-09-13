@@ -1,0 +1,9 @@
+// Front path of every stamped house. Door faces the south avenue.
+
+[proc,homestead_stamp_frontage](coord $origin)
+loc_add(movecoord($origin, 2, 0, 0), door, 1, wall_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 2, 0, -1), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 16, 0, 1), homestead_sold_sign, 0, centrepiece_straight, ^homestead_stamp_ticks);
+
+[proc,homestead_sign_coord](coord $origin)(coord)
+return(movecoord($origin, 16, 0, 1));
