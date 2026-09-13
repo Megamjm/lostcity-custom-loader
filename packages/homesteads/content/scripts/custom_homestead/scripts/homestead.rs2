@@ -122,9 +122,21 @@ if ($index >= ^homestead_plot_count) {
 }
 def_int $col = sub($index, multiply(divide($index, ^homestead_plot_cols), ^homestead_plot_cols));
 def_int $row = divide($index, ^homestead_plot_cols);
-def_int $dx = multiply($col, ^homestead_plot_size);
-def_int $dz = multiply($row, ^homestead_plot_size);
+def_int $dx = multiply($col, ^homestead_plot_stride);
+def_int $dz = multiply($row, ^homestead_plot_stride);
 return(movecoord(^homestead_island_origin, $dx, 0, $dz));
+
+[proc,homestead_plot_from_coord](coord $c)(int)
+def_int $p = 1;
+while ($p <= ^homestead_plot_count) {
+    def_coord $o = ~homestead_plot_coord($p);
+    def_coord $max = movecoord($o, sub(^homestead_plot_stride, 1), 0, sub(^homestead_plot_stride, 1));
+    if (inzone($o, $max, $c) = true) {
+        return($p);
+    }
+    $p = add($p, 1);
+}
+return(0);
 
 [proc,homestead_find_vacant_plot]()(int)
 def_int $start = 1;
