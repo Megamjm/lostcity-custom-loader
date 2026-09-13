@@ -79,11 +79,10 @@ if ($east = true) {
     $z = 6;
     while ($z <= 13) {
         loc_add(movecoord($origin, 1, 0, $z), fencing, 2, wall_straight, ^homestead_stamp_ticks);
-        loc_add(movecoord($origin, 11, 0, $z), fencing, 0, wall_straight, ^homestead_stamp_ticks);
         $z = add($z, 1);
     }
-    $x = 2;
-    while ($x <= 10) {
+    $x = 1;
+    while ($x <= 11) {
         loc_add(movecoord($origin, $x, 0, 6), fencing, 1, wall_straight, ^homestead_stamp_ticks);
         loc_add(movecoord($origin, $x, 0, 13), fencing, 3, wall_straight, ^homestead_stamp_ticks);
         $x = add($x, 1);
@@ -96,12 +95,11 @@ if ($east = true) {
 } else {
     $z = 6;
     while ($z <= 13) {
-        loc_add(movecoord($origin, 8, 0, $z), fencing, 2, wall_straight, ^homestead_stamp_ticks);
         loc_add(movecoord($origin, 18, 0, $z), fencing, 0, wall_straight, ^homestead_stamp_ticks);
         $z = add($z, 1);
     }
-    $x = 9;
-    while ($x <= 17) {
+    $x = 8;
+    while ($x <= 18) {
         loc_add(movecoord($origin, $x, 0, 6), fencing, 1, wall_straight, ^homestead_stamp_ticks);
         loc_add(movecoord($origin, $x, 0, 13), fencing, 3, wall_straight, ^homestead_stamp_ticks);
         $x = add($x, 1);
@@ -112,7 +110,6 @@ if ($east = true) {
     loc_add(movecoord($origin, 11, 0, 8), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 10, 0, 11), tree, 2, centrepiece_straight, ^homestead_stamp_ticks);
 }
-
 [proc,homestead_stamp_door](coord $origin, int $type)
 if ($type < 4) {
     return;
