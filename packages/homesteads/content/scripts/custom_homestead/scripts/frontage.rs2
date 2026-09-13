@@ -1,6 +1,3 @@
-// Col 0 faces the boulevard (east). Cheap plots get a fenced backyard
-// on the far side of the house: trees, well, wooden fence.
-
 [proc,homestead_plot_col](int $plot)(int)
 def_int $index = sub($plot, 1);
 if ($index < 0) {
@@ -48,8 +45,7 @@ if (~homestead_faces_east(~homestead_plot_from_coord($origin)) = true) {
 return(movecoord($origin, -2, 0, 10));
 
 [proc,homestead_inside_coord](coord $origin)(coord)
-def_coord $home = ~homestead_house_origin($origin);
-return(movecoord($home, 2, 0, 3));
+return(movecoord(~homestead_house_origin($origin), 2, 0, 3));
 
 [proc,homestead_stamp_yard](coord $origin)
 def_boolean $east = ~homestead_faces_east(~homestead_plot_from_coord($origin));
@@ -83,10 +79,11 @@ if ($east = true) {
     $z = 6;
     while ($z <= 13) {
         loc_add(movecoord($origin, 1, 0, $z), fencing, 2, wall_straight, ^homestead_stamp_ticks);
+        loc_add(movecoord($origin, 11, 0, $z), fencing, 0, wall_straight, ^homestead_stamp_ticks);
         $z = add($z, 1);
     }
-    $x = 1;
-    while ($x <= 11) {
+    $x = 2;
+    while ($x <= 10) {
         loc_add(movecoord($origin, $x, 0, 6), fencing, 1, wall_straight, ^homestead_stamp_ticks);
         loc_add(movecoord($origin, $x, 0, 13), fencing, 3, wall_straight, ^homestead_stamp_ticks);
         $x = add($x, 1);
@@ -94,16 +91,17 @@ if ($east = true) {
     loc_add(movecoord($origin, 6, 0, 9), well, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 3, 0, 8), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 4, 0, 12), tree, 1, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 8, 0, 7), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 8, 0, 8), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 9, 0, 11), tree, 2, centrepiece_straight, ^homestead_stamp_ticks);
 } else {
     $z = 6;
     while ($z <= 13) {
+        loc_add(movecoord($origin, 8, 0, $z), fencing, 2, wall_straight, ^homestead_stamp_ticks);
         loc_add(movecoord($origin, 18, 0, $z), fencing, 0, wall_straight, ^homestead_stamp_ticks);
         $z = add($z, 1);
     }
-    $x = 8;
-    while ($x <= 18) {
+    $x = 9;
+    while ($x <= 17) {
         loc_add(movecoord($origin, $x, 0, 6), fencing, 1, wall_straight, ^homestead_stamp_ticks);
         loc_add(movecoord($origin, $x, 0, 13), fencing, 3, wall_straight, ^homestead_stamp_ticks);
         $x = add($x, 1);
@@ -111,7 +109,7 @@ if ($east = true) {
     loc_add(movecoord($origin, 13, 0, 9), well, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 16, 0, 8), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 15, 0, 12), tree, 1, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 11, 0, 7), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 11, 0, 8), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 10, 0, 11), tree, 2, centrepiece_straight, ^homestead_stamp_ticks);
 }
 
@@ -121,9 +119,9 @@ if ($type < 4) {
 }
 def_coord $home = ~homestead_house_origin($origin);
 if (~homestead_faces_east(~homestead_plot_from_coord($origin)) = true) {
-    loc_add(movecoord($home, 5, 0, 4), loc_1530, 2, wall_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($home, 5, 0, 4), loc_1530, 0, wall_straight, ^homestead_stamp_ticks);
 } else {
-    loc_add(movecoord($home, 0, 0, 4), loc_1530, 0, wall_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($home, 0, 0, 4), loc_1530, 2, wall_straight, ^homestead_stamp_ticks);
 }
 
 [proc,homestead_stamp_gate](coord $origin)
