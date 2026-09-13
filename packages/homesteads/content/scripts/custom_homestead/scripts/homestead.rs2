@@ -193,14 +193,14 @@ if (~homestead_can_buy($type) = false) {
 }
 if (%homestead_plot = 0) {
     if (~homestead_assign_plot = 0) {
-        ~chatnpc("<p,sad>The island is full.");
+        mes("The island is full.");
         return;
     }
 }
 ~homestead_clear_old_deed;
 def_int $price = ~homestead_price($type);
 if (~homestead_take_gold($price) = false) {
-    ~chatnpc("<p,neutral>Come back when you have the coins.");
+    mes("Come back when you have the coins.");
     return;
 }
 %homestead_house = $type;
@@ -208,21 +208,21 @@ if (~homestead_take_gold($price) = false) {
 ~homestead_give_deed($type);
 ~homestead_stamp_player_house;
 settimer(homestead_keep_timer, 100);
-~chatnpc("<p,happy>Sold! A copy of the <~homestead_house_name($type)> from <~homestead_region_name($type)> is on plot <tostring(%homestead_plot)>.");
-~chatnpc("<p,quiz>The deed is in your pack. Read it, or use it to go home.");
+mes("Sold. A copy of the <~homestead_house_name($type)> from <~homestead_region_name($type)> is on plot <tostring(%homestead_plot)>.");
+mes("The deed is in your pack. Read it, or use it to go home.");
 
 [proc,homestead_reissue_deed]
 if (%homestead_house = 0) {
-    ~chatnpc("<p,sad>You do not hold a plot. I will not stamp a blank to someone else's name.");
+    mes("You do not hold a plot. I will not stamp a blank to someone else's name.");
     return;
 }
 if (inv_total(inv, land_deed) > 0) {
-    ~chatnpc("<p,quiz>You already carry the deed.");
+    mes("You already carry the deed.");
     return;
 }
 if (~homestead_take_gold(^homestead_deed_fee) = false) {
-    ~chatnpc("<p,neutral>A thousand for the clerk's copy.");
+    mes("A thousand for the clerk's copy.");
     return;
 }
 inv_add(inv, land_deed, 1);
-~chatnpc("<p,happy>Your name is on it. Nobody else can use it.");
+mes("Your name is on it. Nobody else can use it.");
