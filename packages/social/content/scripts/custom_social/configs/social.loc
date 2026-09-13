@@ -1,6 +1,6 @@
 [social_ledger]
 name=Social ledger
 desc=Guild roll, friends paper, and the block slate.
-model=bookcase2
+model=furniture_chestclosed
 op1=Open
 category=homestead_sign
