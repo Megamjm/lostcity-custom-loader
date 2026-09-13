@@ -49,7 +49,6 @@ if ($type < 1 | $type > 12) {
 ~homestead_give_deed($type);
 ~homestead_stamp_player_house;
 if ($type < 4) {
-    ~homestead_stamp_lid(~homestead_house_origin(~homestead_plot_coord(1)));
 }
 settimer(homestead_keep_timer, 100);
 %homestead_wiped = 1;

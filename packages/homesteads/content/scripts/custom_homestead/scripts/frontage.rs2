@@ -1,6 +1,6 @@
-// Cheap copies: house walls only.
-// Falador+: brick yard, 2-tile gap on the street.
-// Gate is two stock wooden doors (loc_1530) side by side = 2x1.
+// Lumbridge / Draynor / Rimmington / miner: cottage only.
+// Sign and torch sit on the cobble. No extra doors, no booth, no paddock.
+// Falador+: brick yard with a 2-tile walk gap on the street face.
 
 [proc,homestead_plot_col](int $plot)(int)
 def_int $index = sub($plot, 1);
@@ -47,10 +47,7 @@ if (~homestead_faces_east(~homestead_plot_from_coord($origin)) = true) {
 return(movecoord($origin, -2, 0, 10));
 
 [proc,homestead_inside_coord](coord $origin)(coord)
-if (~homestead_faces_east(~homestead_plot_from_coord($origin)) = true) {
-    return(movecoord($origin, 16, 0, 10));
-}
-return(movecoord($origin, 3, 0, 10));
+return(~homestead_house_origin($origin));
 
 [proc,homestead_stamp_yard](coord $origin)
 def_boolean $east = ~homestead_faces_east(~homestead_plot_from_coord($origin));
@@ -79,17 +76,11 @@ while ($z < $last) {
 [proc,homestead_stamp_gate](coord $origin)
 def_boolean $east = ~homestead_faces_east(~homestead_plot_from_coord($origin));
 if ($east = true) {
-    loc_add(movecoord($origin, 19, 0, 10), loc_1530, 0, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 19, 0, 11), loc_1530, 0, wall_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 20, 0, 9), homestead_sold_sign, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 20, 0, 12), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 17, 0, 10), homestead_exit_portal, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 20, 0, 11), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
 } else {
-    loc_add(movecoord($origin, 0, 0, 10), loc_1530, 2, wall_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 0, 0, 11), loc_1530, 2, wall_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, -1, 0, 9), homestead_sold_sign, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, -1, 0, 12), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 2, 0, 10), homestead_exit_portal, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, -1, 0, 11), standing_torch, 0, centrepiece_straight, ^homestead_stamp_ticks);
 }
 
 [proc,homestead_stamp_frontage](coord $origin, int $type)
