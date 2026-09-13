@@ -1,11 +1,18 @@
+[social_block_mask]
+scope=perm
+
 [social_block1]
 scope=perm
+type=player_uid
 
 [social_block2]
 scope=perm
+type=player_uid
 
 [social_block3]
 scope=perm
+type=player_uid
 
 [social_block4]
 scope=perm
+type=player_uid
