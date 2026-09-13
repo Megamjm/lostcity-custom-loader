@@ -1,0 +1,57 @@
+// One-shot ownership wipe + house-load tester.
+// ::~home_test 1-12  stamps that copy on plot 1 and walks you in.
+// ::~home_wipe       clears your deed again (after the one-shot).
+
+[proc,homestead_wipe_player]
+if (p_finduid(uid) = false) {
+    return;
+}
+%homestead_house = 0;
+%homestead_plot = 0;
+%homestead_house2 = 0;
+%homestead_plot2 = 0;
+%homestead_upgrades = 0;
+%homestead_upgrades2 = 0;
+%homestead_friend_plot = 0;
+%homestead_guest_plot = 0;
+%homestead_approached = 0;
+%homestead_flags = 0;
+~homestead_inv_del_all(land_deed);
+~homestead_inv_del_all(land_deed_small);
+~homestead_inv_del_all(land_deed_medium);
+~homestead_inv_del_all(land_deed_large);
+~homestead_inv_del_all(land_deed_crafter);
+~homestead_inv_del_all(land_deed_miner);
+~homestead_inv_del_all(land_deed_blank);
+cleartimer(homestead_keep_timer);
+def_coord $p1 = ~homestead_plot_coord(1);
+~homestead_stamp_vacant_frontage($p1);
+mes("Deed torn. Plot 1 is vacant.");
+
+[debugproc,home_wipe]
+if (p_finduid(uid) = false) {
+    return;
+}
+~homestead_wipe_player;
+%homestead_wiped = 1;
+
+[debugproc,home_test](int $type)
+if (p_finduid(uid) = false) {
+    return;
+}
+if ($type < 1 | $type > 12) {
+    mes("::~home_test 1-12  (1 lumbridge .. 12 miner)");
+    return;
+}
+~homestead_wipe_player;
+%homestead_plot = 1;
+%homestead_house = $type;
+~homestead_give_deed($type);
+~homestead_stamp_player_house;
+if ($type < 4) {
+    ~homestead_stamp_lid(~homestead_house_origin(~homestead_plot_coord(1)));
+}
+settimer(homestead_keep_timer, 100);
+%homestead_wiped = 1;
+mes("Test stamp: <~homestead_house_name($type)> on plot 1.");
+~homestead_go(~homestead_inside_coord(~homestead_plot_coord(1)));
