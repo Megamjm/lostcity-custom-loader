@@ -11,6 +11,7 @@ settimer(homestead_watch, 2);
 ~homestead_stamp_office;
 ~homestead_build_preview;
 ~homestead_stamp_grid_signs;
+    ~homestead_stamp_shore;
 if (%homestead_house ! 0) {
     ~homestead_stamp_player_house;
     if (%homestead_house < 4) {
@@ -56,6 +57,7 @@ if (~homestead_in_island = true) {
     ~homestead_stamp_office;
     ~homestead_build_preview;
     ~homestead_stamp_grid_signs;
+    ~homestead_stamp_shore;
     ~homestead_enforce_plot;
 }
 if (~homestead_in_mine = true) {
