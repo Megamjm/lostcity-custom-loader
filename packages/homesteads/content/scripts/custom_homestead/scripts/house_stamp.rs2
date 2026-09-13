@@ -72,7 +72,7 @@ loc_add(movecoord($origin, 5, 0, 6), brickwall, 0, wall_straight, ^homestead_sta
 loc_add(movecoord($origin, 5, 0, 4), loc_1530, 2, wall_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 2, 0, 3), homestead_chest, 0, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 1, 0, 5), bed, 0, centrepiece_straight, ^homestead_stamp_ticks);
-loc_add(movecoord($origin, 4, 0, 5), furnace, 0, centrepiece_straight, ^homestead_stamp_ticks);
+loc_add(movecoord($origin, 4, 0, 5), range, 0, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 4, 0, 1), bookcase2, 3, centrepiece_straight, ^homestead_stamp_ticks);
 loc_add(movecoord($origin, 1, 0, 1), altar, 1, centrepiece_straight, ^homestead_stamp_ticks);
 [proc,stamp_draynor_willow](coord $origin)

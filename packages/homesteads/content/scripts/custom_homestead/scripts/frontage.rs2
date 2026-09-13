@@ -94,7 +94,7 @@ if ($east = true) {
     loc_add(movecoord($origin, 6, 0, 9), well, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 3, 0, 8), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 4, 0, 12), tree, 1, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 8, 0, 7), deadtree, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 8, 0, 7), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 9, 0, 11), tree, 2, centrepiece_straight, ^homestead_stamp_ticks);
 } else {
     $z = 6;
@@ -111,7 +111,7 @@ if ($east = true) {
     loc_add(movecoord($origin, 13, 0, 9), well, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 16, 0, 8), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 15, 0, 12), tree, 1, centrepiece_straight, ^homestead_stamp_ticks);
-    loc_add(movecoord($origin, 11, 0, 7), deadtree, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 11, 0, 7), tree, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 10, 0, 11), tree, 2, centrepiece_straight, ^homestead_stamp_ticks);
 }
 
