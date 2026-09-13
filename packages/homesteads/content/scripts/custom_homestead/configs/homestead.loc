@@ -67,7 +67,7 @@ desc=A still pool stocked from the fortress water.
 model=seaweedrock_1
 op1=Fish
 blockrange=no
-category=homestead_fish
+category=homestead_mine
 
 [homestead_ladder_up]
 name=Ladder
@@ -75,7 +75,7 @@ desc=Up to the second storey.
 model=outdoorfurniture_manholeclosed
 op1=Climb-up
 blockrange=no
-category=homestead_stairs
+category=homestead_mine
 
 [homestead_ladder_down]
 name=Ladder
@@ -83,4 +83,4 @@ desc=Back down to the hall.
 model=outdoorfurniture_manholeclosed
 op1=Climb-down
 blockrange=no
-category=homestead_stairs
+category=homestead_mine

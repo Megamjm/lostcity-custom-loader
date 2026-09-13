@@ -101,3 +101,11 @@ fi
 
 echo "[pack-ids] loc IDs present — ok to pack"
 exit 0
+
+# Category symbols used by custom packs. Missing ones parse as Invalid property value.
+if [[ -f "$P/category.pack" ]]; then
+  for s in homestead_portal homestead_storage homestead_bank homestead_mine homestead_sign \
+           homestead_clerk homestead_npc homestead_fish homestead_stairs social_ui guild_npc; do
+    ensure "$P/category.pack" "$s" || true
+  done
+fi
