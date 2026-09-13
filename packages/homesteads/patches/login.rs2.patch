@@ -1,0 +1,5 @@
+--- a/scripts/login_logout/login.rs2
++++ b/scripts/login_logout/login.rs2
+@@
+ [login,_]
++queue(homestead_login, 1);

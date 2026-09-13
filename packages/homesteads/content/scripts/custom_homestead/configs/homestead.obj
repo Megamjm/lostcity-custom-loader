@@ -1,0 +1,88 @@
+[land_deed]
+name=Land deed
+desc=Your name is on this. Read it, or use it to go home.
+cost=1
+model=inv_scroll
+2dzoom=1040
+2dyan=120
+2dxan=380
+weight=5g
+iop1=Read
+iop2=Teleport
+tradeable=no
+
+[land_deed_blank]
+name=Unsigned land deed
+desc=An unsigned deed. An estate agent can fill it in.
+cost=1
+model=inv_scroll
+2dzoom=1040
+2dyan=120
+2dxan=380
+weight=5g
+tradeable=no
+
+[land_deed_small]
+name=Land deed (small cottage)
+desc=A deed for a small cottage with a storage chest.
+cost=1
+model=inv_scroll
+2dzoom=1040
+2dyan=120
+2dxan=380
+weight=5g
+iop1=Read
+iop2=Teleport
+tradeable=no
+
+[land_deed_medium]
+name=Land deed (medium house)
+desc=A deed for a medium house with a bank closet.
+cost=1
+model=inv_scroll
+2dzoom=1040
+2dyan=120
+2dxan=380
+weight=5g
+iop1=Read
+iop2=Teleport
+tradeable=no
+
+[land_deed_large]
+name=Land deed (mansion)
+desc=A deed for a mansion with crafting stations and a bank closet.
+cost=1
+model=inv_scroll
+2dzoom=1040
+2dyan=120
+2dxan=380
+weight=5g
+iop1=Read
+iop2=Teleport
+tradeable=no
+
+[land_deed_crafter]
+name=Land deed (crafter's home)
+desc=A deed for a workshop packed with crafting buildings.
+cost=1
+model=inv_scroll
+2dzoom=1040
+2dyan=120
+2dxan=380
+weight=5g
+iop1=Read
+iop2=Teleport
+tradeable=no
+
+[land_deed_miner]
+name=Land deed (miner's hole)
+desc=A deed for a hole that leads to a private mine copy.
+cost=1
+model=inv_scroll
+2dzoom=1040
+2dyan=120
+2dxan=380
+weight=5g
+iop1=Read
+iop2=Teleport
+tradeable=no
