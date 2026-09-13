@@ -113,14 +113,3 @@ forceapproach=north
 sharelight=yes
 category=homestead_mine
 
-[homestead_gate]
-name=Gate
-desc=A wooden gate onto the street.
-model=loc_1530
-width=2
-length=1
-op1=Open
-blockrange=yes
-forceapproach=east
-sharelight=yes
-category=homestead_sign
