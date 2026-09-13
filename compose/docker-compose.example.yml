@@ -1,0 +1,32 @@
+services:
+  app:
+    image: ghcr.io/mserajnik/lost-city-rs:274
+    container_name: lostcity
+    user: "1000:1000"
+    restart: unless-stopped
+    command: ["bash", "/custom/_loader/boot.sh"]
+    ports:
+      - "8888:8888"
+      - "8898:8898"
+    volumes:
+      - /mnt/user/appdata/lostcity/database:/opt/lost-city-rs/database
+      - /mnt/user/appdata/lostcity/players:/opt/lost-city-rs/engine/data/players
+      - /mnt/user/Data/runescape_custom/custom:/custom:ro
+    environment:
+      TZ: America/New_York
+      WEB_PORT: "8888"
+      WEB_MANAGEMENT_PORT: "8898"
+      NODE_MEMBERS: "true"
+      NODE_XPRATE: "1"
+      NODE_PRODUCTION: "false"
+      NODE_DEBUG: "true"
+      NODE_STAFF: "caelum"
+      NODE_DEBUGPROC_CHAR: "~"
+      BUILD_VERIFY: "false"
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "8888"]
+      interval: 1m
+      timeout: 3s
+      retries: 5
+      start_period: 5m
+    mem_limit: 4g
