@@ -5,7 +5,7 @@ if ($plot < 1) {
     return(false);
 }
 def_coord $origin = ~homestead_plot_coord($plot);
-def_coord $max = movecoord($origin, 19, 0, 19);
+def_coord $max = movecoord($origin, 15, 0, 15);
 if (inzone($origin, $max, coord) = true) {
     return(true);
 }
@@ -16,32 +16,6 @@ if (%homestead_guest_plot > 0) {
     return(true);
 }
 if (%homestead_friend_plot > 0) {
-    return(true);
-}
-return(false);
-
-[proc,homestead_may_open_gate](int $plot)(boolean)
-if ($plot < 1) {
-    return(false);
-}
-if (%homestead_plot = $plot) {
-    return(true);
-}
-if (%homestead_plot2 = $plot) {
-    return(true);
-}
-if (inv_total(inv, land_deed) > 0) {
-    if (%homestead_plot = $plot) {
-        return(true);
-    }
-    if (%homestead_plot2 = $plot) {
-        return(true);
-    }
-}
-if (%homestead_guest_plot = $plot) {
-    return(true);
-}
-if (%homestead_friend_plot = $plot) {
     return(true);
 }
 return(false);
@@ -73,10 +47,6 @@ if (%homestead_house = 0) {
     mes("You do not own a homestead to share.");
     return;
 }
-if (.p_finduid(.uid) = false) {
-    mes("They are busy.");
-    return;
-}
 if (uid = .uid) {
     mes("Invite someone else.");
     return;
@@ -91,16 +61,16 @@ mes("You name them a friend of plot <tostring(%homestead_plot)>.");
 
 [proc,homestead_register_guest]
 if (%homestead_friend_plot < 1) {
-    mes("Nobody has named you a friend yet. The owner must use an invitation on you first.");
+    ~chatnpc("<p,quiz>Nobody has named you a friend yet. The owner must use an invitation on you first.");
     return;
 }
 %homestead_guest_plot = %homestead_friend_plot;
-mes("Written. You are a guest of plot <tostring(%homestead_guest_plot)>.");
+~chatnpc("<p,happy>Written. You are a guest of plot <tostring(%homestead_guest_plot)>.");
 
 [proc,homestead_clear_visit]
 %homestead_friend_plot = 0;
 %homestead_guest_plot = 0;
-mes("Your name is off the guest book.");
+~chatnpc("<p,neutral>Your name is off the guest book.");
 
 [proc,homestead_teleport_visit]
 if (%homestead_guest_plot < 1) {
@@ -115,7 +85,7 @@ if (~homestead_can_teleport = false) {
     return;
 }
 def_coord $origin = ~homestead_plot_coord(%homestead_guest_plot);
-~homestead_go(~homestead_inside_coord($origin));
+~homestead_go(movecoord($origin, 3, 0, 2));
 
 [label,homestead_guest_menu]
 if (%homestead_house = 0) {
@@ -130,10 +100,10 @@ if (%homestead_house = 0) {
         }
         return;
     }
-    mes("Nobody has named you a friend yet.");
+    ~chatnpc("<p,quiz>Nobody has named you a friend yet.");
     return;
 }
-mes("You hold a plot. Paper from here names a friend, then they register as a guest.");
+~chatnpc("<p,happy>You hold a plot. Paper from here names a friend, then they register as a guest.");
 def_int $o = ~p_choice3("Give me invitation paper.", 1, "Open the social ledger.", 2, "Never mind.", 3);
 if ($o = 1) {
     ~homestead_give_slip;

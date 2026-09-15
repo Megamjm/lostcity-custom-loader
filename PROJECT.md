@@ -1,19 +1,16 @@
-# Lost City Sylvia — homestead pack
+Always emit an Unraid script that:
 
-Plot 1 stays `0_8_8_16_16`.
-20 plots of 20x20. 6-tile cobble streets (`u48 o10`). Stride 26.
-5 columns x 4 rows. Plane 0 only. No hN height — ground matches the mainland.
-House stamp is inset +2,+2 so the copy sits inside the fence.
-Vacant and cheap (1-3, miner) use fencing. Falador+ use brickwall.
+Edits both custom/homesteads and packages/homesteads (and both _loader / loader)
+git add / commit / push from lostcity-custom-loader
+install.sh + docker restart lostcity + docker logs --tail
+Uses bash/sed/cat only (no python3 on Tower)
 
-loc_add(coord, loc, rotation, shape, ticks)
-wall_straight: 1 south, 0 east, 2 west, 3 north
-centrepiece_straight for signs, torches, tables.
-queue(homestead_login, 1, 0)
-BUILD_VERIFY=false from boot.sh
-p_finduid(uid) before player vars in debugprocs.
-no stats=, no mod(), no walldecor.
+Keep:
 
-Edit both custom/homesteads and packages/homesteads.
-git add / commit / push from lostcity-custom-loader.
-install.sh + docker restart lostcity + docker logs --tail.
+queue(homestead_login, 1, 0) — three args
+BUILD_VERIFY=false written by boot.sh, never image start
+p_finduid(uid) before player vars in debugprocs
+centrepiece_straight for loc_add shapes
+no stats=, no mod(), no walldecor shape
+
+Packs: custom/homesteads, custom/guild, custom/social

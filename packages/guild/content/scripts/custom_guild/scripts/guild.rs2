@@ -66,21 +66,21 @@ if ($m = 2) ~guild_leave;
 
 [proc,guild_buy_license]
 if (%guild_rank > 0) {
-    mes("You already sit on a charter.");
+    ~chatnpc("<p,quiz>You already sit on a charter.");
     return;
 }
 if (~homestead_take_gold(^guild_license_fee) = false) {
-    mes("A hundred thousand.");
+    ~chatnpc("<p,neutral>A hundred thousand.");
     return;
 }
-%guild_id = add(map_clock, 1);
+%guild_id = uid;
 %guild_rank = ^guild_rank_owner;
 if (inv_total(inv, guild_license) < 1) {
     if (inv_freespace(inv) > 0) {
         inv_add(inv, guild_license, 1);
     }
 }
-mes("Sealed. You are the founder.");
+~chatnpc("<p,happy>Sealed. You are the founder.");
 
 [proc,guild_reissue_license]
 if (%guild_rank ! ^guild_rank_owner) {
@@ -120,7 +120,7 @@ if (%homestead_plot = 0) {
     ~homestead_buy_second(^homestead_house_seers);
     %guild_plot = %homestead_plot2;
 } else {
-    mes("Two homestead plots is the limit.");
+    ~chatnpc("<p,sad>Two homestead plots is the limit.");
 }
 
 [proc,guild_teleport_hall]
@@ -135,10 +135,6 @@ if (~homestead_can_teleport = false) {
 
 [opplayeru,guild_invite_slip]
 if (%guild_rank < ^guild_rank_officer) {
-    return;
-}
-if (.p_finduid(.uid) = false) {
-    mes("They are busy.");
     return;
 }
 if (uid = .uid) {

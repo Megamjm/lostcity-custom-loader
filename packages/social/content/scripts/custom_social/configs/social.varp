@@ -1,18 +1,11 @@
-[social_block_mask]
-scope=temp
-
 [social_block1]
-scope=temp
-type=player_uid
+scope=perm
 
 [social_block2]
-scope=temp
-type=player_uid
+scope=perm
 
 [social_block3]
-scope=temp
-type=player_uid
+scope=perm
 
 [social_block4]
-scope=temp
-type=player_uid
+scope=perm
