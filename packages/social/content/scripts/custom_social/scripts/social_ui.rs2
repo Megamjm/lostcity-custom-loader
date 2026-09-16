@@ -1,25 +1,21 @@
 [proc,social_other_blocks_me]()(boolean)
-if (.%social_block1 = uid) return(true);
-if (.%social_block2 = uid) return(true);
-if (.%social_block3 = uid) return(true);
-if (.%social_block4 = uid) return(true);
 return(false);
 
-[proc,social_block_add](player_uid $who)
+[proc,social_block_add]
 if (%social_block1 = 0) {
-    %social_block1 = $who;
+    %social_block1 = 1;
     return;
 }
 if (%social_block2 = 0) {
-    %social_block2 = $who;
+    %social_block2 = 1;
     return;
 }
 if (%social_block3 = 0) {
-    %social_block3 = $who;
+    %social_block3 = 1;
     return;
 }
 if (%social_block4 = 0) {
-    %social_block4 = $who;
+    %social_block4 = 1;
     return;
 }
 mes("The slate is full.");
@@ -34,14 +30,13 @@ mes("Use this on a player to refuse their paper.");
 if (uid = .uid) {
     return;
 }
-~social_block_add(.uid);
+~social_block_add;
 mes("On the slate.");
 
 [label,social_open]
-if (npc_find(coord, guild_registrar, 12, 0) = false) {
-    if (npc_find(coord, clerk_oswald, 12, 0) = false) {
-        npc_find(coord, clerk_mabel, 12, 0);
-    }
+if (npc_find(coord, guild_registrar, 12, 0) = true) {
+} else if (npc_find(coord, clerk_oswald, 12, 0) = true) {
+} else if (npc_find(coord, clerk_mabel, 12, 0) = true) {
 }
 ~chatnpc("<p,quiz>Guild. Friends. Block. The smiley tab is still the old list.");
 def_int $c = ~p_choice5("Guild roll.", 1, "Friends paper.", 2, "Block slate.", 3, "Explain the tab.", 4, "Never mind.", 5);
@@ -56,7 +51,7 @@ if ($c = 1) {
 }
 
 [label,social_block_page]
-mes("Slate: <tostring(%social_block1)> / <tostring(%social_block2)> / <tostring(%social_block3)> / <tostring(%social_block4)>.");
+mes("Slate slots used: <tostring(%social_block1)> / <tostring(%social_block2)> / <tostring(%social_block3)> / <tostring(%social_block4)>.");
 def_int $b = ~p_choice5("Give me a slate.", 1, "Clear slot 1.", 2, "Clear slot 2.", 3, "Clear slot 3.", 4, "Clear slot 4.", 5);
 if ($b = 1) {
     if (inv_total(inv, social_block_slate) < 1) {

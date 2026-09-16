@@ -73,7 +73,7 @@ if (~homestead_take_gold(^guild_license_fee) = false) {
     ~chatnpc("<p,neutral>A hundred thousand.");
     return;
 }
-%guild_id = uid;
+%guild_id = add(1000, %homestead_plot);
 %guild_rank = ^guild_rank_owner;
 if (inv_total(inv, guild_license) < 1) {
     if (inv_freespace(inv) > 0) {

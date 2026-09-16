@@ -1,6 +1,5 @@
 [guild_id]
 scope=perm
-type=player_uid
 
 [guild_rank]
 scope=perm
