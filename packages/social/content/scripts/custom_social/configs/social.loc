@@ -3,4 +3,4 @@ name=Social ledger
 desc=Guild roll, friends paper, and the block slate.
 model=bookcase2
 op1=Open
-category=social_ui
+category=homestead_sign
