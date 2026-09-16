@@ -99,14 +99,14 @@ if (~homestead_bit_on($flags, ^homestead_up_mine) = true) {
     loc_add(movecoord($origin, 8, 0, 8), homestead_mine_hole, 0, centrepiece_straight, ^homestead_stamp_ticks);
 }
 if (~homestead_bit_on($flags, ^homestead_up_smith) = true) {
-    loc_add(movecoord($origin, 13, 0, 4), furnace, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 13, 0, 4), anvil, 0, centrepiece_straight, ^homestead_stamp_ticks);
     loc_add(movecoord($origin, 12, 0, 4), anvil, 0, centrepiece_straight, ^homestead_stamp_ticks);
 }
 if (~homestead_bit_on($flags, ^homestead_up_cook) = true) {
     loc_add(movecoord($origin, 10, 0, 3), range, 0, centrepiece_straight, ^homestead_stamp_ticks);
 }
 if (~homestead_bit_on($flags, ^homestead_up_craft) = true) {
-    loc_add(movecoord($origin, 10, 0, 6), spinning_wheel, 0, centrepiece_straight, ^homestead_stamp_ticks);
+    loc_add(movecoord($origin, 10, 0, 6), chair, 0, centrepiece_straight, ^homestead_stamp_ticks);
 }
 if (~homestead_bit_on($flags, ^homestead_up_wood) = true) {
     loc_add(movecoord($origin, 1, 0, 13), oaktree, 0, centrepiece_straight, ^homestead_stamp_ticks);
@@ -207,7 +207,7 @@ if ($slot = 2) {
 p_delay(0);
 mes("You fish the homestead pond.");
 p_delay(2);
-inv_add(inv, raw_shrimps, 1);
+inv_add(inv, raw_shrimp, 1);
 mes("You catch a shrimp.");
 
 [oploc1,homestead_ladder_up]
